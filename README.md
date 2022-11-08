@@ -1,29 +1,25 @@
-# Firestore Connect Document
+# Link Firestore Documents
 
 **Author**: Yaman Katby (**[https://github.com/yamankatby](https://github.com/yamankatby)**)
 
-**Description**: A simple example of a Firebase Extension
-
-
+**Description**: Grab a set of fields from a Firestore document and write them as a map field to another Firestore document, and keep them in sync.
 
 **Configuration Parameters:**
 
-* Cloud Functions location: Where do you want to deploy the functions created for this extension? You usually want a location close to your database. For help selecting a location, refer to the [location selection guide](/docs/functions/locations).
+- Cloud Functions location: Where do you want to deploy the functions created for this extension? You usually want a location close to your database. For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
 
-* Collection path: The path to the collection that you want add the data map to.
+- Source Collection Path: The path to the collection that contains the documents you want to grab fields from.
 
-* Data document ID field name: The name of the field in the document that contains the document ID you want to get data from.
+- Target Collection Path: The path to the collection that contains the documents you want to write the fields to.
 
-* Data field name: The name of the field you want to store the data in.
+- Source Document ID Field Name: The name of the field in the target document that contains the ID of the source document.
 
-* Data fields: The fields you want to get from the data document (comma separated).
+- Source Fields: The fields you want to grab from the source document and write to the target document (comma separated).
 
-* Data collection path: The path to the collection that you want to get the data from.
-
-
+- Target Field Name: The name of the field in the target document to which the extension will write the fields grabbed from the source document.
 
 **Cloud Functions:**
 
-* **onWrite:** A function that is triggered when a document is written to the database.
+- **onSourceDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the source collection.
 
-* **onDataWrite:** A function that is triggered when a document is written to the database.
+- **onTargetDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the target collection.
