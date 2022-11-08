@@ -1,14 +1,7 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import { DocumentSnapshot } from "firebase-functions/v1/firestore";
-
-const config = {
-  collection: "restaurants",
-  dataDocIdFieldName: "user.id",
-  dataFieldName: "user",
-  dataFields: ["name", "email", "phone"],
-  dataCollection: "users",
-};
+import config from "./config";
 
 admin.initializeApp();
 
@@ -21,17 +14,17 @@ const getData = (doc: DocumentSnapshot, dataFields: string[]) => {
   }, {});
 };
 
-export const onWrite = functions.firestore.document(`${config.collection}/{id}`).onWrite(async (change) => {
+export const onWrite = functions.firestore.document(`${config.collectionPath}/{id}`).onWrite(async (change) => {
   // If the document is being deleted, do nothing
   if (!change.after.exists) return;
 
-  const dataDocId = change.after.get(config.dataDocIdFieldName);
+  const dataDocId = change.after.get(config.dataDocumentIdFieldName);
   if (!dataDocId) return;
 
   // If the document is being updated, and the dataDocId is not changed, do nothing
-  if (change.before.exists && change.before.get(config.dataDocIdFieldName) === dataDocId) return;
+  if (change.before.exists && change.before.get(config.dataDocumentIdFieldName) === dataDocId) return;
 
-  const dataDoc = await db.collection(config.dataCollection).doc(dataDocId).get();
+  const dataDoc = await db.collection(config.dataCollectionPath).doc(dataDocId).get();
   if (!dataDoc.exists) return;
 
   const data = getData(dataDoc, config.dataFields);
@@ -39,7 +32,7 @@ export const onWrite = functions.firestore.document(`${config.collection}/{id}`)
   return change.after.ref.set({ [config.dataFieldName]: data }, { merge: true });
 });
 
-export const onDataWrite = functions.firestore.document(`${config.dataCollection}/{id}`).onWrite(async (change) => {
+export const onDataWrite = functions.firestore.document(`${config.dataCollectionPath}/{id}`).onWrite(async (change) => {
   if (!change.after.exists) return;
 
   const dataDocId = change.after.id;
@@ -52,7 +45,10 @@ export const onDataWrite = functions.firestore.document(`${config.dataCollection
 
   const data = getData(change.after, config.dataFields);
 
-  const querySnapshot = await db.collection(config.collection).where(config.dataDocIdFieldName, "==", dataDocId).get();
+  const querySnapshot = await db
+    .collection(config.collectionPath)
+    .where(config.dataDocumentIdFieldName, "==", dataDocId)
+    .get();
   if (querySnapshot.empty) return;
 
   const batch = db.batch();

@@ -1,0 +1,94 @@
+name: firestore-connect-document
+version: 0.0.1
+specVersion: v1beta # Firebase Extensions specification version (do not edit)
+
+displayName: Firestore Connect Document
+description: A simple example of a Firebase Extension
+
+license: Apache-2.0 # The license you want for the extension
+
+author:
+  authorName: Yaman Katby
+  url: https://github.com/yamankatby # Author URL
+
+billingRequired: false
+
+resources:
+  - name: onWrite
+    type: firebaseextensions.v1beta.function
+    description: A function that is triggered when a document is written to the database.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:COLLECTION_PATH}/{id}
+  - name: onDataWrite
+    type: firebaseextensions.v1beta.function
+    description: A function that is triggered when a document is written to the database.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:DATA_COLLECTION_PATH}/{id}
+
+params:
+  - param: LOCATION
+    label: Cloud Functions location
+    description: >-
+      Where do you want to deploy the functions created for this extension?
+      You usually want a location close to your database. For help selecting
+      a location, refer to the [location selection guide](/docs/functions/locations).
+    type: select
+    options:
+      - label: Iowa (us-central1)
+        value: us-central1
+      - label: Belgium (europe-west1)
+        value: europe-west1
+      - label: Tokyo (asia-northeast1)
+        value: asia-northeast1
+      # (See the extensions.yaml reference for the complete list.)
+    default: us-central1
+    required: true
+    immutable: true
+
+  - param: COLLECTION_PATH
+    label: Collection path
+    description: >-
+      The path to the collection that you want add the data map to.
+    type: string
+    default: restaurants
+    required: true
+
+  - param: DATA_DOCUMENT_ID_FIELD_NAME
+    label: Data document ID field name
+    description: >-
+      The name of the field in the document that contains the document ID you want to get data from.
+    type: string
+    default: userId
+    required: true
+
+  - param: DATA_FIELD_NAME
+    label: Data field name
+    description: >-
+      The name of the field you want to store the data in.
+    type: string
+    default: user
+    required: true
+
+  - param: DATA_FIELDS
+    label: Data fields
+    description: >-
+      The fields you want to get from the data document (comma separated).
+    type: string
+    default: name,email
+    required: true
+
+  - param: DATA_COLLECTION_PATH
+    label: Data collection path
+    description: >-
+      The path to the collection that you want to get the data from.
+    type: string
+    default: users
+    required: true
