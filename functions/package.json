@@ -4,6 +4,7 @@
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start",
     "generate-readme": "firebase ext:info .. --markdown > ../README.md"
   },
   "main": "lib/index.js",

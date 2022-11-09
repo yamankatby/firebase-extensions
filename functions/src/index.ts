@@ -31,6 +31,12 @@ export const onTargetDocumentChange = functions.firestore
     // Get the source document ID
     const sourceDocumentId = change.after.get(config.sourceDocumentIdFieldName) as string;
 
+    // If the source document ID never existed, do nothing
+    if (!change.before.exists && !sourceDocumentId) {
+      logs.sourceDocumentIdNotExists(change.after.id);
+      return;
+    }
+
     // If the source document ID was not changed, do nothing
     if (change.before.exists && sourceDocumentId === change.before.get(config.sourceDocumentIdFieldName)) {
       logs.sourceDocumentIdWasNotChanged(change.after.id);
@@ -38,11 +44,9 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // If the source document ID was deleted, delete the target field
-    if (!sourceDocumentId) {
+    if (change.before.exists && change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
       logs.sourceDocumentIdWasDeleted(change.after.id);
-      await change.after.ref.update({
-        [config.targetFieldName]: firebase.firestore.FieldValue.delete(),
-      });
+      await change.after.ref.set({ [config.targetFieldName]: firebase.firestore.FieldValue.delete() }, { merge: true });
       logs.targetFieldWasDeletedSuccessfully(change.after.id);
       return;
     }
@@ -68,10 +72,9 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // Update the target document
-    await change.after.ref.update({
-      [config.targetFieldName]: sourceDocumentData,
-    });
+    await change.after.ref.set({ [config.targetFieldName]: sourceDocumentData }, { merge: true });
     logs.targetFieldWasUpdatedSuccessfully(change.after.id);
+    return;
   });
 
 export const onSourceDocumentChange = functions.firestore
@@ -104,9 +107,11 @@ export const onSourceDocumentChange = functions.firestore
         const batch = db.batch();
 
         targetDocuments.forEach((targetDocument) => {
-          batch.update(targetDocument.ref, {
-            [config.targetFieldName]: firebase.firestore.FieldValue.delete(),
-          });
+          batch.set(
+            targetDocument.ref,
+            { [config.targetFieldName]: firebase.firestore.FieldValue.delete() },
+            { merge: true }
+          );
         });
 
         await batch.commit();
@@ -122,9 +127,7 @@ export const onSourceDocumentChange = functions.firestore
         const batch = db.batch();
 
         targetDocuments.forEach((targetDocument) => {
-          batch.update(targetDocument.ref, {
-            [config.targetFieldName]: null,
-          });
+          batch.set(targetDocument.ref, { [config.targetFieldName]: null }, { merge: true });
         });
 
         await batch.commit();
@@ -167,11 +170,10 @@ export const onSourceDocumentChange = functions.firestore
     const batch = db.batch();
 
     targetDocuments.forEach((targetDocument) => {
-      batch.update(targetDocument.ref, {
-        [config.targetFieldName]: documentData,
-      });
+      batch.set(targetDocument.ref, { [config.targetFieldName]: documentData }, { merge: true });
     });
 
     await batch.commit();
     logs.targetFieldsWereUpdatedSuccessfully(change.after.id);
+    return;
   });
