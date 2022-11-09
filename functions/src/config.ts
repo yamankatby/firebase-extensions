@@ -1,17 +1,19 @@
 interface Config {
-  collectionPath: string;
-  dataDocumentIdFieldName: string;
-  dataFieldName: string;
-  dataFields: string[];
-  dataCollectionPath: string;
+  sourceCollectionPath: string;
+  targetCollectionPath: string;
+  sourceDocumentIdFieldName: string;
+  sourceFields?: string[];
+  targetFieldName: string;
+  sourceDocumentDeleteBehavior: "deleteTargetField" | "setTargetFieldToNull" | "deleteTargetDocument" | "nothing";
 }
 
 const config: Config = {
-  collectionPath: process.env.COLLECTION_PATH,
-  dataDocumentIdFieldName: process.env.DATA_DOCUMENT_ID_FIELD_NAME,
-  dataFieldName: process.env.DATA_FIELD_NAME,
-  dataFields: process.env.DATA_FIELDS.split(","),
-  dataCollectionPath: process.env.DATA_COLLECTION_PATH,
+  sourceCollectionPath: process.env.SOURCE_COLLECTION_PATH!,
+  targetCollectionPath: process.env.TARGET_COLLECTION_PATH!,
+  sourceDocumentIdFieldName: process.env.SOURCE_DOCUMENT_ID_FIELD_NAME!,
+  sourceFields: process.env.SOURCE_FIELDS?.split(","),
+  targetFieldName: process.env.TARGET_FIELD_NAME!,
+  sourceDocumentDeleteBehavior: process.env.SOURCE_DOCUMENT_DELETE_BEHAVIOR as Config["sourceDocumentDeleteBehavior"],
 };
 
 export default config;

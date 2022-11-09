@@ -1,59 +1,177 @@
-import * as admin from "firebase-admin";
+/*
+ * This template contains a HTTP function that responds with a greeting when called
+ *
+ * Always use the FUNCTIONS HANDLER NAMESPACE
+ * when writing Cloud Functions for extensions.
+ * Learn more about the handler namespace in the docs
+ *
+ * Reference PARAMETERS in your functions code with:
+ * `process.env.<parameter-name>`
+ * Learn more about parameters in the docs
+ */
+
+import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
-import { DocumentSnapshot } from "firebase-functions/v1/firestore";
 import config from "./config";
+import * as logs from "./logs";
 
-admin.initializeApp();
+firebase.initializeApp();
 
-const db = admin.firestore();
+const db = firebase.firestore();
 
-const getData = (doc: DocumentSnapshot, dataFields: string[]) => {
-  return dataFields.reduce((acc: any, field) => {
-    acc[field] = doc.get(field);
-    return acc;
-  }, {});
-};
+export const onTargetDocumentChange = functions.firestore
+  .document(`${config.targetCollectionPath}/{documentId}`)
+  .onWrite(async (change) => {
+    // If the document was deleted, do nothing
+    if (!change.after.exists) {
+      logs.targetDocumentWasDeleted(change.after.id);
+      return;
+    }
 
-export const onWrite = functions.firestore.document(`${config.collectionPath}/{id}`).onWrite(async (change) => {
-  // If the document is being deleted, do nothing
-  if (!change.after.exists) return;
+    // Get the source document ID
+    const sourceDocumentId = change.after.get(config.sourceDocumentIdFieldName) as string;
 
-  const dataDocId = change.after.get(config.dataDocumentIdFieldName);
-  if (!dataDocId) return;
+    // If the source document ID was not changed, do nothing
+    if (change.before.exists && sourceDocumentId === change.before.get(config.sourceDocumentIdFieldName)) {
+      logs.sourceDocumentIdWasNotChanged(change.after.id);
+      return;
+    }
 
-  // If the document is being updated, and the dataDocId is not changed, do nothing
-  if (change.before.exists && change.before.get(config.dataDocumentIdFieldName) === dataDocId) return;
+    // If the source document ID was deleted, delete the target field
+    if (!sourceDocumentId) {
+      logs.sourceDocumentIdWasDeleted(change.after.id);
+      await change.after.ref.update({
+        [config.targetFieldName]: firebase.firestore.FieldValue.delete(),
+      });
+      logs.targetFieldWasDeletedSuccessfully(change.after.id);
+      return;
+    }
 
-  const dataDoc = await db.collection(config.dataCollectionPath).doc(dataDocId).get();
-  if (!dataDoc.exists) return;
+    // Get the source document
+    const sourceDocument = await db.doc(`${config.sourceCollectionPath}/${sourceDocumentId}`).get();
 
-  const data = getData(dataDoc, config.dataFields);
+    // If the source document does not exist, do nothing
+    if (!sourceDocument.exists) {
+      logs.sourceDocumentWasNotFound(sourceDocumentId);
+      return;
+    }
 
-  return change.after.ref.set({ [config.dataFieldName]: data }, { merge: true });
-});
+    // Get the source document data
+    let sourceDocumentData = sourceDocument.data() as Record<string, any>;
 
-export const onDataWrite = functions.firestore.document(`${config.dataCollectionPath}/{id}`).onWrite(async (change) => {
-  if (!change.after.exists) return;
+    // If the source fields are specified, get only those fields
+    if (config.sourceFields) {
+      sourceDocumentData = config.sourceFields.reduce((acc: any, field) => {
+        acc[field] = sourceDocumentData[field];
+        return acc;
+      }, {});
+    }
 
-  const dataDocId = change.after.id;
-
-  // If the document is being updated, but the data map is not affected, do nothing
-  if (change.before.exists) {
-    const dataFieldsChanged = config.dataFields.some((field) => change.before.get(field) !== change.after.get(field));
-    if (!dataFieldsChanged) return;
-  }
-
-  const data = getData(change.after, config.dataFields);
-
-  const querySnapshot = await db
-    .collection(config.collectionPath)
-    .where(config.dataDocumentIdFieldName, "==", dataDocId)
-    .get();
-  if (querySnapshot.empty) return;
-
-  const batch = db.batch();
-  querySnapshot.forEach((doc) => {
-    batch.set(doc.ref, { [config.dataFieldName]: data }, { merge: true });
+    // Update the target document
+    await change.after.ref.update({
+      [config.targetFieldName]: sourceDocumentData,
+    });
+    logs.targetFieldWasUpdatedSuccessfully(change.after.id);
   });
-  return batch.commit();
-});
+
+export const onSourceDocumentChange = functions.firestore
+  .document(`${config.sourceCollectionPath}/{documentId}`)
+  .onWrite(async (change) => {
+    // If the document was deleted and the source document delete behavior is "nothing", do nothing
+    if (!change.after.exists && config.sourceDocumentDeleteBehavior === "nothing") {
+      logs.sourceDocumentWasDeleted_doNothing(change.after.id);
+      return;
+    }
+
+    // Get the target documents
+    const targetDocuments = await db
+      .collection(config.targetCollectionPath)
+      .where(config.sourceDocumentIdFieldName, "==", change.after.id)
+      .get();
+
+    // If there are no target documents, do nothing
+    if (targetDocuments.empty) {
+      logs.noTargetDocumentWasFound(change.after.id);
+      return;
+    }
+
+    // If the document was deleted and the source document delete behavior is not "nothing"
+    if (!change.after.exists) {
+      // If the source document delete behavior is "deleteTargetField", delete the target fields
+      if (config.sourceDocumentDeleteBehavior === "deleteTargetField") {
+        logs.sourceDocumentWasDeleted_deleteTargetField(change.after.id);
+
+        const batch = db.batch();
+
+        targetDocuments.forEach((targetDocument) => {
+          batch.update(targetDocument.ref, {
+            [config.targetFieldName]: firebase.firestore.FieldValue.delete(),
+          });
+        });
+
+        await batch.commit();
+
+        logs.targetFieldsWereDeletedSuccessfully(change.after.id);
+        return;
+      }
+
+      // If the source document delete behavior is "setTargetFieldToNull", set the target fields to null
+      if (config.sourceDocumentDeleteBehavior === "setTargetFieldToNull") {
+        logs.sourceDocumentWasDeleted_setTargetFieldToNull(change.after.id);
+
+        const batch = db.batch();
+
+        targetDocuments.forEach((targetDocument) => {
+          batch.update(targetDocument.ref, {
+            [config.targetFieldName]: null,
+          });
+        });
+
+        await batch.commit();
+
+        logs.targetFieldsWereSetToNullSuccessfully(change.after.id);
+        return;
+      }
+
+      // If the source document delete behavior is "deleteTargetDocument", delete the target documents
+      if (config.sourceDocumentDeleteBehavior === "deleteTargetDocument") {
+        logs.sourceDocumentWasDeleted_deleteTargetDocument(change.after.id);
+
+        const batch = db.batch();
+
+        targetDocuments.forEach((targetDocument) => {
+          batch.delete(targetDocument.ref);
+        });
+
+        await batch.commit();
+
+        logs.targetDocumentsWereDeletedSuccessfully(change.after.id);
+        return;
+      }
+    }
+
+    // Get the document data
+    let documentData = change.after.data() as Record<string, any>;
+
+    // If the source fields are specified, get only those fields
+    if (config.sourceFields) {
+      documentData = config.sourceFields.reduce((acc: any, field) => {
+        acc[field] = documentData[field];
+        return acc;
+      }, {});
+    }
+
+    // Update the target documents
+    logs.sourceDocumentWasUpdated(change.after.id);
+
+    const batch = db.batch();
+
+    targetDocuments.forEach((targetDocument) => {
+      batch.update(targetDocument.ref, {
+        [config.targetFieldName]: documentData,
+      });
+    });
+
+    await batch.commit();
+    logs.targetFieldsWereUpdatedSuccessfully(change.after.id);
+  });

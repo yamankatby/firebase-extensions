@@ -1,9 +1,11 @@
-name: firestore-link-documents
-version: 0.0.1
+name: firestore-connect-document
+version: 0.0.2
 specVersion: v1beta
 
-displayName: Link Firestore Documents
-description: Grab a set of fields from a Firestore document and write them as a map field to another Firestore document, and keep them in sync.
+displayName: Firestore Connect Document
+
+description: >-
+  Grabs a set of fields from a document in Firestore and writes them in a map field to another document, and keeps them in sync.
 
 license: Apache-2.0
 
@@ -11,38 +13,42 @@ author:
   authorName: Yaman Katby
   url: https://github.com/yamankatby
 
+sourceUrl: https://github.com/yamankatby/firestore-connect-document
+
 billingRequired: false
 
 resources:
   - name: onSourceDocumentChange
     type: firebaseextensions.v1beta.function
-    description: >
+    description: >-
       A function that is triggered when a document is created, updated, or deleted in the source collection.
     properties:
-      location: ${param:LOCATION}
-      runtime: nodejs14
+      location: ${LOCATION}
+      runtime: "nodejs14"
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:SOURCE_COLLECTION_PATH}/{documentId}
+        resource: projects/${PROJECT_ID}/databases/(default)/documents/${SOURCE_COLLECTION_PATH}/{documentId}
         service: cloud.firestore.googleapis.com
+
   - name: onTargetDocumentChange
     type: firebaseextensions.v1beta.function
-    description: >
+    description: >-
       A function that is triggered when a document is created, updated, or deleted in the target collection.
     properties:
-      location: ${param:LOCATION}
-      runtime: nodejs14
+      location: ${LOCATION}
+      runtime: "nodejs14"
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:TARGET_COLLECTION_PATH}/{documentId}
+        resource: projects/${PROJECT_ID}/databases/(default)/documents/${TARGET_COLLECTION_PATH}/{documentId}
         service: cloud.firestore.googleapis.com
 
 params:
   - param: LOCATION
     label: Cloud Functions location
     description: >-
-      Where do you want to deploy the functions created for this extension? You usually want a location close to your database.
-      For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+      Where do you want to deploy the functions created for this extension?
+      For help selecting a location, refer to the [location selection
+      guide](https://firebase.google.com/docs/functions/locations).
     type: select
     options:
       - label: Iowa (us-central1)
@@ -67,8 +73,6 @@ params:
         value: europe-west3
       - label: Zurich (europe-west6)
         value: europe-west6
-      - label: Taiwan (asia-east1)
-        value: asia-east1
       - label: Hong Kong (asia-east2)
         value: asia-east2
       - label: Tokyo (asia-northeast1)
@@ -79,8 +83,6 @@ params:
         value: asia-northeast3
       - label: Mumbai (asia-south1)
         value: asia-south1
-      - label: Singapore (asia-southeast1)
-        value: asia-southeast1
       - label: Jakarta (asia-southeast2)
         value: asia-southeast2
       - label: Montreal (northamerica-northeast1)
@@ -89,7 +91,6 @@ params:
         value: southamerica-east1
       - label: Sydney (australia-southeast1)
         value: australia-southeast1
-    default: us-central1
     required: true
     immutable: true
 
@@ -125,9 +126,9 @@ params:
     label: Source Fields
     description: >-
       The fields you want to grab from the source document and write to the target document (comma separated).
+      Leave empty to grab all fields.
     type: string
     example: name,email
-    required: true
 
   - param: TARGET_FIELD_NAME
     label: Target Field Name
@@ -135,4 +136,21 @@ params:
       The name of the field in the target document to which the extension will write the fields grabbed from the source document.
     type: string
     example: user
+    required: true
+
+  - param: SOURCE_DOCUMENT_DELETE_BEHAVIOR
+    label: Source Document Delete Behavior
+    description: >-
+      What should happen to the target document when the source document is deleted?
+    type: select
+    options:
+      - label: Delete the target field
+        value: deleteTargetField
+      - label: Set the target field to null
+        value: setTargetFieldToNull
+      - label: Delete the entire target document
+        value: deleteTargetDocument
+      - label: Do nothing
+        value: nothing
+    default: deleteTargetField
     required: true
