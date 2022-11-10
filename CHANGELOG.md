@@ -3,6 +3,7 @@
 ### Features
 
 - Enhance the logger messages
+- Update the PREINSTALL and POSTINSTALL instructions
 
 ### Bug Fixes
 
