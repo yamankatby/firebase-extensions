@@ -1,3 +1,13 @@
+## Version 0.0.3 (2022-11-10)
+
+### Features
+
+- Enhance the logger messages
+
+### Bug Fixes
+
+- Fix bugs in the extension.yaml file
+
 ## Version 0.0.2 (2022-11-09)
 
 ### Features

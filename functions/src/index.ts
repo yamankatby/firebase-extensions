@@ -13,42 +13,64 @@
 import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
 import config from "./config";
-import * as logs from "./logs";
 
 firebase.initializeApp();
 
 const db = firebase.firestore();
+const logger = functions.logger;
 
 export const onTargetDocumentChange = functions.firestore
   .document(`${config.targetCollectionPath}/{documentId}`)
   .onWrite(async (change) => {
     // If the document was deleted, do nothing
     if (!change.after.exists) {
-      logs.targetDocumentWasDeleted(change.after.id);
+      logger.log(
+        `The target document "${config.targetCollectionPath}/${change.before.id}" has been deleted, no processing is required.`
+      );
       return;
     }
 
     // Get the source document ID
     const sourceDocumentId = change.after.get(config.sourceDocumentIdFieldName) as string;
 
-    // If the source document ID never existed, do nothing
-    if (!change.before.exists && !sourceDocumentId) {
-      logs.sourceDocumentIdNotExists(change.after.id);
+    // If the source document ID is not set, do nothing
+    if (!change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
+      logger.log(
+        `The target document "${config.targetCollectionPath}/${change.after.id}" has no source document ID, no processing is required.`
+      );
       return;
     }
 
-    // If the source document ID was not changed, do nothing
-    if (change.before.exists && sourceDocumentId === change.before.get(config.sourceDocumentIdFieldName)) {
-      logs.sourceDocumentIdWasNotChanged(change.after.id);
+    // If the source document ID has not changed, do nothing
+    if (change.before.get(config.sourceDocumentIdFieldName) === sourceDocumentId) {
+      logger.log(
+        `The source document ID of the target document "${config.targetCollectionPath}/${change.after.id}" has not changed, no processing is required.`
+      );
       return;
     }
 
-    // If the source document ID was deleted, delete the target field
-    if (change.before.exists && change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
-      logs.sourceDocumentIdWasDeleted(change.after.id);
-      await change.after.ref.set({ [config.targetFieldName]: firebase.firestore.FieldValue.delete() }, { merge: true });
-      logs.targetFieldWasDeletedSuccessfully(change.after.id);
-      return;
+    // If the source document ID was removed, delete the target field
+    if (change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
+      logger.log(
+        `The source document ID of the target document "${config.targetCollectionPath}/${change.after.id}" has been removed, deleting the target document.`
+      );
+
+      try {
+        await change.after.ref.set(
+          { [config.targetFieldName]: firebase.firestore.FieldValue.delete() },
+          { merge: true }
+        );
+        logger.log(
+          `The target field "${config.targetFieldName}" of the target document "${config.targetCollectionPath}/${change.after.id}" has been deleted successfully.`
+        );
+        return;
+      } catch (error) {
+        logger.error(
+          `An error occurred while deleting the target field "${config.targetFieldName}" of the target document "${config.targetCollectionPath}/${change.after.id}":`,
+          error
+        );
+        throw error;
+      }
     }
 
     // Get the source document
@@ -56,7 +78,9 @@ export const onTargetDocumentChange = functions.firestore
 
     // If the source document does not exist, do nothing
     if (!sourceDocument.exists) {
-      logs.sourceDocumentWasNotFound(sourceDocumentId);
+      logger.log(
+        `The source document "${config.sourceCollectionPath}/${sourceDocumentId}" does not exist, no processing is required.`
+      );
       return;
     }
 
@@ -72,9 +96,19 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // Update the target document
-    await change.after.ref.set({ [config.targetFieldName]: sourceDocumentData }, { merge: true });
-    logs.targetFieldWasUpdatedSuccessfully(change.after.id);
-    return;
+    try {
+      await change.after.ref.set({ [config.targetFieldName]: sourceDocumentData }, { merge: true });
+      logger.log(
+        `The target document "${config.targetCollectionPath}/${change.after.id}" has been updated successfully.`
+      );
+      return;
+    } catch (error) {
+      logger.error(
+        `An error occurred while updating the target document "${config.targetCollectionPath}/${change.after.id}":`,
+        error
+      );
+      throw error;
+    }
   });
 
 export const onSourceDocumentChange = functions.firestore
@@ -82,7 +116,9 @@ export const onSourceDocumentChange = functions.firestore
   .onWrite(async (change) => {
     // If the document was deleted and the source document delete behavior is "nothing", do nothing
     if (!change.after.exists && config.sourceDocumentDeleteBehavior === "nothing") {
-      logs.sourceDocumentWasDeleted_doNothing(change.after.id);
+      logger.log(
+        `The source document "${config.sourceCollectionPath}/${change.before.id}" has been deleted, no processing is required.`
+      );
       return;
     }
 
@@ -94,7 +130,9 @@ export const onSourceDocumentChange = functions.firestore
 
     // If there are no target documents, do nothing
     if (targetDocuments.empty) {
-      logs.noTargetDocumentWasFound(change.after.id);
+      logger.log(
+        `The source document "${config.sourceCollectionPath}/${change.after.id}" has no target documents, no processing is required.`
+      );
       return;
     }
 
@@ -102,54 +140,90 @@ export const onSourceDocumentChange = functions.firestore
     if (!change.after.exists) {
       // If the source document delete behavior is "deleteTargetField", delete the target fields
       if (config.sourceDocumentDeleteBehavior === "deleteTargetField") {
-        logs.sourceDocumentWasDeleted_deleteTargetField(change.after.id);
+        logger.log(
+          `The source document "${config.sourceCollectionPath}/${change.before.id}" has been deleted, deleting the target fields.`
+        );
 
-        const batch = db.batch();
+        try {
+          const batch = db.batch();
 
-        targetDocuments.forEach((targetDocument) => {
-          batch.set(
-            targetDocument.ref,
-            { [config.targetFieldName]: firebase.firestore.FieldValue.delete() },
-            { merge: true }
+          targetDocuments.forEach((targetDocument) => {
+            batch.set(
+              targetDocument.ref,
+              { [config.targetFieldName]: firebase.firestore.FieldValue.delete() },
+              { merge: true }
+            );
+          });
+
+          await batch.commit();
+
+          logger.log(
+            `The target fields "${config.targetFieldName}" related to the source document "${config.sourceCollectionPath}/${change.before.id}" have been deleted successfully.`
           );
-        });
-
-        await batch.commit();
-
-        logs.targetFieldsWereDeletedSuccessfully(change.after.id);
-        return;
+          return;
+        } catch (error) {
+          logger.error(
+            `An error occurred while deleting the target fields "${config.targetFieldName}" related to the source document "${config.sourceCollectionPath}/${change.before.id}":`,
+            error
+          );
+          throw error;
+        }
       }
 
       // If the source document delete behavior is "setTargetFieldToNull", set the target fields to null
       if (config.sourceDocumentDeleteBehavior === "setTargetFieldToNull") {
-        logs.sourceDocumentWasDeleted_setTargetFieldToNull(change.after.id);
+        logger.log(
+          `The source document "${config.sourceCollectionPath}/${change.before.id}" has been deleted, setting the target fields to null.`
+        );
 
-        const batch = db.batch();
+        try {
+          const batch = db.batch();
 
-        targetDocuments.forEach((targetDocument) => {
-          batch.set(targetDocument.ref, { [config.targetFieldName]: null }, { merge: true });
-        });
+          targetDocuments.forEach((targetDocument) => {
+            batch.set(targetDocument.ref, { [config.targetFieldName]: null }, { merge: true });
+          });
 
-        await batch.commit();
+          await batch.commit();
 
-        logs.targetFieldsWereSetToNullSuccessfully(change.after.id);
-        return;
+          logger.log(
+            `The target fields "${config.targetFieldName}" related to the source document "${config.sourceCollectionPath}/${change.before.id}" have been set to null successfully.`
+          );
+          return;
+        } catch (error) {
+          logger.error(
+            `An error occurred while setting the target fields "${config.targetFieldName}" related to the source document "${config.sourceCollectionPath}/${change.before.id}" to null:`,
+            error
+          );
+          throw error;
+        }
       }
 
       // If the source document delete behavior is "deleteTargetDocument", delete the target documents
       if (config.sourceDocumentDeleteBehavior === "deleteTargetDocument") {
-        logs.sourceDocumentWasDeleted_deleteTargetDocument(change.after.id);
+        logger.log(
+          `The source document "${config.sourceCollectionPath}/${change.before.id}" has been deleted, deleting the target documents.`
+        );
 
-        const batch = db.batch();
+        try {
+          const batch = db.batch();
 
-        targetDocuments.forEach((targetDocument) => {
-          batch.delete(targetDocument.ref);
-        });
+          targetDocuments.forEach((targetDocument) => {
+            batch.delete(targetDocument.ref);
+          });
 
-        await batch.commit();
+          await batch.commit();
 
-        logs.targetDocumentsWereDeletedSuccessfully(change.after.id);
-        return;
+          logger.log(
+            `The target documents related to the source document "${config.sourceCollectionPath}/${change.before.id}" have been deleted successfully.`
+          );
+          return;
+        } catch (error) {
+          logger.error(
+            `An error occurred while deleting the target documents related to the source document "${config.sourceCollectionPath}/${change.before.id}":`,
+            error
+          );
+          throw error;
+        }
       }
     }
 
@@ -165,15 +239,24 @@ export const onSourceDocumentChange = functions.firestore
     }
 
     // Update the target documents
-    logs.sourceDocumentWasUpdated(change.after.id);
+    try {
+      const batch = db.batch();
 
-    const batch = db.batch();
+      targetDocuments.forEach((targetDocument) => {
+        batch.set(targetDocument.ref, { [config.targetFieldName]: documentData }, { merge: true });
+      });
 
-    targetDocuments.forEach((targetDocument) => {
-      batch.set(targetDocument.ref, { [config.targetFieldName]: documentData }, { merge: true });
-    });
+      await batch.commit();
 
-    await batch.commit();
-    logs.targetFieldsWereUpdatedSuccessfully(change.after.id);
-    return;
+      logger.log(
+        `The target documents related to the source document "${config.sourceCollectionPath}/${change.after.id}" have been updated successfully.`
+      );
+      return;
+    } catch (error) {
+      logger.error(
+        `An error occurred while updating the target documents related to the source document "${config.sourceCollectionPath}/${change.after.id}":`,
+        error
+      );
+      throw error;
+    }
   });
