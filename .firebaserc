@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "hey-extensions"
+  },
+  "targets": {},
+  "etags": {
+    "hey-extensions": {
+      "extensionInstances": {
+        "firestore-connect-document": "26cafa9b6bfa5f0d8f17692d25249bd5354ac8ad7b09e7e9095ade8fe7224351"
+      }
+    }
   }
 }

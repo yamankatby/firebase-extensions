@@ -55,3 +55,13 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 * **onSourceDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the source collection.
 
 * **onTargetDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the target collection.
+
+
+
+**Access Required**:
+
+
+
+This extension will operate with the following project IAM roles:
+
+* datastore.user (Reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.)

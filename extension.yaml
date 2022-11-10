@@ -17,30 +17,32 @@ sourceUrl: https://github.com/yamankatby/firestore-connect-document
 
 billingRequired: false
 
+roles:
+  - role: datastore.user
+    reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.
+
 resources:
   - name: onSourceDocumentChange
     type: firebaseextensions.v1beta.function
     description: >-
       A function that is triggered when a document is created, updated, or deleted in the source collection.
     properties:
-      location: ${LOCATION}
-      runtime: "nodejs14"
+      location: ${param:LOCATION}
+      runtime: nodejs14
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${PROJECT_ID}/databases/(default)/documents/${SOURCE_COLLECTION_PATH}/{documentId}
-        service: cloud.firestore.googleapis.com
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:SOURCE_COLLECTION_PATH}/{documentId}
 
   - name: onTargetDocumentChange
     type: firebaseextensions.v1beta.function
     description: >-
       A function that is triggered when a document is created, updated, or deleted in the target collection.
     properties:
-      location: ${LOCATION}
-      runtime: "nodejs14"
+      location: ${param:LOCATION}
+      runtime: nodejs14
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${PROJECT_ID}/databases/(default)/documents/${TARGET_COLLECTION_PATH}/{documentId}
-        service: cloud.firestore.googleapis.com
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:TARGET_COLLECTION_PATH}/{documentId}
 
 params:
   - param: LOCATION
