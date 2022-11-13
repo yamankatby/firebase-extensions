@@ -14,16 +14,16 @@ This is a very common pattern in Firestore data modeling and is usually done _ma
 
 To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
 
-### Install from the Firebase console
+- **Install from the Firebase console**
 
-Click the button below:
+  Click the button below:
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
 
-### Install from the Firebase CLI
+- **Install from the Firebase CLI**
 
-Run the following command:
+  Run the following command:
 
-```bash
-firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
-```
+  ```bash
+  firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
+  ```
