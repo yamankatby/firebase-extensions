@@ -1,4 +1,7 @@
-# Firestore Connect Document
+# Connect Firestore Document
+
+![Connect Firestore Document Firebase Extension demo](https://user-images.githubusercontent.com/35961879/201526571-b0106cb1-36f4-4a46-9b96-0d96e5aca39a.gif)
+
 
 **Author**: Yaman Katby (**[https://github.com/yamankatby](https://github.com/yamankatby)**)
 
