@@ -55,3 +55,8 @@ During the installation of the extension, you will be prompted to specify a coup
 - **Source Document Delete Behavior:**
 
   What should happen to the target document when the source document is deleted?
+
+  - **Delete the target field:** Deletes the target field from the target document.
+  - **Set the target field to null:** Sets the target field to null in the target document.
+  - **Delete the entire target document:** Deletes the entire target document.
+  - **Do nothing:** Does nothing.
