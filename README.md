@@ -27,3 +27,17 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
 ### 🛠️ Configure the extension
 
 During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
+
+- Cloud Functions location: Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+- Source Collection Path: The path to the collection that contains the documents you want to grab fields from.
+
+- Target Collection Path: The path to the collection that contains the documents you want to write the fields to.
+
+- Source Document ID Field Name: The name of the field in the target document that contains the ID of the source document.
+
+- Source Fields: The fields you want to grab from the source document and write to the target document (comma separated). Leave empty to grab all fields.
+
+- Target Field Name: The name of the field in the target document to which the extension will write the fields grabbed from the source document.
+
+- Source Document Delete Behavior: What should happen to the target document when the source document is deleted?
