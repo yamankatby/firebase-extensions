@@ -8,11 +8,12 @@
 
 ## 💡 Table of Contents
 
-- [✏️ Description](#%EF%B8%8F-description)
-- [✨ Features](#-features)
-- [🧩 Install the extension](#-install-the-extension)
-  - [🛠️ Configure the extension](#%EF%B8%8F-configure-the-extension)
-- 🔌 Example 
+- [Connect Firestore Document](#connect-firestore-document)
+  - [💡 Table of Contents](#-table-of-contents)
+  - [✏️ Description](#️-description)
+  - [✨ Features](#-features)
+  - [🧩 Install the extension](#-install-the-extension)
+    - [🛠️ Configuration paramters](#️-configuration-paramters)
 
 ## ✏️ Description
 
@@ -45,39 +46,14 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
   firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
   ```
 
-### 🛠️ Configure the extension
+### 🛠️ Configuration paramters
 
-During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
-
-- **Cloud Functions location:**
-
-  Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
-
-- **Source Collection Path:**
-
-  The path to the collection that contains the documents you want to grab fields from.
-
-- **Target Collection Path:**
-
-  The path to the collection that contains the documents you want to write the fields to.
-
-- **Source Document ID Field Name:**
-
-  The name of the field in the target document that contains the ID of the source document.
-
-- **Source Fields:**
-
-  The fields you want to grab from the source document and write to the target document (comma separated). Leave empty to grab all fields.
-
-- **Target Field Name:**
-
-  The name of the field in the target document to which the extension will write the fields grabbed from the source document.
-
-- **Source Document Delete Behavior:**
-
-  What should happen to the target document when the source document is deleted?
-
-  - **Delete the target field:** Deletes the target field from the target document.
-  - **Set the target field to null:** Sets the target field to null in the target document.
-  - **Delete the entire target document:** Deletes the entire target document.
-  - **Do nothing:** Does nothing.
+| Name                            | Description                                                                                                                                                                                         |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
+| Source Collection Path          | The path to the collection that contains the documents you want to grab fields from.                                                                                                                |
+| Target Collection Path          | The path to the collection that contains the documents you want to write the fields to.                                                                                                             |
+| Source Document ID Field Name   | The name of the field in the target document that contains the ID of the source document.                                                                                                           |
+| Source Fields                   | The fields you want to grab from the source document and write to the target document (comma separated). Leave empty to grab all fields.                                                            |
+| Target Field Name               | The name of the field in the target document to which the extension will write the fields grabbed from the source document.                                                                         |
+| Source Document Delete Behavior | What should happen to the target document when the source document is deleted?                                                                                                                      |
