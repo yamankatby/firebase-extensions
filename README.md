@@ -4,7 +4,15 @@
 >
 > Also, if you like it, please take a second to give it a star 🌟
 
-![Twitter Follow](https://img.shields.io/twitter/follow/yamankatby?style=social)
+[![Twitter Follow](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
+
+## 💡 Table of Contents
+
+- [✏️ Description](#%EF%B8%8F-description)
+- [✨ Features](#-features)
+- [🧩 Install the extension](#-install-the-extension)
+  - [🛠️ Configure the extension](#%EF%B8%8F-configure-the-extension)
+- 🔌 Example 
 
 ## ✏️ Description
 
