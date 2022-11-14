@@ -47,6 +47,9 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
 
 During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
 
+![Connect Firestore Document - Configuration Parameters](https://user-images.githubusercontent.com/35961879/201632903-b4e24631-0fda-47b5-8557-667148cf9b84.png)
+
+
 | Name                            | Description                                                                                                                                                                                         |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
