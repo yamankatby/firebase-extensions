@@ -45,6 +45,8 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
 
 ### 🛠️ Configuration paramters
 
+During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
+
 | Name                            | Description                                                                                                                                                                                         |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
