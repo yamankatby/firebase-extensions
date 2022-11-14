@@ -10,7 +10,7 @@
   - [✏️ Introduction](#️-introduction)
   - [✨ Features](#-features)
   - [🧩 Install the extension](#-install-the-extension)
-    - [🛠️ Configuration paramters](#️-configuration-paramters)
+    - [🛠️ Configuration parameters](#️-configuration-parameters)
 
 ## ✏️ Introduction
 
@@ -18,7 +18,7 @@
 
 ![Connect Firestore Document Firebase Extension demo](https://user-images.githubusercontent.com/35961879/201526571-b0106cb1-36f4-4a46-9b96-0d96e5aca39a.gif)
 
-For example, you can use this extension to user profile information (such as `name`, `email`, and `photoURL`) from their document in the `users` collection and store it in the `createdBy` field of each document created by that user in the `posts` collection.
+For example, you can use this extension to get user profile information (such as `name`, `email`, and `photoURL`) from their document in the `users` collection and store it in the `createdBy` field of each document created by that user in the `posts` collection.
 
 This is a very common pattern in Firestore data modeling and is usually done _manually_ by writing and deploying custom Cloud Functions to handle each case. This extension automates this process for you. It allows you to implement this pattern with just a few clicks and without writing any code directly from the Firebase console.
 
@@ -43,7 +43,7 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
   firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
   ```
 
-### 🛠️ Configuration paramters
+### 🛠️ Configuration parameters
 
 During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
 
@@ -51,7 +51,7 @@ During the installation of the extension, you will be prompted to specify a coup
 
 
 | Name                            | Description                                                                                                                                                                                         |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
 | Source Collection Path          | The path to the collection that contains the documents you want to grab fields from.                                                                                                                |
 | Target Collection Path          | The path to the collection that contains the documents you want to write the fields to.                                                                                                             |
