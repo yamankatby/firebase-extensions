@@ -1,5 +1,9 @@
 # Connect Firestore Document
 
+> **Note** This extension is currently in beta. If you have any feedback, please [file an issue](https://github.com/yamankatby/firestore-connect-document/issues/new).
+>
+> Also, if you like it, please take a second to give it a start 🌟
+
 ## ✏️ Description
 
 **Connect Firestore Document** (`firestore-connect-document`) is a new extension for Firebase that allows you to get some fields from one document in Firestore, store them in a `map` field in another document, and keep them in sync.
