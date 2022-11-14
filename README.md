@@ -2,7 +2,9 @@
 
 > **Note** This extension is currently in beta. If you have any feedback, please [file an issue](https://github.com/yamankatby/firestore-connect-document/issues/new).
 >
-> Also, if you like it, please take a second to give it a start 🌟
+> Also, if you like it, please take a second to give it a star 🌟
+
+![Twitter Follow](https://img.shields.io/twitter/follow/yamankatby?style=social)
 
 ## ✏️ Description
 
@@ -13,6 +15,13 @@
 For example, you can use this extension to user profile information (such as `name`, `email`, and `photoURL`) from their document in the `users` collection and store it in the `createdBy` field of each document created by that user in the `posts` collection.
 
 This is a very common pattern in Firestore data modeling and is usually done _manually_ by writing and deploying custom Cloud Functions to handle each case. This extension automates this process for you. It allows you to implement this pattern with just a few clicks and without writing any code directly from the Firebase console.
+
+## ✨ Features
+
+- ✅ Fully customizable field names.
+- ✅ Customize what happens when the source document is deleted
+- ✅ Optionally get _all_ fields from the source document or just _some of them_.
+- 🚧 Extend the extension functionality using events.
 
 ## 🧩 Install the extension
 
