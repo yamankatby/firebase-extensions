@@ -18,6 +18,7 @@
     "singleProjectMode": true
   },
   "extensions": {
-    "firestore-connect-document": "./packages/firestore-connect-document"
+    "firestore-connect-document": "./packages/firestore-connect-document",
+    "generate-og-image": "./packages/generate-og-image"
   }
 }

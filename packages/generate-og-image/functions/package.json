@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "generate-og-image",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
