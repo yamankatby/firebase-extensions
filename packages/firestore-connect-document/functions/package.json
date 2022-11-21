@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "firestore-connect-document",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
