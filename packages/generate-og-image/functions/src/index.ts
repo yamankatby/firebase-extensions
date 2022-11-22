@@ -79,5 +79,6 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
 
   // Send the screenshot as a response
   res.set("Content-Type", `image/${format}`);
+  res.set("Cache-Control", "public, immutable, no-transform, max-age=31536000");
   res.send(buffer);
 });
