@@ -74,3 +74,37 @@ params:
         value: australia-southeast1
     required: true
     immutable: true
+
+  - param: TEMPLATE
+    label: Template
+    description: >-
+      The template to use for generating the Open Graph image. The template must
+      be a valid HTML file.
+    type: string
+    required: true
+
+  - param: WIDTH
+    label: Width
+    description: >-
+      The width of the generated image in pixels.
+    type: number
+
+  - param: HEIGHT
+    label: Height
+    description: >-
+      The height of the generated image in pixels.
+    type: number
+
+  - param: IMAGE_FORMAT
+    label: Image format
+    description: >-
+      The format of the generated image.
+    type: select
+    options:
+      - label: JPEG
+        value: jpeg
+      - label: PNG
+        value: png
+      - label: WebP
+        value: webp
+    default: jpeg

@@ -7,10 +7,14 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "firebase-admin": "^10.2.0",
-    "firebase-functions": "^3.21.0"
+    "firebase-functions": "^3.21.0",
+    "handlebars": "^4.7.7",
+    "puppeteer-core": "^10.4.0"
   },
   "devDependencies": {
+    "@types/puppeteer-core": "^7.0.4",
     "eslint": "^8.15.1",
     "eslint-plugin-import": "^2.26.0",
     "typescript": "^4.6.4"
