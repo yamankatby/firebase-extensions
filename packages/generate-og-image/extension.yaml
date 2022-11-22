@@ -95,6 +95,13 @@ params:
     type: string
     example: <p>{{title}}</p>
 
+  - param: MARKDOWN_PARAMS
+    label: Markdown parameters
+    description: >-
+      The parameters that has to be parsed as Markdown (comma separated).
+    type: string
+    example: title,description
+
   - param: WIDTH
     label: Width
     description: >-

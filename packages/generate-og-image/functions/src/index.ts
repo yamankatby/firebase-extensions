@@ -1,6 +1,7 @@
 import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
 import handlebars, { TemplateDelegate } from "handlebars";
+import { marked } from "marked";
 import core from "puppeteer-core";
 import config from "./config";
 import getOptions from "./options";
@@ -53,6 +54,14 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
   if (!compiledTemplate) {
     res.status(404).send("Template not found");
     return;
+  }
+
+  if (config.markdownParams) {
+    config.markdownParams.forEach((param) => {
+      if (params[param]) {
+        params[param] = marked(params[param] as string);
+      }
+    });
   }
 
   // Render the template
