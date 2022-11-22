@@ -13,15 +13,20 @@ sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/packages/
 
 billingRequired: false
 
+roles:
+  - role: datastore.user
+    reason: Allows this extension to access Cloud Firestore to read the templates collection.
+
 resources:
   - name: api
     type: firebaseextensions.v1beta.function
     description: >-
       HTTP request-triggered function that responds with an Open Graph image.
     properties:
-      location: ${LOCATION}
+      location: ${param:LOCATION}
       httpsTrigger: {}
-      runtime: "nodejs12"
+      runtime: nodejs14
+      availableMemoryMb: 2048
 
 params:
   - param: LOCATION
@@ -75,13 +80,20 @@ params:
     required: true
     immutable: true
 
+  - param: TEMPLATES_COLLECTION
+    label: A collection of templates
+    description: >-
+      The collection of templates that will be used to generate Open Graph images.
+    type: string
+    example: templates
+
   - param: TEMPLATE
     label: Template
     description: >-
       The template to use for generating the Open Graph image. The template must
       be a valid HTML file.
     type: string
-    required: true
+    example: <p>{{title}}</p>
 
   - param: WIDTH
     label: Width
@@ -108,3 +120,20 @@ params:
       - label: WebP
         value: webp
     default: jpeg
+
+  - param: FUNCTION_MEMORY
+    label: Cloud Function memory
+    description: >-
+      Memory of the function responsible of resizing images. 
+      Choose how much memory to give to the function that resize images. (For animated GIF => GIF we recommend using a minimum of 2GB).
+    type: select
+    options:
+      - label: 512 MB
+        value: 512
+      - label: 1 GB
+        value: 1024
+      - label: 2 GB
+        value: 2048
+    default: 1024
+    required: true
+    immutable: false
