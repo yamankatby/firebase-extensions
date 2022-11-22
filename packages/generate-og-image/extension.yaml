@@ -102,6 +102,18 @@ params:
     type: string
     example: title,description
 
+  - param: EMOJI_PROVIDER
+    label: Emoji provider
+    description: >-
+      The provider to use for rendering emojis.
+    type: select
+    options:
+      - label: System
+        value: system
+      - label: Twemoji
+        value: twemoji
+    default: system
+
   - param: WIDTH
     label: Width
     description: >-

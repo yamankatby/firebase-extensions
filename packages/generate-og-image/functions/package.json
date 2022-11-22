@@ -12,7 +12,8 @@
     "firebase-functions": "^3.21.0",
     "handlebars": "^4.7.7",
     "marked": "^4.2.3",
-    "puppeteer-core": "^10.4.0"
+    "puppeteer-core": "^10.4.0",
+    "twemoji": "^14.0.2"
   },
   "devDependencies": {
     "@types/marked": "^4.0.7",

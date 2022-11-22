@@ -2,6 +2,7 @@ interface Config {
   templatesCollection?: string;
   template?: string;
   markdownParams?: string[];
+  emojiProvider: string;
 
   width: number;
   height: number;
@@ -12,6 +13,7 @@ const config: Config = {
   templatesCollection: process.env.TEMPLATES_COLLECTION,
   template: process.env.TEMPLATE,
   markdownParams: process.env.MARKDOWN_PARAMS?.split(","),
+  emojiProvider: process.env.EMOJI_PROVIDER || "system",
 
   width: Number(process.env.WIDTH) || 1200,
   height: Number(process.env.HEIGHT) || 630,

@@ -1,3 +1,5 @@
+import twemoji from "twemoji";
+
 export const isValidHttpUrl = (string: string) => {
   let url;
   try {
@@ -8,3 +10,5 @@ export const isValidHttpUrl = (string: string) => {
   return url.protocol === "http:" || url.protocol === "https:";
 };
 
+const twOptions = { folder: "svg", ext: ".svg" };
+export const emojify = (text: string) => twemoji.parse(text, twOptions);

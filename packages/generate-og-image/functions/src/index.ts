@@ -5,7 +5,7 @@ import { marked } from "marked";
 import core from "puppeteer-core";
 import config from "./config";
 import getOptions from "./options";
-import { isValidHttpUrl } from "./utils";
+import { emojify, isValidHttpUrl } from "./utils";
 
 firebase.initializeApp();
 
@@ -65,7 +65,11 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
   }
 
   // Render the template
-  const html = compiledTemplate(params);
+  let html = compiledTemplate(params);
+
+  if (config.emojiProvider !== "system") {
+    html = emojify(html);
+  }
 
   // Launch Puppeteer
   const options = await getOptions();
