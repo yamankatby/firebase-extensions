@@ -3,7 +3,7 @@ import * as functions from "firebase-functions";
 import handlebars, { TemplateDelegate } from "handlebars";
 import { marked } from "marked";
 import core from "puppeteer-core";
-import config from "./config";
+import config, { parseConfig } from "./config";
 import getOptions from "./options";
 import { emojify, isValidHttpUrl } from "./utils";
 
@@ -19,13 +19,7 @@ if (config.template && !isValidHttpUrl(config.template)) {
 }
 
 export const api = functions.handler.https.onRequest(async (req, res) => {
-  const {
-    template: templateDocumentId = "default", // The document ID of the template to use, in case a Firestore collection is set
-    width = config.width, // The width of the image to generate
-    height = config.height, // The height of the image to generate
-    format = config.imageFormat, // The format of the image to generate
-    ...params
-  } = req.query;
+  let templateDocumentData: firebase.firestore.DocumentData | undefined;
 
   // If the template is a URL, refetch it on every request, so changes to the template are reflected immediately
   if (config.template && isValidHttpUrl(config.template)) {
@@ -35,39 +29,55 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
 
   // If the templates collection is set, fetch the template from Firestore
   else if (config.templatesCollection) {
+    // Get the template name from the request query
+    const templateDocumentId = (req.query.template as string) || "default";
+
+    // Get the template document from Firestore
     const templateDocument = await db
       .collection(config.templatesCollection)
-      .doc(templateDocumentId as string)
+      .doc(templateDocumentId)
       .get();
 
+    // Extract the template field from the document
     const template = templateDocument.get("template") as string;
 
+    // If either the document as a whole or the template field is missing, return a 404
     if (!template) {
       res.status(404).send("Template not found");
       return;
     }
 
+    templateDocumentData = templateDocument.data();
+
+    // Compile the template from the document
     compiledTemplate = handlebars.compile(template);
   }
 
-  // If no template is found, return an error
+  // If no template is found, return a 404
   if (!compiledTemplate) {
     res.status(404).send("Template not found");
     return;
   }
 
-  if (config.markdownParams) {
-    config.markdownParams.forEach((param) => {
-      if (params[param]) {
-        params[param] = marked(params[param] as string);
+  const { markdownParams, emoji, width, height, format, cacheControl, params } =
+    parseConfig(req.query, templateDocumentData);
+
+  const parsedParams: any = { ...params };
+
+  // If there are markdown params, parse them
+  if (markdownParams) {
+    for (const param of markdownParams) {
+      if (parsedParams[param]) {
+        parsedParams[param] = marked(parsedParams[param] as string);
       }
-    });
+    }
   }
 
   // Render the template
-  let html = compiledTemplate(params);
+  let html = compiledTemplate(parsedParams);
 
-  if (config.emojiProvider !== "system") {
+  // If the emoji provider is set to twemoji, replace all emoji with twemoji
+  if (emoji === "twemoji") {
     html = emojify(html);
   }
 
@@ -79,7 +89,7 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
   const page = await browser.newPage();
 
   // Set the viewport size
-  await page.setViewport({ width: Number(width), height: Number(height) });
+  await page.setViewport({ width, height });
 
   // Set the content of the page
   await page.setContent(html);
@@ -92,6 +102,6 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
 
   // Send the screenshot as a response
   res.set("Content-Type", `image/${format}`);
-  res.set("Cache-Control", "public, immutable, no-transform, max-age=31536000");
+  res.set("Cache-Control", cacheControl);
   res.send(buffer);
 });

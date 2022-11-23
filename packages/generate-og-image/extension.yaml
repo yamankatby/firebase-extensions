@@ -26,7 +26,7 @@ resources:
       location: ${param:LOCATION}
       httpsTrigger: {}
       runtime: nodejs14
-      availableMemoryMb: 2048
+      availableMemoryMb: ${param:MEMORY}
 
 params:
   - param: LOCATION
@@ -80,53 +80,74 @@ params:
     required: true
     immutable: true
 
-  - param: TEMPLATES_COLLECTION
-    label: A collection of templates
-    description: >-
-      The collection of templates that will be used to generate Open Graph images.
-    type: string
-    example: templates
-
   - param: TEMPLATE
     label: Template
     description: >-
-      The template to use for generating the Open Graph image. The template must
-      be a valid HTML file.
+      The [handlebars](https://handlebarsjs.com/) template to use for generating
+      the image. The template must be either a raw HTML string or a URL to a
+      public HTML file.
+
+      If you want to store the templates in a Cloud Firestore collection, leave
+      this field empty and set the `TEMPLATES_COLLECTION` parameter instead.
     type: string
-    example: <p>{{title}}</p>
+    example: <h1>{{title}}</h1>
+
+  - param: TEMPLATES_COLLECTION
+    label: Templates collection
+    description: >-
+      The path to the Cloud Firestore collection that contains the templates to
+      use for generating the images. The collection must have a document for each
+      template, where the document ID is the template name and the document
+      contains a `template` field with the template string.
+
+      If you want to use a static template, leave this field empty and set the
+      `TEMPLATE` parameter instead.
+    type: string
+    example: templates
 
   - param: MARKDOWN_PARAMS
-    label: Markdown parameters
+    label: Markdown params
     description: >-
-      The parameters that has to be parsed as Markdown (comma separated).
+      A comma-separated list of query parameters that contain Markdown-formatted
+      text. The extension will convert the Markdown to HTML before rendering the
+      template.
+
+      Leave this field empty if you don't want to use Markdown.
     type: string
     example: title,description
 
-  - param: EMOJI_PROVIDER
+  - param: EMOJI
     label: Emoji provider
     description: >-
-      The provider to use for rendering emojis.
+      The style of emojis to use in the generated images.
+
+      - `twemoji` uses [Twemoji](https://twemoji.twitter.com/) emojis.
     type: select
     options:
-      - label: System
+      - label: System default
         value: system
       - label: Twemoji
         value: twemoji
     default: system
+    required: true
 
   - param: WIDTH
-    label: Width
+    label: Image width
     description: >-
       The width of the generated image in pixels.
     type: number
+    default: 1200
+    required: true
 
   - param: HEIGHT
-    label: Height
+    label: Image height
     description: >-
       The height of the generated image in pixels.
     type: number
+    default: 630
+    required: true
 
-  - param: IMAGE_FORMAT
+  - param: FORMAT
     label: Image format
     description: >-
       The format of the generated image.
@@ -134,17 +155,26 @@ params:
     options:
       - label: JPEG
         value: jpeg
-      - label: PNG
-        value: png
       - label: WebP
         value: webp
+      - label: PNG
+        value: png
     default: jpeg
+    required: true
 
-  - param: FUNCTION_MEMORY
+  - param: CACHE_CONTROL
+    label: Cache-Control header
+    description: >-
+      The value of the `Cache-Control` header to set on the generated images.
+    type: string
+    example: max-age=3600
+    default: public, immutable, no-transform, max-age=31536000
+    required: true
+
+  - param: MEMORY
     label: Cloud Function memory
     description: >-
-      Memory of the function responsible of resizing images. 
-      Choose how much memory to give to the function that resize images. (For animated GIF => GIF we recommend using a minimum of 2GB).
+      The amount of memory to allocate to the Cloud Function.
     type: select
     options:
       - label: 512 MB
@@ -153,6 +183,6 @@ params:
         value: 1024
       - label: 2 GB
         value: 2048
-    default: 1024
+    default: 512
     required: true
-    immutable: false
+    immutable: true
