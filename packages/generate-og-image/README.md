@@ -9,6 +9,7 @@
   - [✨ Features](#-features)
   - [🧩 Install the extension](#-install-the-extension)
     - [🛠️ Configuration parameters](#️-configuration-parameters)
+  - [🙏 Acknowledgements](#-acknowledgements)
 
 ## ✏️ Introduction
 
@@ -53,3 +54,7 @@ During the installation of the extension, you will be prompted to specify a coup
 | Format                | The format of the generated image.                                                                                                                                                                                                                                                |
 | Cache-Control header  | The value of the `Cache-Control` header to set on the generated images.                                                                                                                                                                                                           |
 | Cloud Function memory | The amount of memory to allocate to the Cloud Function.                                                                                                                                                                                                                           |
+
+## 🙏 Acknowledgements
+
+- Vercel for the [og-image](https://github.com/vercel/og-image)
