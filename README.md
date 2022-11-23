@@ -4,9 +4,11 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-- 🔥 List of extensions
+- [Firebase Extensions](#firebase-extensions)
   - [🔌 Connect Firestore Document](#-connect-firestore-document)
+    - [✨ Features](#-features)
   - [🎆 Generate Open Graph Images](#-generate-open-graph-images)
+    - [✨ Features](#-features-1)
 
 ## 🔌 Connect Firestore Document
 
