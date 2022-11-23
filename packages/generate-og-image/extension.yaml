@@ -139,7 +139,7 @@ params:
     label: Image width
     description: >-
       The width of the generated image in pixels.
-    type: number
+    type: string
     default: 1200
     required: true
 
@@ -147,7 +147,7 @@ params:
     label: Image height
     description: >-
       The height of the generated image in pixels.
-    type: number
+    type: string
     default: 630
     required: true
 
