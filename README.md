@@ -21,6 +21,20 @@ The **Connect Firestore Document** extension allows you to get _some_ or _all_ f
 - ✅ Optionally get all fields from the source document or just some of them.
 - 🚧 Extend the extension functionality using events.
 
+### 🧩 Install the extension
+
+To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
+
+- **Install from the Firebase console:** Click the button below:
+
+  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+
+- **Install from the Firebase CLI:** Run the following command:
+
+  ```bash
+  firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
+  ```
+
 ## 🎆 Generate Open Graph Images
 
 [👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/generate-og-image)
