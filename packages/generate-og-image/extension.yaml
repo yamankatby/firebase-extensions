@@ -9,6 +9,10 @@ description: >-
 
 license: Apache-2.0
 
+author:
+  authorName: Yaman Katby
+  url: https://github.com/yamankatby
+
 sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/packages/generate-og-image
 
 billingRequired: false
