@@ -2,7 +2,7 @@ name: firestore-connect-document
 version: 0.0.3
 specVersion: v1beta
 
-displayName: Firestore Connect Document
+displayName: Connect Firestore Document
 
 description: >-
   Grabs a set of fields from a document in Firestore and writes them in a map field to another document, and keeps them in sync.
