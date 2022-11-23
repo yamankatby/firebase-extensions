@@ -4,13 +4,15 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-- Extensions List
+- 🔥 List of extensions
   - [🔌 Connect Firestore Document](#-connect-firestore-document)
   - [🎆 Generate Open Graph Images](#-generate-open-graph-images)
 
 ## 🔌 Connect Firestore Document
 
 The **Connect Firestore Document** extension allows you to get _some_ or _all_ fields from one document in Firestore and store them in a map field in another document, and keep them in sync.
+
+[👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/firestore-connect-document)
 
 ### ✨ Features
 
@@ -20,5 +22,7 @@ The **Connect Firestore Document** extension allows you to get _some_ or _all_ f
 - 🚧 Extend the extension functionality using events.
 
 ## 🎆 Generate Open Graph Images
+
+[👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/generate-og-image)
 
 ### ✨ Features
