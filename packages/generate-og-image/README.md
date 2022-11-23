@@ -57,4 +57,4 @@ During the installation of the extension, you will be prompted to specify a coup
 
 ## 🙏 Acknowledgements
 
-- Vercel for the [og-image](https://github.com/vercel/og-image)
+- Vercel for writing the [og-image](https://github.com/vercel/og-image) project that inspired this extension.
