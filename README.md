@@ -12,10 +12,16 @@
 
 The **Connect Firestore Document** extension allows you to get _some_ or _all_ fields from one document in Firestore and store them in a map field in another document, and keep them in sync.
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document) · [👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/firestore-connect-document)
+[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+
+[👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/firestore-connect-document)
 
 ## 🎆 Generate Open Graph Images
 
-[👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/generate-og-image)
+Generate dynamic and fully customizable Open Graph images for your website.
 
-### ✨ Features
+Generate dynamic Open Graph images for your website
+
+[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
+
+[👀 Read more](https://github.com/yamankatby/firestore-connect-document/tree/main/packages/generate-og-image)
