@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
+    "@mui/material": "^5.10.15",
+    "@next/font": "^13.0.5",
     "@next/mdx": "^13.0.5",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
