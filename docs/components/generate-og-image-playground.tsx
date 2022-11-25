@@ -121,7 +121,7 @@ export default function Example() {
                     value={width}
                     onChange={(e) => setWidth(parseInt(e.target.value))}
                   />
-                  <InputRightAddon children="px" />
+                  <InputRightAddon>px</InputRightAddon>
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -135,7 +135,7 @@ export default function Example() {
                     value={height}
                     onChange={(e) => setHeight(parseInt(e.target.value))}
                   />
-                  <InputRightAddon children="px" />
+                  <InputRightAddon>px</InputRightAddon>
                 </InputGroup>
               </FormControl>
             </HStack>
