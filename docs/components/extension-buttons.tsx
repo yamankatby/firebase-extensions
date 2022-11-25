@@ -27,6 +27,8 @@ export default function ExtensionButtons({
           size="lg"
           variant="link"
           as="a"
+          color="#374151"
+          fontWeight="medium"
           href={`${githubUrl}/tree/main/packages/${extensionName}`}
           target="_blank"
           rel="noopener noreferrer"

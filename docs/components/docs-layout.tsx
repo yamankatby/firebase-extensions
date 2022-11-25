@@ -4,6 +4,6 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <article className="prose lg:prose-xl mx-auto mt-12">{children}</article>
+    <article className="prose lg:prose-xl mx-auto my-12">{children}</article>
   );
 }

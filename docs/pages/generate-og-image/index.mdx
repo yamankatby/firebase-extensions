@@ -9,6 +9,23 @@ Dynamically generate fully customizable and SEO-friendly Open Graph images for y
 
 ## Playground
 
+Here you can play with a live demo of the extension and see how it works.
+
 <Playground />
 
-## Usage
+## How it works
+
+The extension uses the [Handlebars](https://handlebarsjs.com/guide/) template engine to inject the query parameters sent with the request into the template you provide during the extension setup, and then it uses [Puppeteer](https://pptr.dev/) to render the output and take a screenshot of it and return as a response.
+
+Here is a simple and fully working example of a Handlebars template:
+
+```html
+<h1>{{title}}</h1>
+```
+
+And here is a simple example of a request that will render the template above:
+
+```bash
+curl -X GET \
+  'https://your-function-url.here?title=Hello%20World'
+```

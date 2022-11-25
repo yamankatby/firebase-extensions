@@ -7,7 +7,6 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputLeftElement,
   InputRightAddon,
   Popover,
@@ -22,14 +21,14 @@ import {
   Select,
   Tooltip,
 } from "@chakra-ui/react";
-import { Cog6ToothIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon, WrenchIcon } from "@heroicons/react/24/outline";
 import { useCallback, useState } from "react";
 
 import { forwardRef } from "@chakra-ui/react";
 
 const MyTooltip = forwardRef(({ label, ...other }, ref) => (
   <Tooltip label={label}>
-    <IconButton ref={ref} {...other} />
+    <IconButton ref={ref} {...(other as any)} />
   </Tooltip>
 ));
 
@@ -47,8 +46,9 @@ export default function Example() {
     "public, immutable, no-transform, max-age=31536000"
   );
 
-  const [title, setTitle] = useState("Hello, World!");
-  const [github, setGithub] = useState("yamankatby");
+  const [title, setTitle] = useState(
+    "A Firebase Extension for generating OG images dynamically 🔥"
+  );
   const [color, setColor] = useState("#000000");
   const [bgcolor, setBgcolor] = useState("#ffffff");
 
@@ -149,6 +149,11 @@ export default function Example() {
                   System (only for testing on the emulator)
                 </option>
                 <option value="twemoji">Twemoji</option>
+                <option disabled>Fluent Emoji (coming soon)</option>
+                <option disabled>Fluent Emoji Flat (coming soon)</option>
+                <option disabled>Noto Emoji (coming soon)</option>
+                <option disabled>Blobmoji (coming soon)</option>
+                <option disabled>OpenMoji (coming soon)</option>
               </Select>
             </FormControl>
             <FormControl mt={4}>
@@ -180,7 +185,7 @@ export default function Example() {
           <MyTooltip
             label="Customize template's parameters"
             aria-label="Params"
-            icon={<PaintBrushIcon className="w-6" />}
+            icon={<WrenchIcon className="w-6" />}
             color="white"
             bgColor="#1967d2"
             _hover={{ bgColor: "#165fc2" }}
@@ -210,16 +215,6 @@ export default function Example() {
                 placeholder="Hello, World!"
               />
               <FormHelperText>You can use Markdown syntax.</FormHelperText>
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Github Username</FormLabel>
-              <InputGroup>
-                <InputLeftAddon>@</InputLeftAddon>
-                <Input
-                  value={github}
-                  onChange={(e) => setGithub(e.target.value)}
-                />
-              </InputGroup>
             </FormControl>
             <HStack mt={4}>
               <FormControl>
