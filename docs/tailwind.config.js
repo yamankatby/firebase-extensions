@@ -9,6 +9,19 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-inter)"],
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-links": "#1967d2",
+            a: {
+              "text-decoration": "none",
+              "&:hover": {
+                "text-decoration": "underline",
+              },
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [require("@tailwindcss/typography")],
