@@ -4,7 +4,7 @@ import { githubUrl } from "../pages/_app";
 
 export default function ExtensionButtons({
   extensionName,
-  buttons,
+  buttons = [],
 }: {
   extensionName: string;
   buttons: Array<"documentation" | "source-code">;

@@ -1,0 +1,39 @@
+import ExtensionButtons from "../../components/extension-buttons";
+
+# Installation
+
+To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
+
+## Install from the Firebase Console
+
+Click the **Install in Console** button below and follow the on-screen instructions.
+
+<ExtensionButtons extensionName="generate-og-image" />
+
+## Install using the Firebase CLI
+
+1. Run the following npm command to install the CLI or update to the latest CLI version.
+
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. [Set up a new Firebase project directory](https://firebase.google.com/docs/cli#initialize_a_firebase_project) or navigate to an existing one.
+
+3. Add this extension to your [extension manifest](https://firebase.google.com/docs/extensions/manifest) by running:
+
+   ```bash
+   firebase ext:install yaman/generate-og-image --project=YOUR_PROJECT_ID
+   ```
+
+4. (Optional): Test this extension locally with the [Emulator Suite](https://firebase.google.com/docs/emulator-suite/use_extensions)
+
+   ```bash
+   firebase emulators:start
+   ```
+
+5. [Deploy](https://firebase.google.com/docs/extensions/manifest#deploy) the extension instances in your manifest to your project
+
+   ```bash
+   firebase deploy --only extensions --project=YOUR_PROJECT_ID
+   ```
