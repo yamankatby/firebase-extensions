@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.4.1",
+    "@chakra-ui/react": "^2.4.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@heroicons/react": "^2.0.13",
@@ -23,7 +23,7 @@
     "@types/react-dom": "18.0.9",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
-    "framer-motion": "^6.5.1",
+    "framer-motion": "^7.6.15",
     "next": "13.0.5",
     "next-sitemap": "^3.1.32",
     "react": "18.2.0",
