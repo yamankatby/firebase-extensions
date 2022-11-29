@@ -48,8 +48,11 @@ export const parseConfig = (
   } = doc || {};
 
   return {
-    markdownParams:
-      qMarkdownParams?.split(",") || docMarkdownParams || config.markdownParams,
+    markdownParams: Array.isArray(qMarkdownParams)
+      ? qMarkdownParams
+      : typeof qMarkdownParams === "string"
+      ? qMarkdownParams.split(",")
+      : docMarkdownParams || config.markdownParams,
     emoji: qEmoji || docEmoji || config.emoji,
     width: Number(qWidth) || docWidth || config.width,
     height: Number(qHeight) || docHeight || config.height,
