@@ -14,6 +14,13 @@ const theme = extendTheme({
     body: "var(--font-inter)",
     heading: "var(--font-inter)",
   },
+  colors: {
+    brand: {
+      500: "#1967d2",
+      600: "#165fc2",
+      700: "#1251a6",
+    },
+  },
 });
 
 export const githubUrl =

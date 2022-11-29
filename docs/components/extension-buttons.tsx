@@ -10,10 +10,7 @@ export default function ExtensionButtons({
     <HStack spacing={8} className="not-prose">
       <Button
         size="lg"
-        color="white"
-        bgColor="#1967d2"
-        _hover={{ bgColor: "#165fc2" }}
-        _active={{ bgColor: "#1251a6" }}
+        colorScheme="brand"
         as="a"
         href={`https://console.firebase.google.com/project/_/extensions/install?ref=yaman/${extensionName}`}
         target="_blank"
@@ -27,8 +24,7 @@ export default function ExtensionButtons({
           size="lg"
           variant="link"
           as="a"
-          color="#374151"
-          fontWeight="medium"
+          colorScheme="brand"
           href={`${githubUrl}/tree/main/packages/${extensionName}`}
           target="_blank"
           rel="noopener noreferrer"

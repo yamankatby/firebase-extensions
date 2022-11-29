@@ -90,10 +90,7 @@ export default function Example() {
               label="Customize template's parameters"
               aria-label="Params"
               icon={<WrenchIcon className="w-6" />}
-              color="white"
-              bgColor="#1967d2"
-              _hover={{ bgColor: "#165fc2" }}
-              _active={{ bgColor: "#1251a6" }}
+              colorScheme="brand"
               borderRadius={30}
             />
           </PopoverTrigger>
@@ -175,10 +172,7 @@ export default function Example() {
               label="Configure output image settings"
               aria-label="Configure"
               icon={<Cog6ToothIcon className="w-6" />}
-              color="white"
-              bgColor="#1967d2"
-              _hover={{ bgColor: "#165fc2" }}
-              _active={{ bgColor: "#1251a6" }}
+              colorScheme="brand"
               borderRadius={30}
             />
           </PopoverTrigger>
@@ -242,7 +236,11 @@ export default function Example() {
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Image Format</FormLabel>
-                <RadioGroup value={format} onChange={setFormat as any}>
+                <RadioGroup
+                  value={format}
+                  onChange={setFormat as any}
+                  colorScheme="brand"
+                >
                   <HStack spacing={4}>
                     <Radio value="jpeg">JPEG</Radio>
                     <Radio value="png">PNG</Radio>
