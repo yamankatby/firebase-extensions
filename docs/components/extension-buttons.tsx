@@ -4,10 +4,10 @@ import { githubUrl } from "../pages/_app";
 
 export default function ExtensionButtons({
   extensionName,
-  sourceCode = true,
+  buttons,
 }: {
   extensionName: string;
-  sourceCode?: boolean;
+  buttons: Array<"documentation" | "source-code">;
 }) {
   return (
     <HStack spacing={8} className="not-prose">
@@ -22,7 +22,19 @@ export default function ExtensionButtons({
         Install in Console
       </Button>
 
-      {sourceCode ? (
+      {buttons.includes("documentation") && (
+        <Button
+          size="lg"
+          variant="link"
+          colorScheme="brand"
+          as={Link}
+          href={extensionName}
+        >
+          Documentation
+        </Button>
+      )}
+
+      {buttons.includes("source-code") && (
         <Tooltip label="View Source Code on GitHub" openDelay={600}>
           <Button
             size="lg"
@@ -36,16 +48,6 @@ export default function ExtensionButtons({
             Source Code
           </Button>
         </Tooltip>
-      ) : (
-        <Button
-          size="lg"
-          variant="link"
-          colorScheme="brand"
-          as={Link}
-          href={extensionName}
-        >
-          Documentation
-        </Button>
       )}
     </HStack>
   );
