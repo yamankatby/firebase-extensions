@@ -16,5 +16,12 @@
       "group": "Generate OG Image",
       "pages": ["generate-og-image"]
     }
+  ],
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/yamankatby/firebase-extensions"
+    }
   ]
 }
