@@ -6,7 +6,9 @@
       "pages": [
         "firestore-relationships",
         "firestore-one-to-one",
+        "firestore-one-has-one",
         "firestore-one-to-many",
+        "firestore-one-has-many",
         "firestore-many-to-many"
       ]
     },
