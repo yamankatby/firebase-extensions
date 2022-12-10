@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "serve": "firebase emulators:start",
-    "test": "firebase emulators:exec --project=hey-extensions jest"
+    "test": "firebase emulators:exec --project=hey-extensions jest",
+    "test:watch": "jest --watch"
   },
   "workspaces": [
     "packages/*/functions"
