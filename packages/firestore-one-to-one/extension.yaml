@@ -108,7 +108,7 @@ params:
     example: capitals
     required: true
 
-  - param: COLLECTION_A_REFERENCE_FIELD
+  - param: COLLECTION_A_REF_FIELD
     label: Collection A reference field
     description: >-
       The name of the field in Collection A that will contain a reference to Collection B.
@@ -116,7 +116,7 @@ params:
     example: capitalId
     required: true
 
-  - param: COLLECTION_B_REFERENCE_FIELD
+  - param: COLLECTION_B_REF_FIELD
     label: Collection B reference field
     description: >-
       The name of the field in Collection B that will contain a reference to Collection A.

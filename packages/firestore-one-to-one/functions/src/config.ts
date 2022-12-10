@@ -8,8 +8,8 @@ export enum DeletionBehavior {
 interface Config {
   collectionAPath: string;
   collectionBPath: string;
-  collectionAReferenceField: string;
-  collectionBReferenceField: string;
+  collectionARefField: string;
+  collectionBRefField: string;
   collectionADataField: string;
   collectionBDataField: string;
   fieldsToCopyFromAToB?: string[];
@@ -21,8 +21,8 @@ interface Config {
 const config: Config = {
   collectionAPath: process.env.COLLECTION_A_PATH!,
   collectionBPath: process.env.COLLECTION_B_PATH!,
-  collectionAReferenceField: process.env.COLLECTION_A_REFERENCE_FIELD!,
-  collectionBReferenceField: process.env.COLLECTION_B_REFERENCE_FIELD!,
+  collectionARefField: process.env.COLLECTION_A_REF_FIELD!,
+  collectionBRefField: process.env.COLLECTION_B_REF_FIELD!,
   collectionADataField: process.env.COLLECTION_A_DATA_FIELD!,
   collectionBDataField: process.env.COLLECTION_B_DATA_FIELD!,
   fieldsToCopyFromAToB: process.env.FIELDS_TO_COPY_FROM_A_TO_B?.split(","),
@@ -35,7 +35,7 @@ const config: Config = {
 
 export interface CollectionConfig {
   collectionPath: string;
-  referenceField: string;
+  refField: string;
   dataField: string;
   fieldsToCopy?: string[];
   deletionBehavior: DeletionBehavior;
@@ -43,7 +43,7 @@ export interface CollectionConfig {
 
 export const collectionAConfig: CollectionConfig = {
   collectionPath: config.collectionAPath,
-  referenceField: config.collectionAReferenceField,
+  refField: config.collectionARefField,
   dataField: config.collectionADataField,
   fieldsToCopy: config.fieldsToCopyFromAToB,
   deletionBehavior: config.collectionADeletionBehavior,
@@ -51,7 +51,7 @@ export const collectionAConfig: CollectionConfig = {
 
 export const collectionBConfig: CollectionConfig = {
   collectionPath: config.collectionBPath,
-  referenceField: config.collectionBReferenceField,
+  refField: config.collectionBRefField,
   dataField: config.collectionBDataField,
   fieldsToCopy: config.fieldsToCopyFromBToA,
   deletionBehavior: config.collectionBDeletionBehavior,
