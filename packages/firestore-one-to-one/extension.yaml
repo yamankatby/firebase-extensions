@@ -13,6 +13,33 @@ sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/packages/
 
 billingRequired: false
 
+roles:
+  - role: datastore.user
+    reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.
+
+resources:
+  - name: onCollectionAWrite
+    type: firebaseextensions.v1beta.function
+    description: >-
+      TODO
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:COLLECTION_A_PATH}/{documentId}
+
+  - name: onCollectionBWrite
+    type: firebaseextensions.v1beta.function
+    description: >-
+      TODO
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:COLLECTION_B_PATH}/{documentId}
+
 params:
   - param: LOCATION
     label: Cloud Functions location
@@ -97,37 +124,10 @@ params:
     example: countryId
     required: true
 
-  - param: COLLECTION_A_DATA_STRUCTURE
-    label: Collection A data structure
-    description: >-
-      How the data of Collection B will be stored in Collection A?
-    type: select
-    options:
-      - label: In a map field
-        value: map
-      - label: By prefixing the field names
-        value: prefix
-    default: map
-    required: true
-
-  - param: COLLECTION_B_DATA_STRUCTURE
-    label: Collection B data structure
-    description: >-
-      How the data of Collection A will be stored in Collection B?
-    type: select
-    options:
-      - label: In a map field
-        value: map
-      - label: By prefixing the field names
-        value: prefix
-    default: map
-    required: true
-
   - param: COLLECTION_A_DATA_FIELD
     label: Collection A data field
     description: >-
-      If you chose to store the data of Collection B in a map field, the name of the field.
-      If you chose to store the data of Collection B by prefixing its field names, the prefix.
+      The name of the field in Collection A that will contain the data that will be copied from Collection B.
     type: string
     example: capital
     required: true
@@ -135,14 +135,13 @@ params:
   - param: COLLECTION_B_DATA_FIELD
     label: Collection B data field
     description: >-
-      If you chose to store the data of Collection A in a map field, the name of the field.
-      If you chose to store the data of Collection A by prefixing its field names, the prefix.
+      The name of the field in Collection B that will contain the data that will be copied from Collection A.
     type: string
     example: country
     required: true
 
   - param: FIELDS_TO_COPY_FROM_A_TO_B
-    label: Fields to copy from Collection A to Collection B
+    label: Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields
     description: >-
       The names of the fields in Collection A that will be copied to Collection B.
     type: array
@@ -150,15 +149,15 @@ params:
     required: false
 
   - param: FIELDS_TO_COPY_FROM_B_TO_A
-    label: Fields to copy from Collection B to Collection A
+    label: Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields
     description: >-
       The names of the fields in Collection B that will be copied to Collection A.
     type: array
     example: name,population
     required: false
 
-  - param: COLLECTION_A_DELETE_BEHAVIOR
-    label: Collection A delete behavior
+  - param: COLLECTION_A_DELETION_BEHAVIOR
+    label: Collection A deletion behavior
     description: >-
       What should happen when a document in Collection A is deleted?
     type: select
@@ -174,8 +173,8 @@ params:
     default: deleteDoc
     required: true
 
-  - param: COLLECTION_B_DELETE_BEHAVIOR
-    label: Collection B delete behavior
+  - param: COLLECTION_B_DELETION_BEHAVIOR
+    label: Collection B deletion behavior
     description: >-
       What should happen when a document in Collection B is deleted?
     type: select
