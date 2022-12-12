@@ -3,3 +3,38 @@ title: Unidirectional One-to-One
 ---
 
 The **Connect Firestore Document** (`yaman/firestore-connect-document`) extension allows you to implement a unidirectional one-to-one relationship pattern in your Firestore database.
+
+## Configuration Parameters
+
+### Location
+
+Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+### Source Collection Path
+
+The path to the collection that contains the documents you want to copy data from.
+
+### Target Collection Path
+
+The path to the collection that contains the documents you want to write data to.
+
+### Ref Field Name
+
+The name of the field in the target collection that contains the reference to the source document.
+
+### Data Field Name
+
+The name of the field in the target collection that will contain the data that will be copied from the source document.
+
+### Fields to Copy
+
+The names of the fields in the source document that you want to copy to the target document.
+
+### Source Document Deletion Behavior
+
+What should happen to the target document when the source document is deleted?
+
+- Delete the target document
+- Delete the data field in the target document
+- Set the data field in the target document to null
+- **Ignore** Do nothing
