@@ -23,8 +23,7 @@ const theme = extendTheme({
   },
 });
 
-export const githubUrl =
-  "https://github.com/yamankatby/firestore-connect-document";
+export const githubUrl = "https://github.com/yamankatby/firebase-extensions";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

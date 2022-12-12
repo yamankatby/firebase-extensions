@@ -262,7 +262,7 @@ export default function Example() {
           </PopoverContent>
         </Popover>
       </VStack>
-      <img src={url} alt="Generated image" />
+      <img src={url} alt="Generated image" className="max-w-[580px]" />
     </div>
   );
 }
