@@ -6,9 +6,9 @@
 
 
 
-**Details**: Use this extension to send a friendly greeting.
+**Details**: Use this extension to implement a one-to-one relationship pattern between two collections in Cloud Firestore.
 
-When triggered by an HTTP request, this extension responds with your specified friendly greeting.
+This pattern is useful for modeling relationships between two entities, such as a user and their profile.
 
 # Billing
 
@@ -50,7 +50,6 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 **Cloud Functions:**
 
 * **onCollectionAWrite:** A function that is triggered when a document is created, updated, or deleted in the collection A.
-
 
 * **onCollectionBWrite:** A function that is triggered when a document is created, updated, or deleted in the collection B.
 

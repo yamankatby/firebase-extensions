@@ -1,6 +1,6 @@
-Use this extension to send a friendly greeting.
+Use this extension to implement a one-to-one relationship pattern between two collections in Cloud Firestore.
 
-When triggered by an HTTP request, this extension responds with your specified friendly greeting.
+This pattern is useful for modeling relationships between two entities, such as a user and their profile.
 
 # Billing
 
