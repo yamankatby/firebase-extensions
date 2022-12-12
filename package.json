@@ -4,7 +4,8 @@
   "scripts": {
     "serve": "firebase emulators:start",
     "test": "firebase emulators:exec --project=hey-extensions jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate-readmes": "npx lerna run generate-readme"
   },
   "workspaces": [
     "packages/*/functions"

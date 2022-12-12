@@ -3,7 +3,8 @@
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "generate-readme": "firebase ext:info .. --markdown > ../README.md"
   },
   "main": "lib/index.js",
   "dependencies": {
