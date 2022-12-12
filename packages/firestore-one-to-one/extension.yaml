@@ -1,0 +1,195 @@
+name: firestore-one-to-one
+version: 0.0.1
+specVersion: v1beta
+
+displayName: Firestore One-To-One
+
+description: >-
+  Implements a one-to-one relationship pattern between two collections in Cloud Firestore.
+
+license: Apache-2.0
+
+author:
+  authorName: Yaman Katby
+  url: https://github.com/yamankatby
+
+sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/packages/firestore-one-to-one
+
+billingRequired: false
+
+roles:
+  - role: datastore.user
+    reason: Allows this extension to access Cloud Firestore to read/write documents in the A and B collections.
+
+resources:
+  - name: onCollectionAWrite
+    type: firebaseextensions.v1beta.function
+    description: >-
+      A function that is triggered when a document is created, updated, or deleted in the collection A.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:COLLECTION_A_PATH}/{documentId}
+
+  - name: onCollectionBWrite
+    type: firebaseextensions.v1beta.function
+    description: >-
+      A function that is triggered when a document is created, updated, or deleted in the collection B.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs14
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:COLLECTION_B_PATH}/{documentId}
+
+params:
+  - param: LOCATION
+    label: Cloud Functions location
+    description: >-
+      Where do you want to deploy the functions created for this extension?
+      For help selecting a location, refer to the [location selection
+      guide](https://firebase.google.com/docs/functions/locations).
+    type: select
+    options:
+      - label: Iowa (us-central1)
+        value: us-central1
+      - label: South Carolina (us-east1)
+        value: us-east1
+      - label: Northern Virginia (us-east4)
+        value: us-east4
+      - label: Los Angeles (us-west2)
+        value: us-west2
+      - label: Salt Lake City (us-west3)
+        value: us-west3
+      - label: Las Vegas (us-west4)
+        value: us-west4
+      - label: Warsaw (europe-central2)
+        value: europe-central2
+      - label: Belgium (europe-west1)
+        value: europe-west1
+      - label: London (europe-west2)
+        value: europe-west2
+      - label: Frankfurt (europe-west3)
+        value: europe-west3
+      - label: Zurich (europe-west6)
+        value: europe-west6
+      - label: Hong Kong (asia-east2)
+        value: asia-east2
+      - label: Tokyo (asia-northeast1)
+        value: asia-northeast1
+      - label: Osaka (asia-northeast2)
+        value: asia-northeast2
+      - label: Seoul (asia-northeast3)
+        value: asia-northeast3
+      - label: Mumbai (asia-south1)
+        value: asia-south1
+      - label: Jakarta (asia-southeast2)
+        value: asia-southeast2
+      - label: Montreal (northamerica-northeast1)
+        value: northamerica-northeast1
+      - label: Sao Paulo (southamerica-east1)
+        value: southamerica-east1
+      - label: Sydney (australia-southeast1)
+        value: australia-southeast1
+    required: true
+    immutable: true
+
+  - param: COLLECTION_A_PATH
+    label: Collection A path
+    description: >-
+      The path of the first collection in the one-to-one relationship.
+    type: string
+    example: countries
+    required: true
+
+  - param: COLLECTION_B_PATH
+    label: Collection B path
+    description: >-
+      The path of the second collection in the one-to-one relationship.
+    type: string
+    example: capitals
+    required: true
+
+  - param: COLLECTION_A_REF_FIELD
+    label: Collection A reference field
+    description: >-
+      The name of the field in Collection A that will contain a reference to Collection B.
+    type: string
+    example: capitalId
+    required: true
+
+  - param: COLLECTION_B_REF_FIELD
+    label: Collection B reference field
+    description: >-
+      The name of the field in Collection B that will contain a reference to Collection A.
+    type: string
+    example: countryId
+    required: true
+
+  - param: COLLECTION_A_DATA_FIELD
+    label: Collection A data field
+    description: >-
+      The name of the field in Collection A that will contain the data that will be copied from Collection B.
+    type: string
+    example: capital
+    required: true
+
+  - param: COLLECTION_B_DATA_FIELD
+    label: Collection B data field
+    description: >-
+      The name of the field in Collection B that will contain the data that will be copied from Collection A.
+    type: string
+    example: country
+    required: true
+
+  - param: FIELDS_TO_COPY_FROM_A_TO_B
+    label: Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields
+    description: >-
+      The names of the fields in Collection A that will be copied to Collection B.
+    type: array
+    example: name,flag
+    required: false
+
+  - param: FIELDS_TO_COPY_FROM_B_TO_A
+    label: Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields
+    description: >-
+      The names of the fields in Collection B that will be copied to Collection A.
+    type: array
+    example: name,area
+    required: false
+
+  - param: COLLECTION_A_DELETION_BEHAVIOR
+    label: Collection A deletion behavior
+    description: >-
+      What should happen when a document in Collection A is deleted?
+    type: select
+    options:
+      - label: Delete the corresponding document in Collection B
+        value: deleteDoc
+      - label: Delete the data field in the corresponding document in Collection B
+        value: deleteField
+      - label: Set the data field in the corresponding document in Collection B to null
+        value: setNull
+      - label: Do nothing
+        value: ignore
+    default: deleteDoc
+    required: true
+
+  - param: COLLECTION_B_DELETION_BEHAVIOR
+    label: Collection B deletion behavior
+    description: >-
+      What should happen when a document in Collection B is deleted?
+    type: select
+    options:
+      - label: Delete the corresponding document in Collection A
+        value: deleteDoc
+      - label: Delete the data field in the corresponding document in Collection A
+        value: deleteField
+      - label: Set the data field in the corresponding document in Collection A to null
+        value: setNull
+      - label: Do nothing
+        value: ignore
+    default: deleteDoc
+    required: true

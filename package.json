@@ -2,12 +2,18 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "serve": "firebase emulators:start"
+    "serve": "firebase emulators:start",
+    "test": "firebase emulators:exec --project=hey-extensions jest",
+    "test:watch": "jest --watch",
+    "generate-readmes": "npx lerna run generate-readme"
   },
   "workspaces": [
     "packages/*/functions"
   ],
   "devDependencies": {
-    "lerna": "^6.0.3"
+    "@types/jest": "^29.2.4",
+    "jest": "^29.3.1",
+    "lerna": "^6.0.3",
+    "ts-jest": "^29.0.3"
   }
 }
