@@ -4,7 +4,7 @@ You can test out this extension right away!
 
 1. Go to your [Cloud Firestore dashboard](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data) in the Firebase console.
 2. If it doesn't exist already, create a collection called [`${param:SOURCE_COLLECTION_PATH}`](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data/~2F${param:SOURCE_COLLECTION_PATH}).
-3. Create a new document with the following fields `${param:SOURCE_FIELDS}` and any values you like.
+3. Create a new document with the following fields `${param:SOURCE_FIELDS}` and any other values you like.
 4. Copy the document ID of the document you just created.
 5. If it doesn't exist already, create another collection called [`${param:TARGET_COLLECTION_PATH}`](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data/~2F${param:TARGET_COLLECTION_PATH}).
 6. Create a new document with a field called `${param:SOURCE_DOCUMENT_ID_FIELD_NAME}` and a value of the document ID you copied in step 4.
