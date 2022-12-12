@@ -9,19 +9,23 @@ description: >-
 
 license: Apache-2.0
 
+author:
+  authorName: Yaman Katby
+  url: https://github.com/yamankatby
+
 sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/packages/firestore-one-to-one
 
 billingRequired: false
 
 roles:
   - role: datastore.user
-    reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.
+    reason: Allows this extension to access Cloud Firestore to read/write documents in the A and B collections.
 
 resources:
   - name: onCollectionAWrite
     type: firebaseextensions.v1beta.function
     description: >-
-      TODO
+      A function that is triggered when a document is created, updated, or deleted in the collection A.
     properties:
       location: ${param:LOCATION}
       runtime: nodejs14
@@ -32,7 +36,7 @@ resources:
   - name: onCollectionBWrite
     type: firebaseextensions.v1beta.function
     description: >-
-      TODO
+      A function that is triggered when a document is created, updated, or deleted in the collection B.
     properties:
       location: ${param:LOCATION}
       runtime: nodejs14

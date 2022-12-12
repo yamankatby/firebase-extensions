@@ -1,6 +1,6 @@
 # Firestore One-To-One
 
-**Author**: undefined 
+**Author**: Yaman Katby (**[https://github.com/yamankatby](https://github.com/yamankatby)**)
 
 **Description**: Implements a one-to-one relationship pattern between two collections in Cloud Firestore.
 
@@ -49,9 +49,10 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 
 **Cloud Functions:**
 
-* **onCollectionAWrite:** TODO
+* **onCollectionAWrite:** A function that is triggered when a document is created, updated, or deleted in the collection A.
 
-* **onCollectionBWrite:** TODO
+
+* **onCollectionBWrite:** A function that is triggered when a document is created, updated, or deleted in the collection B.
 
 
 
@@ -61,4 +62,4 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 
 This extension will operate with the following project IAM roles:
 
-* datastore.user (Reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.)
+* datastore.user (Reason: Allows this extension to access Cloud Firestore to read/write documents in the A and B collections.)
