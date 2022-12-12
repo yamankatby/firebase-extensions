@@ -148,7 +148,7 @@ params:
     label: Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields
     description: >-
       The names of the fields in Collection A that will be copied to Collection B.
-    type: array
+    type: string
     example: name,flag
     required: false
 
@@ -156,7 +156,7 @@ params:
     label: Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields
     description: >-
       The names of the fields in Collection B that will be copied to Collection A.
-    type: array
+    type: string
     example: name,area
     required: false
 
