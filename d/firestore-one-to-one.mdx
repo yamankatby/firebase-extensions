@@ -1,5 +1,65 @@
 ---
-title: One-to-one
+title: One-to-One
 ---
 
 The **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension allows you to implement a one-to-one relationship pattern in your Firestore database.
+
+## Configuration Parameters
+
+### Location
+
+Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+### Collection A path
+
+The path of the first collection in the relationship.
+
+### Collection B path
+
+The path of the second collection in the relationship.
+
+### Collection A ref field
+
+The name of the field in the collection A documents that contains the reference to the collection B document.
+
+### Collection B ref field
+
+The name of the field in the collection B documents that contains the reference to the collection A document.
+
+### Collection A data field
+
+The name of the field in the collection A documents that will contain the data that will be copied from the collection B document.
+
+### Collection B data field
+
+The name of the field in the collection B documents that will contain the data that will be copied from the collection A document.
+
+### Fields to copy from A to B
+
+The names of the fields in the collection A documents that will be copied to the collection B documents.
+
+A comma-separated list of field names. If you want to copy all fields, leave this field empty.
+
+### Fields to copy from B to A
+
+The names of the fields in the collection B documents that will be copied to the collection A documents.
+
+A comma-separated list of field names. If you want to copy all fields, leave this field empty.
+
+### Collection A deletion behavior
+
+What should happen when a document in collection A is deleted?
+
+- Delete the corresponding document in collection B
+- Delete the data field in the corresponding document in collection B
+- Set the data field in the corresponding document in collection B to null
+- **Ignore** Do nothing
+
+### Collection B deletion behavior
+
+What should happen when a document in collection B is deleted?
+
+- Delete the corresponding document in collection A
+- Delete the data field in the corresponding document in collection A
+- Set the data field in the corresponding document in collection A to null
+- **Ignore** Do nothing

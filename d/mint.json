@@ -6,10 +6,7 @@
       "pages": [
         "firestore-relationships",
         "firestore-one-to-one",
-        "firestore-connect-document",
-        "firestore-one-to-many",
-        "firestore-connect-collection",
-        "firestore-many-to-many"
+        "firestore-connect-document"
       ]
     },
     {
