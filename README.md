@@ -24,3 +24,5 @@ Generate dynamic and fully customizable Open Graph images for your website.
 ## [🔗 Firestore One-To-One](https://github.com/yamankatby/firebase-extensions/tree/main/packages/firestore-one-to-one)
 
 The **Firestore One-To-One** extension allows you to implement a one-to-one relationship pattern between two collections in Firestore right from the Firebase console.
+
+[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
