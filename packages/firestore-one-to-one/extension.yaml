@@ -145,7 +145,7 @@ params:
     description: >-
       The names of the fields in Collection A that will be copied to Collection B.
     type: array
-    example: name,population
+    example: name,flag
     required: false
 
   - param: FIELDS_TO_COPY_FROM_B_TO_A
@@ -153,7 +153,7 @@ params:
     description: >-
       The names of the fields in Collection B that will be copied to Collection A.
     type: array
-    example: name,population
+    example: name,area
     required: false
 
   - param: COLLECTION_A_DELETION_BEHAVIOR

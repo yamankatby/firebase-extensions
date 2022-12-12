@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "firestore-one-to-one",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
