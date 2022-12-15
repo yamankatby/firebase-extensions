@@ -6,35 +6,42 @@ The **Connect Firestore Document** (`yaman/firestore-connect-document`) extensio
 
 ## Configuration Parameters
 
-### Location
-
-Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
-
-### Source Collection Path
-
-The path to the collection that contains the documents you want to copy data from.
-
-### Target Collection Path
-
-The path to the collection that contains the documents you want to write data to.
-
-### Ref Field Name
-
-The name of the field in the target collection that contains the reference to the source document.
-
-### Data Field Name
-
-The name of the field in the target collection that will contain the data that will be copied from the source document.
-
-### Fields to Copy
-
-The names of the fields in the source document that you want to copy to the target document.
-
-### Source Document Deletion Behavior
-
-What should happen to the target document when the source document is deleted?
-
-- Delete the target document
-- Delete the data field in the target document
-- Set the data field in the target document to null
-- **Ignore** Do nothing
+<AccordionGroup>
+  <Accordion title="Location">
+    Where do you want to deploy the functions created for this extension? For
+    help selecting a location, refer to the [location selection
+    guide](https://firebase.google.com/docs/functions/locations).
+  </Accordion>
+  <Accordion title="Source Collection Path">
+    The path to the collection that contains the documents you want to copy data
+    from.
+  </Accordion>
+  <Accordion title="Target Collection Path">
+    The path to the collection that contains the documents you want to write
+    data to.
+  </Accordion>
+  <Accordion title="Ref Field Name">
+    The name of the field in the target collection that contains the reference
+    to the source document.
+  </Accordion>
+  <Accordion title="Data Field Name">
+    The name of the field in the target collection that will contain the data
+    that will be copied from the source document.
+  </Accordion>
+  <Accordion title="Fields to Copy">
+    The names of the fields in the source document that you want to copy to the
+    target document.
+  </Accordion>
+  <Accordion title="Source Document Deletion Behavior">
+    What should happen to the target document when the source document is
+    deleted?
+    <ul>
+      <li>Delete the target document</li>
+      <li>Delete the data field in the target document</li>
+      <li>Set the data field in the target document to null</li>
+      <li>
+        <strong>Ignore</strong> Do nothing
+      </li>
+    </ul>
+  </Accordion>
+</AccordionGroup>
