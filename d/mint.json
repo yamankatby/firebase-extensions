@@ -5,8 +5,8 @@
       "group": "Firestore Relationships",
       "pages": [
         "firestore-relationships",
-        "firestore-one-to-one",
-        "firestore-connect-document"
+        "firestore-connect-document",
+        "firestore-one-to-one"
       ]
     },
     {

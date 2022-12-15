@@ -1,5 +1,5 @@
 ---
-title: One-to-One
+title: Firestore One-to-One
 ---
 
 The **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension allows you to implement a one-to-one relationship pattern in your Firestore database.
@@ -12,39 +12,39 @@ The **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension allows you
     help selecting a location, refer to the [location selection
     guide](https://firebase.google.com/docs/functions/locations).
   </Accordion>
-  <Accordion title="Collection A path">
+  <Accordion title="Collection-A Path">
     The path of the first collection in the relationship.
   </Accordion>
-  <Accordion title="Collection B path">
+  <Accordion title="Collection-B Path">
     The path of the second collection in the relationship.
   </Accordion>
-  <Accordion title="Collection A ref field">
+  <Accordion title="Collection-A Ref Field Name">
     The name of the field in the collection A documents that contains the
     reference to the collection B document.
   </Accordion>
-  <Accordion title="Collection B ref field">
+  <Accordion title="Collection-B Ref Field Name">
     The name of the field in the collection B documents that contains the
     reference to the collection A document.
   </Accordion>
-  <Accordion title="Collection A data field">
+  <Accordion title="Collection-A Data Field Name">
     The name of the field in the collection A documents that will contain the
     data that will be copied from the collection B document.
   </Accordion>
-  <Accordion title="Collection B data field">
+  <Accordion title="Collection-B Data Field Name">
     The name of the field in the collection B documents that will contain the
     data that will be copied from the collection A document.
   </Accordion>
-  <Accordion title="Fields to copy from A to B">
+  <Accordion title="Fields to Copy from A to B">
     The names of the fields in the collection A documents that will be copied to
     the collection B documents. A comma-separated list of field names. If you
     want to copy all fields, leave this field empty.
   </Accordion>
-  <Accordion title="Fields to copy from B to A">
+  <Accordion title="Fields to Copy from B to A">
     The names of the fields in the collection B documents that will be copied to
     the collection A documents. A comma-separated list of field names. If you
     want to copy all fields, leave this field empty.
   </Accordion>
-  <Accordion title="Collection A deletion behavior">
+  <Accordion title="Collection-A Deletion Behavior">
     What should happen when a document in collection A is deleted?
     <ul>
       <li>Delete the corresponding document in collection B</li>
@@ -59,7 +59,7 @@ The **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension allows you
       </li>
     </ul>
   </Accordion>
-  <Accordion title="Collection B deletion behavior">
+  <Accordion title="Collection-B Deletion Behavior">
     What should happen when a document in collection B is deleted?
     <ul>
       <li>Delete the corresponding document in collection A</li>
@@ -75,4 +75,3 @@ The **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension allows you
     </ul>
   </Accordion>
 </AccordionGroup>
-;
