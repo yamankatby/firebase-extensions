@@ -1,6 +1,6 @@
 # Firebase Extensions
 
-> **Note** The extensions in this repository are still in beta, if you have any feedback please [file an issue](). Also if you find any of these extensions useful, please consider giving us a star🌟
+> **Note** The extensions in this repository are still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 

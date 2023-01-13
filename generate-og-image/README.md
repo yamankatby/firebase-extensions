@@ -1,6 +1,6 @@
 # Generate Open Graph Images
 
-> **Note** This extension is still in beta. If you have any feedback, please [file an issue](). Also, if you find this extension useful, please consider giving it a star 🌟
+> **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
