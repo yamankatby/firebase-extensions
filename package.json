@@ -8,6 +8,6 @@
     "./*/functions"
   ],
   "devDependencies": {
-    "lerna": "^6.0.3"
+    "lerna": "^6.4.1"
   }
 }
