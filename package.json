@@ -8,7 +8,7 @@
     "generate-readmes": "npx lerna run generate-readme"
   },
   "workspaces": [
-    "packages/*/functions"
+    "./*/functions"
   ],
   "devDependencies": {
     "@types/jest": "^29.2.4",
