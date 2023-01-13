@@ -1,6 +1,9 @@
+import cors from "cors";
+import express from "express";
 import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
 import handlebars, { TemplateDelegate } from "handlebars";
+import helmet from "helmet";
 import { marked } from "marked";
 import core from "puppeteer-core";
 import config, { parseConfig } from "./config";
@@ -18,7 +21,18 @@ if (config.template && !isValidHttpUrl(config.template)) {
   compiledTemplate = handlebars.compile(config.template);
 }
 
-export const api = functions.handler.https.onRequest(async (req, res) => {
+const app = express();
+
+app.use(helmet());
+
+app.use(
+  cors({
+    methods: ["GET"],
+    origin: config.corsOrigin,
+  })
+);
+
+app.get("/", async (req, res) => {
   let templateDocumentData: firebase.firestore.DocumentData | undefined;
 
   // If the template is a URL, refetch it on every request, so changes to the template are reflected immediately
@@ -105,3 +119,9 @@ export const api = functions.handler.https.onRequest(async (req, res) => {
   res.set("Cache-Control", cacheControl);
   res.send(buffer);
 });
+
+app.use("*", function notFoundHandler(_, res) {
+  res.status(404).send("Not Found");
+});
+
+export const api = functions.https.onRequest(app);

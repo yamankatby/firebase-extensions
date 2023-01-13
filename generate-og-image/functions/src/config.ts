@@ -10,6 +10,7 @@ interface Config {
   height: number;
   format: "jpeg" | "webp" | "png";
   cacheControl: string;
+  corsOrigin: string;
 }
 
 const config: Config = {
@@ -21,6 +22,7 @@ const config: Config = {
   height: parseInt(process.env.HEIGHT!, 10),
   format: process.env.FORMAT as "jpeg" | "webp" | "png",
   cacheControl: process.env.CACHE_CONTROL!,
+  corsOrigin: process.env.CORS_ORIGIN!,
 };
 
 export const parseConfig = (
@@ -58,6 +60,7 @@ export const parseConfig = (
     height: Number(qHeight) || docHeight || config.height,
     format: qFormat || docFormat || config.format,
     cacheControl: qCacheControl || docCacheControl || config.cacheControl,
+    corsOrigin: config.corsOrigin,
     params: { ...docParams, ...qParams, template: undefined },
   };
 };

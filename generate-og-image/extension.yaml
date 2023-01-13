@@ -1,11 +1,11 @@
 name: generate-og-image
-version: 0.0.1
+version: 0.0.2
 specVersion: v1beta
 
-displayName: Generate Open Graph Images
+displayName: Dynamic OG Image Generator
 
 description: >-
-  Generate dynamic and fully customizable Open Graph images for your website.
+  Generates dynamic and fully customizable Open Graph images.
 
 license: Apache-2.0
 
@@ -25,7 +25,7 @@ resources:
   - name: api
     type: firebaseextensions.v1beta.function
     description: >-
-      HTTP request-triggered function that responds with an Open Graph image.
+      HTTP request-triggered function that responds with the generated OG image.
     properties:
       location: ${param:LOCATION}
       httpsTrigger: {}
@@ -173,6 +173,18 @@ params:
     type: string
     example: max-age=3600
     default: public, immutable, no-transform, max-age=31536000
+    required: true
+
+  - param: CORS_ORIGIN
+    label: Allowed CORS origins.
+    description: >
+      A comma delimited value of allowed CORS origins. Use the default of '*'
+      to allow all origins. This is useful to lockdown your API and only allow
+      your own website to embed the images directly. Note this will not
+      prevent non-browser requests from accessing your API.
+    type: string
+    example: "extensions.dev,example.com"
+    default: "*"
     required: true
 
   - param: MEMORY
