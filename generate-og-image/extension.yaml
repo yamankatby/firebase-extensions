@@ -175,6 +175,18 @@ params:
     default: public, immutable, no-transform, max-age=31536000
     required: true
 
+  - param: CORS_ORIGIN
+    label: Allowed CORS origins.
+    description: >
+      A comma delimited value of allowed CORS origins. Use the default of '*'
+      to allow all origins. This is useful to lockdown your API and only allow
+      your own website to embed the images directly. Note this will not
+      prevent non-browser requests from accessing your API.
+    type: string
+    example: "extensions.dev,example.com"
+    default: "*"
+    required: true
+
   - param: MEMORY
     label: Cloud Function memory
     description: >-
