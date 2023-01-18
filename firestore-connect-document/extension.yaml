@@ -99,7 +99,7 @@ params:
   - param: SOURCE_COLLECTION_PATH
     label: Source Collection Path
     description: >-
-      The path to the collection that contains the documents you want to grab fields from.
+      The path to the collection that contains the documents you want to **copy data from**.
     type: string
     example: users
     validationRegex: "^[^/]+(/[^/]+/[^/]+)*$"
@@ -109,7 +109,7 @@ params:
   - param: TARGET_COLLECTION_PATH
     label: Target Collection Path
     description: >-
-      The path to the collection that contains the documents you want to write the fields to.
+      The path to the collection that contains the documents you want to **copy data to**.
     type: string
     example: reviews
     validationRegex: "^[^/]+(/[^/]+/[^/]+)*$"
@@ -117,42 +117,42 @@ params:
     required: true
 
   - param: SOURCE_DOCUMENT_ID_FIELD_NAME
-    label: Source Document ID Field Name
+    label: Ref Field Name
     description: >-
-      The name of the field in the target document that contains the ID of the source document.
+      The name of the field in the _target document_ that contains the reference to the _source document_.
     type: string
     example: userId
     required: true
 
-  - param: SOURCE_FIELDS
-    label: Source Fields
-    description: >-
-      The fields you want to grab from the source document and write to the target document (comma separated).
-      Leave empty to grab all fields.
-    type: string
-    example: name,email
-
   - param: TARGET_FIELD_NAME
-    label: Target Field Name
+    label: Data Field Name
     description: >-
-      The name of the field in the target document to which the extension will write the fields grabbed from the source document.
+      The name of the field in the _target document_ that will contain the data that will be copied from the _source document_.
     type: string
     example: user
     required: true
 
-  - param: SOURCE_DOCUMENT_DELETE_BEHAVIOR
-    label: Source Document Delete Behavior
+  - param: SOURCE_FIELDS
+    label: Fields to Copy
     description: >-
-      What should happen to the target document when the source document is deleted?
+      The names of the fields in the _source document_ that you want to copy to the _target document_ (comma-separated, e.g. name,email).
+      Leave this field empty to copy all fields.
+    type: string
+    example: name,email
+
+  - param: SOURCE_DOCUMENT_DELETE_BEHAVIOR
+    label: Source Document Deletion Behavior
+    description: >-
+      What should happen to the target documents when the source document is deleted?
     type: select
     options:
-      - label: Delete the target field
-        value: deleteTargetField
-      - label: Set the target field to null
-        value: setTargetFieldToNull
-      - label: Delete the entire target document
+      - label: Delete the target documents
         value: deleteTargetDocument
-      - label: Do nothing
+      - label: Delete the data field in the target documents
+        value: deleteTargetField
+      - label: Set the data field in the target documents to null
+        value: setTargetFieldToNull
+      - label: Ignore (do nothing)
         value: nothing
-    default: deleteTargetField
+    default: deleteTargetDocument
     required: true
