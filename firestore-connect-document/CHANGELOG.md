@@ -1,3 +1,8 @@
+## Version 0.0.4 (2023-18-01)
+
+- Enhance the extension listing description
+- Use more descriptive names for the extension parameters
+
 ## Version 0.0.3 (2022-11-11)
 
 ### Features
