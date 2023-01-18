@@ -5,7 +5,7 @@ specVersion: v1beta
 displayName: Connect Firestore Document
 
 description: >-
-  Grabs a set of fields from a document in Firestore and writes them in a map field to another document, and keeps them in sync.
+  Keeps denormalized copies of documents in sync between two collections.
 
 license: Apache-2.0
 
@@ -19,7 +19,7 @@ billingRequired: false
 
 roles:
   - role: datastore.user
-    reason: Allows this extension to access Cloud Firestore to read from the source document and write to the target document.
+    reason: Allows this extension to access Cloud Firestore to read/write the source and target documents.
 
 resources:
   - name: onSourceDocumentChange
