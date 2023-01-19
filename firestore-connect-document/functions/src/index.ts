@@ -31,10 +31,15 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // Get the source document ID
-    const sourceDocumentId = change.after.get(config.sourceDocumentIdFieldName) as string;
+    const sourceDocumentId = change.after.get(
+      config.sourceDocumentIdFieldName
+    ) as string;
 
     // If the source document ID is not set, do nothing
-    if (!change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
+    if (
+      !change.before.get(config.sourceDocumentIdFieldName) &&
+      !sourceDocumentId
+    ) {
       logger.log(
         `The target document "${config.targetCollectionPath}/${change.after.id}" has no source document ID, no processing is required.`
       );
@@ -42,7 +47,9 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // If the source document ID has not changed, do nothing
-    if (change.before.get(config.sourceDocumentIdFieldName) === sourceDocumentId) {
+    if (
+      change.before.get(config.sourceDocumentIdFieldName) === sourceDocumentId
+    ) {
       logger.log(
         `The source document ID of the target document "${config.targetCollectionPath}/${change.after.id}" has not changed, no processing is required.`
       );
@@ -50,7 +57,10 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // If the source document ID was removed, delete the target field
-    if (change.before.get(config.sourceDocumentIdFieldName) && !sourceDocumentId) {
+    if (
+      change.before.get(config.sourceDocumentIdFieldName) &&
+      !sourceDocumentId
+    ) {
       logger.log(
         `The source document ID of the target document "${config.targetCollectionPath}/${change.after.id}" has been removed, deleting the target document.`
       );
@@ -74,7 +84,9 @@ export const onTargetDocumentChange = functions.firestore
     }
 
     // Get the source document
-    const sourceDocument = await db.doc(`${config.sourceCollectionPath}/${sourceDocumentId}`).get();
+    const sourceDocument = await db
+      .doc(`${config.sourceCollectionPath}/${sourceDocumentId}`)
+      .get();
 
     // If the source document does not exist, do nothing
     if (!sourceDocument.exists) {
@@ -97,7 +109,10 @@ export const onTargetDocumentChange = functions.firestore
 
     // Update the target document
     try {
-      await change.after.ref.set({ [config.targetFieldName]: sourceDocumentData }, { merge: true });
+      await change.after.ref.set(
+        { [config.targetFieldName]: sourceDocumentData },
+        { merge: true }
+      );
       logger.log(
         `The target document "${config.targetCollectionPath}/${change.after.id}" has been updated successfully.`
       );
@@ -115,7 +130,10 @@ export const onSourceDocumentChange = functions.firestore
   .document(`${config.sourceCollectionPath}/{documentId}`)
   .onWrite(async (change) => {
     // If the document was deleted and the source document delete behavior is "nothing", do nothing
-    if (!change.after.exists && config.sourceDocumentDeleteBehavior === "nothing") {
+    if (
+      !change.after.exists &&
+      config.sourceDocumentDeleteBehavior === "nothing"
+    ) {
       logger.log(
         `The source document "${config.sourceCollectionPath}/${change.before.id}" has been deleted, no processing is required.`
       );
@@ -150,7 +168,10 @@ export const onSourceDocumentChange = functions.firestore
           targetDocuments.forEach((targetDocument) => {
             batch.set(
               targetDocument.ref,
-              { [config.targetFieldName]: firebase.firestore.FieldValue.delete() },
+              {
+                [config.targetFieldName]:
+                  firebase.firestore.FieldValue.delete(),
+              },
               { merge: true }
             );
           });
@@ -180,7 +201,11 @@ export const onSourceDocumentChange = functions.firestore
           const batch = db.batch();
 
           targetDocuments.forEach((targetDocument) => {
-            batch.set(targetDocument.ref, { [config.targetFieldName]: null }, { merge: true });
+            batch.set(
+              targetDocument.ref,
+              { [config.targetFieldName]: null },
+              { merge: true }
+            );
           });
 
           await batch.commit();
@@ -243,7 +268,11 @@ export const onSourceDocumentChange = functions.firestore
       const batch = db.batch();
 
       targetDocuments.forEach((targetDocument) => {
-        batch.set(targetDocument.ref, { [config.targetFieldName]: documentData }, { merge: true });
+        batch.set(
+          targetDocument.ref,
+          { [config.targetFieldName]: documentData },
+          { merge: true }
+        );
       });
 
       await batch.commit();
