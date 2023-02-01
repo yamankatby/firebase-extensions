@@ -14,13 +14,13 @@ function Extension({
   return (
     <div className="w-96 p-6 flex gap-6 flex-col justify-between">
       <div>
-        <h1 className="text-xl font-bold text-[#30255D]">{title}</h1>
-        <p className="mt-2 opacity-80 text-[#7B7595]">{description}</p>
+        <h1 className="text-xl font-bold title">{title}</h1>
+        <p className="mt-2 subtitle">{description}</p>
       </div>
       <a
         href={`https://console.firebase.google.com/project/_/extensions/install?ref=yaman/${name}`}
         target="_blank"
-        className="text-[#30255D] font-medium underline"
+        className="title font-medium underline"
       >
         Install on Firebase
       </a>

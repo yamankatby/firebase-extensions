@@ -2,8 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-red: url("/red.png");
+  --title-red: rgba(32, 33, 62, 0.92);
+  --subtitle-red: rgba(76, 78, 96, 0.72);
+
+  --bg-orange: url("/orange.png");
+  --title-orange: rgba(67, 30, 56, 0.96);
+  --subtitle-orange: rgba(124, 88, 109, 0.8);
+
+  --bg-green: url("/green.png");
+  --title-green: rgba(33, 68, 62, 0.98);
+  --subtitle-green: rgba(110, 127, 124, 0.8);
+
+  --bg-blue: url("/blue.png");
+  --title-blue: rgba(36, 59, 86, 0.98);
+  --subtitle-blue: rgba(109, 133, 155, 0.8);
+
+  --bg-purple: url("/purple.png");
+  --title-purple: rgba(48, 37, 93, 0.98);
+  --subtitle-purple: rgba(123, 117, 149, 0.8);
+}
+
 body {
-  background-image: url("/bg.png");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+body.red {
+  background-image: var(--bg-red);
+}
+
+body.red .title {
+  color: var(--title-red);
+}
+
+body.red .subtitle {
+  color: var(--subtitle-red);
+}
+
+body.orange {
+  background-image: var(--bg-orange);
+}
+
+body.orange .title {
+  color: var(--title-orange);
+}
+
+body.orange .subtitle {
+  color: var(--subtitle-orange);
+}
+
+body.green {
+  background-image: var(--bg-green);
+}
+
+body.green .title {
+  color: var(--title-green);
+}
+
+body.green .subtitle {
+  color: var(--subtitle-green);
+}
+
+body.blue {
+  background-image: var(--bg-blue);
+}
+
+body.blue .title {
+  color: var(--title-blue);
+}
+
+body.blue .subtitle {
+  color: var(--subtitle-blue);
+}
+
+body.purple {
+  background-image: var(--bg-purple);
+}
+
+body.purple .title {
+  color: var(--title-purple);
+}
+
+body.purple .subtitle {
+  color: var(--subtitle-purple);
 }

@@ -5,6 +5,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const color = ["red", "orange", "green", "blue", "purple"][
+    Math.floor(Math.random() * 5)
+  ];
+
   return (
     <html lang="en">
       {/*
@@ -12,7 +16,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body className={`${color}`}>{children}</body>
     </html>
   );
 }
