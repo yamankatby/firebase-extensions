@@ -84,18 +84,6 @@ params:
     required: true
     immutable: true
 
-  - param: TEMPLATE
-    label: Template
-    description: >-
-      The [handlebars](https://handlebarsjs.com/) template to use for generating
-      the image. The template must be either a raw HTML string or a URL to a
-      public HTML file.
-
-      If you want to store the templates in a Cloud Firestore collection, leave
-      this field empty and set the `TEMPLATES_COLLECTION` parameter instead.
-    type: string
-    example: <h1>{{title}}</h1>
-
   - param: TEMPLATES_COLLECTION
     label: Templates collection
     description: >-
@@ -103,11 +91,9 @@ params:
       use for generating the images. The collection must have a document for each
       template, where the document ID is the template name and the document
       contains a `template` field with the template string.
-
-      If you want to use a static template, leave this field empty and set the
-      `TEMPLATE` parameter instead.
     type: string
-    example: templates
+    default: templates
+    required: true
 
   - param: MARKDOWN_PARAMS
     label: Markdown params
