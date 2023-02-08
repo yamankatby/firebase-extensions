@@ -2,8 +2,7 @@ import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
 
 interface Config {
-  template?: string;
-  templatesCollection?: string;
+  templatesCollection: string;
   markdownParams?: string[];
   emoji: "system" | "twemoji";
   width: number;
@@ -14,8 +13,7 @@ interface Config {
 }
 
 const config: Config = {
-  template: process.env.TEMPLATE,
-  templatesCollection: process.env.TEMPLATES_COLLECTION,
+  templatesCollection: process.env.TEMPLATES_COLLECTION!!,
   markdownParams: process.env.MARKDOWN_PARAMS?.split(","),
   emoji: process.env.EMOJI as "system" | "twemoji",
   width: parseInt(process.env.WIDTH!, 10),

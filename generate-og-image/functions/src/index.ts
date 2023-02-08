@@ -2,24 +2,17 @@ import cors from "cors";
 import express from "express";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import handlebars, { TemplateDelegate } from "handlebars";
+import handlebars from "handlebars";
 import helmet from "helmet";
 import { marked } from "marked";
 import core from "puppeteer-core";
 import config, { parseConfig } from "./config";
 import getOptions from "./options";
-import { emojify, isValidHttpUrl } from "./utils";
+import { emojify } from "./utils";
 
 admin.initializeApp();
 
 const db = admin.firestore();
-
-let compiledTemplate: TemplateDelegate | undefined;
-
-// If the template is a static HTML string, compile it once globally and reuse it
-if (config.template && !isValidHttpUrl(config.template)) {
-  compiledTemplate = handlebars.compile(config.template);
-}
 
 const app = express();
 
@@ -35,37 +28,28 @@ app.use(
 app.get("/", async (req, res) => {
   let templateDocumentData: admin.firestore.DocumentData | undefined;
 
-  // If the template is a URL, refetch it on every request, so changes to the template are reflected immediately
-  if (config.template && isValidHttpUrl(config.template)) {
-    const template = await fetch(config.template).then((r) => r.text());
-    compiledTemplate = handlebars.compile(template);
+  // Get the template name from the request query
+  const templateDocumentId = (req.query.template as string) || "default";
+
+  // Get the template document from Firestore
+  const templateDocument = await db
+    .collection(config.templatesCollection)
+    .doc(templateDocumentId)
+    .get();
+
+  // Extract the template field from the document
+  const template = templateDocument.get("template") as string;
+
+  // If either the document as a whole or the template field is missing, return a 404
+  if (!template) {
+    res.status(404).send("Template not found");
+    return;
   }
 
-  // If the templates collection is set, fetch the template from Firestore
-  else if (config.templatesCollection) {
-    // Get the template name from the request query
-    const templateDocumentId = (req.query.template as string) || "default";
+  templateDocumentData = templateDocument.data();
 
-    // Get the template document from Firestore
-    const templateDocument = await db
-      .collection(config.templatesCollection)
-      .doc(templateDocumentId)
-      .get();
-
-    // Extract the template field from the document
-    const template = templateDocument.get("template") as string;
-
-    // If either the document as a whole or the template field is missing, return a 404
-    if (!template) {
-      res.status(404).send("Template not found");
-      return;
-    }
-
-    templateDocumentData = templateDocument.data();
-
-    // Compile the template from the document
-    compiledTemplate = handlebars.compile(template);
-  }
+  // Compile the template from the document
+  const compiledTemplate = handlebars.compile(template);
 
   // If no template is found, return a 404
   if (!compiledTemplate) {
