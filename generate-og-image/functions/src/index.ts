@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import * as firebase from "firebase-admin";
+import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import handlebars, { TemplateDelegate } from "handlebars";
 import helmet from "helmet";
@@ -10,9 +10,9 @@ import config, { parseConfig } from "./config";
 import getOptions from "./options";
 import { emojify, isValidHttpUrl } from "./utils";
 
-firebase.initializeApp();
+admin.initializeApp();
 
-const db = firebase.firestore();
+const db = admin.firestore();
 
 let compiledTemplate: TemplateDelegate | undefined;
 
@@ -33,7 +33,7 @@ app.use(
 );
 
 app.get("/", async (req, res) => {
-  let templateDocumentData: firebase.firestore.DocumentData | undefined;
+  let templateDocumentData: admin.firestore.DocumentData | undefined;
 
   // If the template is a URL, refetch it on every request, so changes to the template are reflected immediately
   if (config.template && isValidHttpUrl(config.template)) {
