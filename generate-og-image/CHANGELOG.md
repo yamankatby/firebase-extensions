@@ -1,3 +1,8 @@
+## Version 0.0.3 (2023-02-08)
+
+- Remove static `template` param.
+- Upgrade `firebase-admin` and `firebase-functions` to latest versions.
+
 ## Version 0.0.2 (2023-01-13)
 
 - Add CORS origin param.
