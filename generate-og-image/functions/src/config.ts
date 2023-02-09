@@ -1,11 +1,13 @@
 import * as firebase from "firebase-admin";
 import * as functions from "firebase-functions";
 
+type EmojiProvider = "twemoji";
+
 interface Config {
   templatesCollection: string;
   createExampleTemplate: boolean;
   markdownParams?: string[];
-  emoji: "system" | "twemoji";
+  emoji: EmojiProvider;
   width: number;
   height: number;
   format: "jpeg" | "webp" | "png";
@@ -17,7 +19,7 @@ const config: Config = {
   templatesCollection: process.env.TEMPLATES_COLLECTION!!,
   createExampleTemplate: process.env.CREATE_EXAMPLE_TEMPLATE === "true",
   markdownParams: process.env.MARKDOWN_PARAMS?.split(","),
-  emoji: process.env.EMOJI as "system" | "twemoji",
+  emoji: process.env.EMOJI as EmojiProvider,
   width: parseInt(process.env.WIDTH!, 10),
   height: parseInt(process.env.HEIGHT!, 10),
   format: process.env.FORMAT as "jpeg" | "webp" | "png",
