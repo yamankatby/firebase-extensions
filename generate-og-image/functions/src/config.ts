@@ -3,6 +3,8 @@ import * as functions from "firebase-functions";
 
 type EmojiProvider = "twemoji";
 
+type Format = "jpeg" | "webp" | "png";
+
 interface Config {
   templatesCollection: string;
   createExampleTemplate: boolean;
@@ -10,7 +12,7 @@ interface Config {
   emoji: EmojiProvider;
   width: number;
   height: number;
-  format: "jpeg" | "webp" | "png";
+  format: Format;
   cacheControl: string;
   corsOrigin: string;
 }
@@ -22,7 +24,7 @@ const config: Config = {
   emoji: process.env.EMOJI as EmojiProvider,
   width: parseInt(process.env.WIDTH!, 10),
   height: parseInt(process.env.HEIGHT!, 10),
-  format: process.env.FORMAT as "jpeg" | "webp" | "png",
+  format: process.env.FORMAT as Format,
   cacheControl: process.env.CACHE_CONTROL!,
   corsOrigin: process.env.CORS_ORIGIN!,
 };
