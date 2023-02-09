@@ -3,6 +3,7 @@ import * as functions from "firebase-functions";
 
 interface Config {
   templatesCollection: string;
+  createExampleTemplate: boolean;
   markdownParams?: string[];
   emoji: "system" | "twemoji";
   width: number;
@@ -14,6 +15,7 @@ interface Config {
 
 const config: Config = {
   templatesCollection: process.env.TEMPLATES_COLLECTION!!,
+  createExampleTemplate: process.env.CREATE_EXAMPLE_TEMPLATE === "true",
   markdownParams: process.env.MARKDOWN_PARAMS?.split(","),
   emoji: process.env.EMOJI as "system" | "twemoji",
   width: parseInt(process.env.WIDTH!, 10),

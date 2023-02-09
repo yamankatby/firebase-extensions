@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import * as admin from "firebase-admin";
+import { getExtensions } from "firebase-admin/extensions";
 import * as functions from "firebase-functions";
 import handlebars from "handlebars";
 import helmet from "helmet";
@@ -109,3 +110,41 @@ app.use("*", function notFoundHandler(_, res) {
 });
 
 export const api = functions.https.onRequest(app);
+
+export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
+  const runtime = getExtensions().runtime();
+
+  // If the user doesn't want to create the example template, return
+  if (!config.createExampleTemplate) {
+    await runtime.setProcessingState(
+      "PROCESSING_COMPLETE",
+      "The user opted out of creating an example template"
+    );
+    return;
+  }
+
+  const defaultTemplateRef = db
+    .collection(config.templatesCollection)
+    .doc("default");
+
+  const defaultTemplate = await defaultTemplateRef.get();
+
+  // If the default template already exists, return
+  if (defaultTemplate.exists) {
+    await runtime.setProcessingState(
+      "PROCESSING_COMPLETE",
+      "The default template already exists"
+    );
+    return;
+  }
+
+  // Create the default template
+  await defaultTemplateRef.set({
+    template: "<h1>{{title}}</h1>\n<p>{{description}}</p>",
+  });
+
+  await runtime.setProcessingState(
+    "PROCESSING_COMPLETE",
+    "The default template was created successfully"
+  );
+});

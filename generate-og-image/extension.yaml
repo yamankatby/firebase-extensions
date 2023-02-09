@@ -32,6 +32,15 @@ resources:
       runtime: nodejs14
       availableMemoryMb: 1024
 
+  - name: onInstall
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Automatically creates an example template in the templates collection
+      after installation.
+    properties:
+      location: ${param:LOCATION}
+      taskQueueTrigger: {}
+
 params:
   - param: LOCATION
     label: Cloud Functions location
@@ -93,6 +102,20 @@ params:
       contains a `template` field with the template string.
     type: string
     default: templates
+    required: true
+
+  - param: CREATE_EXAMPLE_TEMPLATE
+    label: Create example template
+    description: >-
+      Do you want the extension to automatically create an example template 
+      document in the templates collection after installation?
+    type: select
+    options:
+      - label: Yes
+        value: true
+      - label: No
+        value: false
+    default: true
     required: true
 
   - param: MARKDOWN_PARAMS
@@ -188,3 +211,9 @@ params:
     default: 512
     required: true
     immutable: true
+
+lifecycleEvents:
+  onInstall:
+    function: onInstall
+    processingMessage: >-
+      Creating example template in the templates collection...
