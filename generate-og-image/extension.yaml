@@ -30,7 +30,7 @@ resources:
       location: ${param:LOCATION}
       httpsTrigger: {}
       runtime: nodejs14
-      availableMemoryMb: 1024
+      availableMemoryMb: ${param:FUNCTION_MEMORY}
 
   - name: onInstall
     type: firebaseextensions.v1beta.function
@@ -196,10 +196,11 @@ params:
     default: "*"
     required: true
 
-  - param: MEMORY
+  - param: FUNCTION_MEMORY
     label: Cloud Function memory
     description: >-
-      The amount of memory to allocate to the Cloud Function.
+      The amount of memory to allocate to the Cloud Function that generates the
+      images.
     type: select
     options:
       - label: 512 MB
@@ -208,9 +209,9 @@ params:
         value: 1024
       - label: 2 GB
         value: 2048
-    default: 512
+    default: 1024
     required: true
-    immutable: true
+    immutable: false
 
 lifecycleEvents:
   onInstall:
