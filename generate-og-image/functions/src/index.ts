@@ -27,8 +27,6 @@ app.use(
 );
 
 app.get("/", async (req, res) => {
-  let templateDocumentData: admin.firestore.DocumentData | undefined;
-
   // Get the template name from the request query
   const templateDocumentId = (req.query.template as string) || "default";
 
@@ -47,7 +45,7 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  templateDocumentData = templateDocument.data();
+  const templateDocumentData = templateDocument.data();
 
   // Compile the template from the document
   const compiledTemplate = handlebars.compile(template);
