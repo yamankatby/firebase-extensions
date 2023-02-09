@@ -134,14 +134,12 @@ params:
     description: >-
       The style of emojis to use in the generated images.
 
-      - `twemoji` uses [Twemoji](https://twemoji.twitter.com/) emojis.
+      - `Twemoji` uses [Twemoji](https://twemoji.twitter.com/) emojis.
     type: select
     options:
-      - label: System default
-        value: system
       - label: Twemoji
         value: twemoji
-    default: system
+    default: twemoji
     required: true
 
   - param: WIDTH
