@@ -26,11 +26,12 @@ app.use(
   })
 );
 
-app.get("/", async (req, res) => {
-  let templateDocumentData: admin.firestore.DocumentData | undefined;
+const DEFAULT_TEMPLATE_ID = "default";
 
+app.get("/", async (req, res) => {
   // Get the template name from the request query
-  const templateDocumentId = (req.query.template as string) || "default";
+  const templateDocumentId =
+    (req.query.template as string) || DEFAULT_TEMPLATE_ID;
 
   // Get the template document from Firestore
   const templateDocument = await db
@@ -47,7 +48,7 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  templateDocumentData = templateDocument.data();
+  const templateDocumentData = templateDocument.data();
 
   // Compile the template from the document
   const compiledTemplate = handlebars.compile(template);
@@ -125,7 +126,7 @@ export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
 
   const defaultTemplateRef = db
     .collection(config.templatesCollection)
-    .doc("default");
+    .doc(DEFAULT_TEMPLATE_ID);
 
   const defaultTemplate = await defaultTemplateRef.get();
 
