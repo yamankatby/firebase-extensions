@@ -7,7 +7,7 @@ import handlebars from "handlebars";
 import helmet from "helmet";
 import { marked } from "marked";
 import core from "puppeteer-core";
-import config, { parseConfig } from "./config";
+import config, { TemplateConfig } from "./config";
 import getOptions from "./options";
 import { emojify } from "./utils";
 
@@ -48,8 +48,6 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  const templateDocumentData = templateDocument.data();
-
   // Compile the template from the document
   const compiledTemplate = handlebars.compile(template);
 
@@ -59,8 +57,26 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  const { markdownParams, emoji, width, height, format, cacheControl, params } =
-    parseConfig(req.query, templateDocumentData);
+  const {
+    width: queryWidth,
+    height: queryHeight,
+    format: queryFormat,
+    emojiStyle: queryEmojiStyle,
+    ...params
+  } = req.query;
+
+  const width = Number(queryWidth) ?? templateDocument.get("width") ?? 1200;
+
+  const height = Number(queryHeight) ?? templateDocument.get("height") ?? 630;
+
+  const format = queryFormat ?? templateDocument.get("format") ?? "jpeg";
+
+  const emojiStyle =
+    queryEmojiStyle ?? templateDocument.get("emojiStyle") ?? "twemoji";
+
+  const markdownParams = templateDocument.get("markdownParams") as
+    | string[]
+    | undefined;
 
   const parsedParams: any = { ...params };
 
@@ -77,7 +93,7 @@ app.get("/", async (req, res) => {
   let html = compiledTemplate(parsedParams);
 
   // If the emoji provider is set to twemoji, replace all emoji with twemoji
-  if (emoji === "twemoji") {
+  if (emojiStyle === "twemoji") {
     html = emojify(html);
   }
 
@@ -102,7 +118,7 @@ app.get("/", async (req, res) => {
 
   // Send the screenshot as a response
   res.set("Content-Type", `image/${format}`);
-  res.set("Cache-Control", cacheControl);
+  res.set("Cache-Control", "public, immutable, no-transform, max-age=31536000");
   res.send(buffer);
 });
 
@@ -139,9 +155,18 @@ export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
     return;
   }
 
+  const templateConfig: TemplateConfig = {
+    width: 1200,
+    height: 630,
+    format: "jpeg",
+    emojiStyle: "twemoji",
+    markdownParams: ["description"],
+  };
+
   // Create the default template
   await defaultTemplateRef.set({
-    template: "<h1>{{title}}</h1>\n<p>{{description}}</p>",
+    template: "<h1>{{title}}</h1>\n<p>{{{description}}}</p>",
+    ...templateConfig,
   });
 
   await runtime.setProcessingState(
