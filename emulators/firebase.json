@@ -11,7 +11,5 @@
     },
     "singleProjectMode": true
   },
-  "extensions": {
-    "generate-og-image": "../generate-og-image"
-  }
+  "extensions": {}
 }
