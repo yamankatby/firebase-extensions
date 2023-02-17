@@ -7,7 +7,7 @@ import handlebars from "handlebars";
 import helmet from "helmet";
 import { marked } from "marked";
 import core from "puppeteer-core";
-import config, { parseConfig } from "./config";
+import config, { TemplateConfig } from "./config";
 import getOptions from "./options";
 import { emojify } from "./utils";
 
@@ -48,8 +48,6 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  const templateDocumentData = templateDocument.data();
-
   // Compile the template from the document
   const compiledTemplate = handlebars.compile(template);
 
@@ -59,8 +57,26 @@ app.get("/", async (req, res) => {
     return;
   }
 
-  const { markdownParams, emoji, width, height, format, cacheControl, params } =
-    parseConfig(req.query, templateDocumentData);
+  const {
+    width: queryWidth,
+    height: queryHeight,
+    format: queryFormat,
+    emojiStyle: queryEmojiStyle,
+    ...params
+  } = req.query;
+
+  const width = Number(queryWidth) || templateDocument.get("width") || 1200;
+
+  const height = Number(queryHeight) || templateDocument.get("height") || 630;
+
+  const format = queryFormat || templateDocument.get("format") || "jpeg";
+
+  const emojiStyle =
+    queryEmojiStyle || templateDocument.get("emojiStyle") || "twemoji";
+
+  const markdownParams = templateDocument.get("markdownParams") as
+    | string[]
+    | undefined;
 
   const parsedParams: any = { ...params };
 
@@ -77,7 +93,7 @@ app.get("/", async (req, res) => {
   let html = compiledTemplate(parsedParams);
 
   // If the emoji provider is set to twemoji, replace all emoji with twemoji
-  if (emoji === "twemoji") {
+  if (emojiStyle === "twemoji") {
     html = emojify(html);
   }
 
@@ -102,7 +118,7 @@ app.get("/", async (req, res) => {
 
   // Send the screenshot as a response
   res.set("Content-Type", `image/${format}`);
-  res.set("Cache-Control", cacheControl);
+  res.set("Cache-Control", "public, immutable, no-transform, max-age=31536000");
   res.send(buffer);
 });
 
@@ -111,6 +127,50 @@ app.use("*", function notFoundHandler(_, res) {
 });
 
 export const api = functions.https.onRequest(app);
+
+const template = `<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@700"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: #5d6dbe;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      margin: 4px;
+      font-size: 64px;
+    }
+    p {
+      margin: 4px;
+      font-size: 32px;
+    }
+    img.emoji {
+      height: 1em;
+      width: 1em;
+      margin: 0 0.05em 0 0.1em;
+      vertical-align: -0.1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{title}}</h1>
+  <p>{{{description}}}</p>
+</body>
+</html>`;
 
 export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
   const runtime = getExtensions().runtime();
@@ -139,10 +199,16 @@ export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
     return;
   }
 
+  const templateConfig: TemplateConfig = {
+    width: 1200,
+    height: 630,
+    format: "jpeg",
+    emojiStyle: "twemoji",
+    markdownParams: ["description"],
+  };
+
   // Create the default template
-  await defaultTemplateRef.set({
-    template: "<h1>{{title}}</h1>\n<p>{{description}}</p>",
-  });
+  await defaultTemplateRef.set({ template, ...templateConfig });
 
   await runtime.setProcessingState(
     "PROCESSING_COMPLETE",
