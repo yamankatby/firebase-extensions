@@ -1,3 +1,7 @@
+## Version 0.0.4 (2023-02-17)
+
+- Move templates config to the template document in Firestore.
+
 ## Version 0.0.3 (2023-02-08)
 
 - Remove static `template` param.
