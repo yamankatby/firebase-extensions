@@ -128,6 +128,50 @@ app.use("*", function notFoundHandler(_, res) {
 
 export const api = functions.https.onRequest(app);
 
+const template = `<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@700"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: #5d6dbe;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      margin: 4px;
+      font-size: 64px;
+    }
+    p {
+      margin: 4px;
+      font-size: 32px;
+    }
+    img.emoji {
+      height: 1em;
+      width: 1em;
+      margin: 0 0.05em 0 0.1em;
+      vertical-align: -0.1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{title}}</h1>
+  <p>{{{description}}}</p>
+</body>
+</html>`;
+
 export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
   const runtime = getExtensions().runtime();
 
@@ -164,10 +208,7 @@ export const onInstall = functions.tasks.taskQueue().onDispatch(async () => {
   };
 
   // Create the default template
-  await defaultTemplateRef.set({
-    template: "<h1>{{title}}</h1>\n<p>{{{description}}}</p>",
-    ...templateConfig,
-  });
+  await defaultTemplateRef.set({ template, ...templateConfig });
 
   await runtime.setProcessingState(
     "PROCESSING_COMPLETE",
