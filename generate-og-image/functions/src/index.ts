@@ -65,14 +65,14 @@ app.get("/", async (req, res) => {
     ...params
   } = req.query;
 
-  const width = Number(queryWidth) ?? templateDocument.get("width") ?? 1200;
+  const width = Number(queryWidth) || templateDocument.get("width") || 1200;
 
-  const height = Number(queryHeight) ?? templateDocument.get("height") ?? 630;
+  const height = Number(queryHeight) || templateDocument.get("height") || 630;
 
-  const format = queryFormat ?? templateDocument.get("format") ?? "jpeg";
+  const format = queryFormat || templateDocument.get("format") || "jpeg";
 
   const emojiStyle =
-    queryEmojiStyle ?? templateDocument.get("emojiStyle") ?? "twemoji";
+    queryEmojiStyle || templateDocument.get("emojiStyle") || "twemoji";
 
   const markdownParams = templateDocument.get("markdownParams") as
     | string[]
