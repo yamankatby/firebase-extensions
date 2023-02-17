@@ -119,7 +119,7 @@ params:
     required: true
 
   - param: CORS_ORIGIN
-    label: Allowed CORS origins.
+    label: Allowed CORS origins
     description: >
       A comma delimited value of allowed CORS origins. Use the default of '*'
       to allow all origins. This is useful to lockdown your API and only allow
