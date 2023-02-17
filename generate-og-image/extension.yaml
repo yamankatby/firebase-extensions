@@ -5,7 +5,7 @@ specVersion: v1beta
 displayName: Dynamic OG Image Generator
 
 description: >-
-  Generates dynamic and fully customizable Open Graph images.
+  Generates dynamic and fully customizable social media images for your website.
 
 license: Apache-2.0
 
@@ -35,8 +35,8 @@ resources:
   - name: onInstall
     type: firebaseextensions.v1beta.function
     description: >-
-      Automatically creates an example template in the templates collection
-      after installation.
+      Automatically creates an example template document in the templates
+      collection after installation.
     properties:
       location: ${param:LOCATION}
       taskQueueTrigger: {}
@@ -96,10 +96,11 @@ params:
   - param: TEMPLATES_COLLECTION
     label: Templates collection
     description: >-
-      The path to the Cloud Firestore collection that contains the templates to
-      use for generating the images. The collection must have a document for each
-      template, where the document ID is the template name and the document
-      contains a `template` field with the template string.
+      The path to the Cloud Firestore collection where you would like to store
+      the templates documents.
+      The collection must have a document for each template, where the document
+      id is the name of the template and the document contains a `template`
+      field with the template string.
     type: string
     default: templates
     required: true
@@ -120,13 +121,13 @@ params:
 
   - param: CORS_ORIGIN
     label: Allowed CORS origins
-    description: >
-      A comma delimited value of allowed CORS origins. Use the default of '*'
-      to allow all origins. This is useful to lockdown your API and only allow
-      your own website to embed the images directly. Note this will not
-      prevent non-browser requests from accessing your API.
+    description: >-
+      A comma-separated list of allowed CORS origins. Use '*' to allow all
+      origins in development mode.
+      This is useful to lock down the API and only allow your own websites to
+      use it.
     type: string
-    example: "extensions.dev,example.com"
+    example: "extensions.work,extensions.web.app"
     default: "*"
     required: true
 
@@ -151,4 +152,5 @@ lifecycleEvents:
   onInstall:
     function: onInstall
     processingMessage: >-
-      Creating example template in the templates collection...
+      Creating an example template document in the ${param:TEMPLATES_COLLECTION}
+      collection...
