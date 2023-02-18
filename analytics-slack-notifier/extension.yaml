@@ -1,9 +1,9 @@
 # Learn detailed information about the fields of an extension.yaml file in the docs:
 # https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
 
-name: greet-the-world  # Identifier for your extension
-version: 0.0.1  # Follow semver versioning
-specVersion: v1beta  # Version of the Firebase Extensions specification
+name: greet-the-world # Identifier for your extension
+version: 0.0.1 # Follow semver versioning
+specVersion: v1beta # Version of the Firebase Extensions specification
 
 # Friendly display name for your extension (~3-5 words)
 displayName: Greet the world
@@ -12,7 +12,7 @@ displayName: Greet the world
 description: >-
   Sends the world a greeting.
 
-license: Apache-2.0  # https://spdx.org/licenses/
+license: Apache-2.0 # https://spdx.org/licenses/
 
 # Public URL for the source code of your extension
 sourceUrl: https://github.com/firebase/firebase-tools/tree/master/templates/extensions
@@ -105,3 +105,28 @@ params:
         value: australia-southeast1
     required: true
     immutable: true
+
+  - param: ANALYTICS_EVENT_TYPE
+    label: Analytics event type
+    description: >-
+      What type of Analytics event do you want to listen for?
+    type: string
+    default: in_app_purchase
+    example: in_app_purchase
+    required: true
+
+  - param: SLACK_TOKEN
+    label: Slack token
+    description: >-
+      What is your Slack token?
+    type: secret
+    example: xoxb-1234567890123-1234567890123-1234567890123
+    required: true
+
+  - param: SLACK_CHANNEL
+    label: Slack channel
+    description: >-
+      What is your Slack channel?
+    type: string
+    example: \#general
+    required: true
