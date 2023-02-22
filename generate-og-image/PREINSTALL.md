@@ -1,4 +1,4 @@
-Use this extension to generate dynamic and fully customizable Open Graph images for your website.
+Use this extension to dynamically generate fully customizable social media images for your website.
 
 When triggered by an HTTP request, this extension responds with an image generated from the provided query parameters.
 
