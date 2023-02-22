@@ -6,7 +6,7 @@
 
 ## ✏️ Introduction
 
-Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to create dynamic, fully customizable, and SEO-friendly Open Graph images for your website.
+Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to dynamically generate fully customizable social media images for your website.
 
 ## ✨ Features
 
