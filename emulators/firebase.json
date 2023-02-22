@@ -11,5 +11,7 @@
     },
     "singleProjectMode": true
   },
-  "extensions": {}
+  "extensions": {
+    "greet-the-world": "../analytics-slack-notifier"
+  }
 }

@@ -2,24 +2,27 @@ import { WebClient } from "@slack/web-api";
 import * as functions from "firebase-functions";
 
 interface Config {
-  analyticsEventType: string;
+  analyticsEventName: string;
   slackToken: string;
   slackChannel: string;
 }
 
 const config: Config = {
-  analyticsEventType: process.env.ANALYTICS_EVENT_TYPE!,
+  analyticsEventName: process.env.ANALYTICS_EVENT_NAME!,
   slackToken: process.env.SLACK_TOKEN!,
   slackChannel: process.env.SLACK_CHANNEL!,
 };
 
-const web = new WebClient(config.slackToken);
+const slack = new WebClient(
+  "xoxb-2104891544466-4850063687424-c8jZNooKWmNN7HNJbiam0s5E"
+);
 
-export const notifySlackChannel = functions.analytics
-  .event(config.analyticsEventType)
+exports.greetTheWorld = functions.analytics
+  .event(config.analyticsEventName)
   .onLog((event) => {
-    return web.chat.postMessage({
+    console.log("__**__", event);
+    return slack.chat.postMessage({
       channel: config.slackChannel,
-      text: `Hey your message here`,
+      text: `Hello world!`,
     });
   });
