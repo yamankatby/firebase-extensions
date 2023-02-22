@@ -1,4 +1,4 @@
-# Generate Open Graph Images
+# Dynamic OG Image Generator
 
 > **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
 
@@ -6,7 +6,7 @@
 
 ## ✏️ Introduction
 
-Use the **Generate Open Graph Images** (`yaman/generate-og-image`) extension to create dynamic, fully customizable, and SEO-friendly Open Graph images for your website.
+Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to create dynamic, fully customizable, and SEO-friendly Open Graph images for your website.
 
 ## ✨ Features
 
