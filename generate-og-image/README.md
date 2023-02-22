@@ -4,13 +4,6 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-- [Generate Open Graph Images](#generate-open-graph-images)
-  - [✏️ Introduction](#️-introduction)
-  - [✨ Features](#-features)
-  - [🧩 Install the extension](#-install-the-extension)
-    - [🛠️ Configuration parameters](#️-configuration-parameters)
-  - [🙏 Acknowledgements](#-acknowledgements)
-
 ## ✏️ Introduction
 
 Use the **Generate Open Graph Images** (`yaman/generate-og-image`) extension to create dynamic, fully customizable, and SEO-friendly Open Graph images for your website.
