@@ -1,26 +1,28 @@
-/*
- * This template contains a HTTP function that responds
- * with a greeting when called
- *
- * Reference PARAMETERS in your functions code with:
- * `process.env.<parameter-name>`
- * Learn more about building extensions in the docs:
- * https://firebase.google.com/docs/extensions/alpha/overview
- */
-
+import { WebClient } from "@slack/web-api";
 import * as functions from "firebase-functions";
 
-exports.greetTheWorld = functions.https.onRequest(
-  (req: functions.Request, res: functions.Response) => {
-    // Here we reference a user-provided parameter
-    // (its value is provided by the user during installation)
-    const consumerProvidedGreeting = process.env.GREETING;
+interface Config {
+  analyticsEventName: string;
+  slackToken: string;
+  slackChannel: string;
+}
 
-    // And here we reference an auto-populated parameter
-    // (its value is provided by Firebase after installation)
-    const instanceId = process.env.EXT_INSTANCE_ID;
+const config: Config = {
+  analyticsEventName: process.env.ANALYTICS_EVENT_NAME!,
+  slackToken: process.env.SLACK_TOKEN!,
+  slackChannel: process.env.SLACK_CHANNEL!,
+};
 
-    const greeting = `${consumerProvidedGreeting} World from ${instanceId}`;
+const slack = new WebClient(
+  "xoxb-2104891544466-4850063687424-c8jZNooKWmNN7HNJbiam0s5E"
+);
 
-    res.send(greeting);
+exports.greetTheWorld = functions.analytics
+  .event(config.analyticsEventName)
+  .onLog((event) => {
+    console.log("__**__", event);
+    return slack.chat.postMessage({
+      channel: config.slackChannel,
+      text: `Hello world!`,
+    });
   });
