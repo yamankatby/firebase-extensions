@@ -1,6 +1,11 @@
 Use this extension to dynamically generate fully customizable social media images for your website.
 
-When triggered by an HTTP request, this extension responds with an image generated from the provided query parameters.
+When triggered by an HTTP request, this extension:
+
+- Finds the target template in the provided Firestore collection
+- Processes the template with the provided query parameters
+- Generates an image from the processed template
+- Returns the generated image as a response
 
 #### Billing
 
