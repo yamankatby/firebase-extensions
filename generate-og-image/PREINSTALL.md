@@ -7,6 +7,10 @@ When triggered by an HTTP request, this extension:
 - Generates an image from the processed template
 - Returns the generated image as a response
 
+#### Additional setup
+
+Before installing this extension, make sure that you've [set up a Cloud Firestore database](https://firebase.google.com/docs/firestore/quickstart) in your Firebase project.
+
 #### Billing
 
 This extension uses other Firebase or Google Cloud Platform services which may have associated charges:
