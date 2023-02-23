@@ -1,19 +1,14 @@
-# Generate Open Graph Images
+# Dynamic OG Image Generator
 
 > **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-- [Generate Open Graph Images](#generate-open-graph-images)
-  - [✏️ Introduction](#️-introduction)
-  - [✨ Features](#-features)
-  - [🧩 Install the extension](#-install-the-extension)
-    - [🛠️ Configuration parameters](#️-configuration-parameters)
-  - [🙏 Acknowledgements](#-acknowledgements)
-
 ## ✏️ Introduction
 
-Use the **Generate Open Graph Images** (`yaman/generate-og-image`) extension to create dynamic, fully customizable, and SEO-friendly Open Graph images for your website.
+Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to dynamically generate fully customizable social media images for your website.
+
+https://user-images.githubusercontent.com/35961879/220931088-b1c3fdab-0028-4149-aaf7-a53a91b2274c.mov
 
 ## ✨ Features
 
@@ -42,18 +37,13 @@ To install the extension, follow the steps on the [Install a Firebase Extension]
 
 During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
 
-| Name                  | Description                                                                                                                                                                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Location              | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).                                                                               |
-| Template              | The [handlebars](https://handlebarsjs.com/) template to use for generating the image. The template must be either a raw HTML string or a URL to a public HTML file.                                                                                                               |
-| Templates collection  | The path to the Cloud Firestore collection that contains the templates to use for generating the images. The collection must have a document for each template, where the document ID is the template name and the document contains a `template` field with the template string. |
-| Markdown params       | A comma-separated list of query parameters that contain Markdown-formatted text. The extension will convert the Markdown to HTML before rendering the template.                                                                                                                   |
-| Emoji provider        | The style of emojis to use in the generated images.                                                                                                                                                                                                                               |
-| Width                 | The width of the generated image in pixels.                                                                                                                                                                                                                                       |
-| Height                | The height of the generated image in pixels.                                                                                                                                                                                                                                      |
-| Format                | The format of the generated image.                                                                                                                                                                                                                                                |
-| Cache-Control header  | The value of the `Cache-Control` header to set on the generated images.                                                                                                                                                                                                           |
-| Cloud Function memory | The amount of memory to allocate to the Cloud Function.                                                                                                                                                                                                                           |
+| Name                    | Description                                                                                                                                                                                                                                                                       |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Location                | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).                                                                               |
+| Templates collection    | The path to the Cloud Firestore collection where you would like to store the templates documents. The collection must have a document for each template, where the document id is the name of the template and the document contains a `template` field with the template string. |
+| Create example template | Do you want the extension to automatically create an example template document in the templates collection after installation?                                                                                                                                                    |
+| Allowed CORS origins    | A comma-separated list of allowed CORS origins. Use `*` to allow all origins in development mode. This is useful to lock down the API and only allow your own websites to use it.                                                                                                 |
+| Cloud Function memory   | The amount of memory to allocate to the Cloud Function that generates the images.                                                                                                                                                                                                 |
 
 ## 🙏 Acknowledgements
 

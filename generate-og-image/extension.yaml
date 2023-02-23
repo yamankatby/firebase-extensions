@@ -122,7 +122,7 @@ params:
   - param: CORS_ORIGIN
     label: Allowed CORS origins
     description: >-
-      A comma-separated list of allowed CORS origins. Use '*' to allow all
+      A comma-separated list of allowed CORS origins. Use `*` to allow all
       origins in development mode.
       This is useful to lock down the API and only allow your own websites to
       use it.
