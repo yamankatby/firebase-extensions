@@ -4,12 +4,6 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-- [Connect Firestore Document](#connect-firestore-document)
-  - [✏️ Introduction](#️-introduction)
-  - [✨ Features](#-features)
-  - [🧩 Install the extension](#-install-the-extension)
-    - [🛠️ Configuration parameters](#️-configuration-parameters)
-
 ## ✏️ Introduction
 
 **Connect Firestore Document** (`yaman/firestore-connect-document`) is a new extension for Firebase that allows you to get some fields from one document in Firestore, store them in a `map` field in another document, and keep them in sync.
