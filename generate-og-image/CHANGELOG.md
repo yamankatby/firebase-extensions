@@ -1,3 +1,8 @@
+## Version 0.0.5 (2023-02-23)
+
+- Refine the extension documentation.
+- Update the `PREINSTALL.md` and `POSTINSTALL.md` files.
+
 ## Version 0.0.4 (2023-02-17)
 
 - Move templates config to the template document in Firestore.
