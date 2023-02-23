@@ -8,6 +8,8 @@
 
 Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to dynamically generate fully customizable social media images for your website.
 
+https://user-images.githubusercontent.com/35961879/220931088-b1c3fdab-0028-4149-aaf7-a53a91b2274c.mov
+
 ## ✨ Features
 
 - ✅ Handlebars template engine
