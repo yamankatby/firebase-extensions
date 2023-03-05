@@ -131,7 +131,7 @@ params:
   - param: COLLECTION_A_DATA_FIELD
     label: Collection A data field
     description: >-
-      The name of the field in Collection A that will contain the data that will be copied from Collection B.
+      The name of the field in Collection A that will contain the data to be copied from Collection B.
     type: string
     example: capital
     required: true
@@ -139,7 +139,7 @@ params:
   - param: COLLECTION_B_DATA_FIELD
     label: Collection B data field
     description: >-
-      The name of the field in Collection B that will contain the data that will be copied from Collection A.
+      The name of the field in Collection B that will contain the data to be copied from Collection A.
     type: string
     example: country
     required: true
