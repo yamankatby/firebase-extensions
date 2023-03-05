@@ -131,7 +131,7 @@ params:
   - param: COLLECTION_A_DATA_FIELD
     label: Collection A data field
     description: >-
-      The name of the field in Collection A that will contain the data that will be copied from Collection B.
+      The name of the field in Collection A that will contain the data to be copied from Collection B.
     type: string
     example: capital
     required: true
@@ -139,23 +139,23 @@ params:
   - param: COLLECTION_B_DATA_FIELD
     label: Collection B data field
     description: >-
-      The name of the field in Collection B that will contain the data that will be copied from Collection A.
+      The name of the field in Collection B that will contain the data to be copied from Collection A.
     type: string
     example: country
     required: true
 
   - param: FIELDS_TO_COPY_FROM_A_TO_B
-    label: Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields
+    label: Fields to copy from Collection A to Collection B
     description: >-
-      The names of the fields in Collection A that will be copied to Collection B.
+      The names of fields in Collection A to be copied to Collection B. Comma-separated values, leave empty to copy all fields.
     type: string
     example: name,flag
     required: false
 
   - param: FIELDS_TO_COPY_FROM_B_TO_A
-    label: Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields
+    label: Fields to copy from Collection B to Collection A
     description: >-
-      The names of the fields in Collection B that will be copied to Collection A.
+      The names of fields in Collection B to be copied to Collection A. Comma-separated values, leave empty to copy all fields.
     type: string
     example: name,area
     required: false
