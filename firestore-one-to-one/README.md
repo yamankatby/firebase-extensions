@@ -4,23 +4,29 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-**Author**: Yaman Katby (**[https://github.com/yamankatby](https://github.com/yamankatby)**)
+## ✏️ Introduction
 
-**Description**: Implements a one-to-one relationship pattern between two collections in Cloud Firestore.
+Use the **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension to create a one-to-one relationship between two collections in Cloud Firestore.
 
-**Details**: Use this extension to implement a one-to-one relationship pattern between two collections in Cloud Firestore.
+See this [Twitter thread](https://twitter.com/yamankatby/status/1602287107988459525) for more details.
 
-This pattern is useful for modeling relationships between two entities, such as a user and their profile.
+## 🧩 Install the extension
 
-# Billing
+To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
 
-This extension uses other Firebase or Google Cloud Platform services which may have associated charges:
+- **Install from the Firebase console:** Click the button below:
 
-- Cloud Functions
+  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
 
-When you use Firebase Extensions, you're only charged for the underlying resources that you use. A paid-tier billing plan is only required if the extension uses a service that requires a paid-tier plan, for example calling to a Google Cloud Platform API or making outbound network requests to non-Google services. All Firebase services offer a free tier of usage. [Learn more about Firebase billing.](https://firebase.google.com/pricing)
+- **Install from the Firebase CLI:** Run the following command:
 
-**Configuration Parameters:**
+  ```bash
+  firebase ext:install yaman/firestore-one-to-one --project=YOUR_PROJECT_ID
+  ```
+
+### 🛠️ Configuration Parameters
+
+During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
 
 | Name                                                 | Description                                                                                                                                                                                         |
 | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,15 +41,3 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 | Fields to copy from `Collection B` to `Collection A` | The names of fields in `Collection B` to be copied to `Collection A`. Comma-separated values, leave empty to copy all fields.                                                                       |
 | `Collection A` deletion behavior                     | What should happen when a document in `Collection A` is deleted?                                                                                                                                    |
 | `Collection B` deletion behavior                     | What should happen when a document in `Collection B` is deleted?                                                                                                                                    |
-
-**Cloud Functions:**
-
-- **onCollectionAWrite:** A function that is triggered when a document is created, updated, or deleted in the collection A.
-
-- **onCollectionBWrite:** A function that is triggered when a document is created, updated, or deleted in the collection B.
-
-**Access Required**:
-
-This extension will operate with the following project IAM roles:
-
-- datastore.user (Reason: Allows this extension to access Cloud Firestore to read/write documents in the A and B collections.)
