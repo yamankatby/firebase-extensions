@@ -8,7 +8,11 @@
 
 Use the **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension to create a one-to-one relationship between two collections in Cloud Firestore.
 
-See this [Twitter thread](https://twitter.com/yamankatby/status/1602287107988459525) for more details.
+
+https://user-images.githubusercontent.com/35961879/222963980-ecc5737f-abe3-455e-aec5-643903d2150a.mp4
+
+
+See this [🐦 Twitter thread](https://twitter.com/yamankatby/status/1602287107988459525) for more details.
 
 ## 🧩 Install the extension
 
