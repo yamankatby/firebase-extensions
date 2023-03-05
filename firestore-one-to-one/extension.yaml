@@ -145,17 +145,17 @@ params:
     required: true
 
   - param: FIELDS_TO_COPY_FROM_A_TO_B
-    label: Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields
+    label: Fields to copy from Collection A to Collection B
     description: >-
-      The names of the fields in Collection A that will be copied to Collection B.
+      The names of the fields in Collection A that will be copied to Collection B, comma-separated values, left empty to copy all fields.
     type: string
     example: name,flag
     required: false
 
   - param: FIELDS_TO_COPY_FROM_B_TO_A
-    label: Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields
+    label: Fields to copy from Collection B to Collection A
     description: >-
-      The names of the fields in Collection B that will be copied to Collection A.
+      The names of the fields in Collection B that will be copied to Collection A, comma-separated values, left empty to copy all fields.
     type: string
     example: name,area
     required: false
