@@ -22,27 +22,19 @@ When you use Firebase Extensions, you're only charged for the underlying resourc
 
 **Configuration Parameters:**
 
-- Cloud Functions location: Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
-
-- Collection A path: The path of the first collection in the one-to-one relationship.
-
-- Collection B path: The path of the second collection in the one-to-one relationship.
-
-- Collection A reference field: The name of the field in Collection A that will contain a reference to Collection B.
-
-- Collection B reference field: The name of the field in Collection B that will contain a reference to Collection A.
-
-- Collection A data field: The name of the field in Collection A that will contain the data that will be copied from Collection B.
-
-- Collection B data field: The name of the field in Collection B that will contain the data that will be copied from Collection A.
-
-- Fields to copy from Collection A to Collection B, comma separated, leave empty to copy all fields: The names of the fields in Collection A that will be copied to Collection B.
-
-- Fields to copy from Collection B to Collection A, comma separated, leave empty to copy all fields: The names of the fields in Collection B that will be copied to Collection A.
-
-- Collection A deletion behavior: What should happen when a document in Collection A is deleted?
-
-- Collection B deletion behavior: What should happen when a document in Collection B is deleted?
+| Name                                             | Description                                                                                                                                                                                         |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloud Functions location                         | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
+| Collection A path                                | The path of the first collection in the one-to-one relationship.                                                                                                                                    |
+| Collection B path                                | The path of the second collection in the one-to-one relationship.                                                                                                                                   |
+| Collection A reference field                     | The name of the field in Collection A that will contain a reference to Collection B.                                                                                                                |
+| Collection B reference field                     | The name of the field in Collection B that will contain a reference to Collection A.                                                                                                                |
+| Collection A data field                          | The name of the field in Collection A that will contain the data that will be copied from Collection B.                                                                                             |
+| Collection B data field                          | The name of the field in Collection B that will contain the data that will be copied from Collection A.                                                                                             |
+| Fields to copy from Collection A to Collection B | The names of the fields in Collection A that will be copied to Collection B, comma-separated values, left empty to copy all fields.                                                                 |
+| Fields to copy from Collection B to Collection A | The names of the fields in Collection B that will be copied to Collection A, comma-separated values, left empty to copy all fields.                                                                 |
+| Collection A deletion behavior                   | What should happen when a document in Collection A is deleted?                                                                                                                                      |
+| Collection B deletion behavior                   | What should happen when a document in Collection B is deleted?                                                                                                                                      |
 
 **Cloud Functions:**
 
