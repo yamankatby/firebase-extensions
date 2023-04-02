@@ -1,6 +1,6 @@
 # Firebase Extensions
 
-> **Note** The extensions in this repository are still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
+> **Note:** The extensions in this repository are still in beta. If you encounter any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
@@ -12,7 +12,7 @@ Denormalized data refers to duplicating information across multiple documents or
 
 [👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
 
 ## 🔗 Firestore One-To-One
 
@@ -20,12 +20,12 @@ The **Firestore One-To-One** extension allows you to implement a one-to-one rela
 
 [👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
 
 ## 🎆 Dynamic OG Image Generator
 
-Generates dynamic and fully customizable Open Graph images.
+The **Dynamic OG Image Generator** creates dynamic and fully customizable Open Graph images.
 
 [👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
