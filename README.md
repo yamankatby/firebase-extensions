@@ -16,7 +16,9 @@ Denormalized data refers to duplicating information across multiple documents or
 
 ## 🔗 Firestore One-To-One
 
-The **Firestore One-To-One** extension allows you to implement a one-to-one relationship pattern between two collections in Firestore right from the Firebase console.
+The **Firestore One-To-One** extension allows you to establish a one-to-one relationship pattern between two collections in Firestore directly from the Firebase console. This simplifies the process of creating, updating, and deleting linked documents, as well as ensures data consistency across collections.
+
+For example, you could use this extension to link a "users" collection with a "profiles" collection, where each user has only one profile and vice versa.
 
 [👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
 
