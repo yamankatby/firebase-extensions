@@ -4,9 +4,13 @@
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-## [🔌 Connect Firestore Document](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
+## 🔌 Connect Firestore Document
 
-The **Connect Firestore Document** extension allows you to get _some_ or _all_ fields from one document in Firestore and store them in a map field in another document, and keep them in sync.
+The **Connect Firestore Document** extension allows you to automatically keep denormalized data in sync with the source document, simplifying the maintenance of the data in multiple documents and reducing the risk of data inconsistencies.
+
+Denormalized data refers to duplicating information across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each post document to display the user's information in the post without making a separate query to the users collection.
+
+[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
 
 [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
 
