@@ -26,7 +26,7 @@ For example, you could use this extension to link a "users" collection with a "p
 
 ## 🎆 Dynamic OG Image Generator
 
-The **Dynamic OG Image Generator** creates dynamic and fully customizable Open Graph images.
+The **Generate OG Image Firebase** extension allows you to create dynamic and highly customizable social media images for your web pages using [Handlebars](https://handlebarsjs.com/) templates on the fly.
 
 [👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
 
