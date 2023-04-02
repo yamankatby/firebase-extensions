@@ -6,7 +6,7 @@
 
 ## 🔌 Connect Firestore Document
 
-The **Connect Firestore Document** extension allows you to automatically keep denormalized data in sync with the source document, simplifying the maintenance of the data across multiple documents and reducing the risk of data inconsistencies.
+The **Connect Firestore Document** extension allows you to automatically keep denormalized data in sync with the source document, simplifying the maintenance of data across multiple documents and reducing the risk of data inconsistencies.
 
 Denormalized data refers to duplicating information across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each post document to display the user's information in the post without making a separate query to the users collection.
 
