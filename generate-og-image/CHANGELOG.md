@@ -1,3 +1,7 @@
+## Version 0.0.7 (2023-04-04)
+
+- A small bug fix.
+
 ## Version 0.0.6 (2023-04-04)
 
 - Add an icon to the extension. Thanks to [Sandrina](https://sandrina.framer.website/) for the design!
