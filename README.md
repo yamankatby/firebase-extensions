@@ -1,6 +1,6 @@
 # Firebase Extensions
 
-> **Note:** The extensions in this repository are still in beta. If you encounter any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
+This is a collection of Firebase Extensions designed to help you build better apps faster.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
@@ -10,7 +10,7 @@ The **Connect Firestore Document** extension allows you to automatically keep de
 
 Denormalized data refers to duplicating information across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each post document to display the user's information in the post without making a separate query to the users collection.
 
-[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
+👀 [Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
 
 [![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
 
@@ -20,7 +20,7 @@ The **Firestore One-To-One** extension allows you to establish a one-to-one rela
 
 For example, you could use this extension to link a "users" collection with a "profiles" collection, where each user has only one profile and vice versa.
 
-[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
+👀 [Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
 
 [![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
 
@@ -28,10 +28,10 @@ For example, you could use this extension to link a "users" collection with a "p
 
 The **Generate OG Image Firebase** extension allows you to create dynamic and highly customizable social media images for your web pages using [Handlebars](https://handlebarsjs.com/) templates on-the-fly.
 
-[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
+👀 [Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
 
 [![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
 
 ## 🙏 Acknowledgements
 
-[Sandrina](https://sandrina.framer.website) for the awesome extensions icons.
+A special thanks to [Sandrina](https://sandrina.framer.website) for creating the awesome extension icons.
