@@ -11,7 +11,12 @@ license: Apache-2.0
 
 author:
   authorName: Yaman Katby
+  email: me@yamankatby.com
   url: https://github.com/yamankatby
+
+contributors:
+  - authorName: Sandrina
+    url: https://sandrina.framer.website
 
 sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document
 
