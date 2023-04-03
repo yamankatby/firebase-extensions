@@ -1,23 +1,33 @@
 # Firebase Extensions
 
-> **Note** The extensions in this repository are still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
+> **Note:** The extensions in this repository are still in beta. If you encounter any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
 
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
 
-## [🔌 Connect Firestore Document](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
+## 🔌 Connect Firestore Document
 
-The **Connect Firestore Document** extension allows you to get _some_ or _all_ fields from one document in Firestore and store them in a map field in another document, and keep them in sync.
+The **Connect Firestore Document** extension allows you to automatically keep denormalized data in sync with the source document, simplifying the maintenance of data across multiple documents and reducing the risk of data inconsistencies.
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+Denormalized data refers to duplicating information across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each post document to display the user's information in the post without making a separate query to the users collection.
 
-## [🔗 Firestore One-To-One](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
+[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-connect-document)
 
-The **Firestore One-To-One** extension allows you to implement a one-to-one relationship pattern between two collections in Firestore right from the Firebase console.
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
+## 🔗 Firestore One-To-One
 
-## [🎆 Dynamic OG Image Generator](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
+The **Firestore One-To-One** extension allows you to establish a one-to-one relationship pattern between two collections in Firestore directly from the Firebase console. This simplifies the process of creating, updating, and deleting linked documents, as well as ensures data consistency across collections.
 
-Generates dynamic and fully customizable Open Graph images.
+For example, you could use this extension to link a "users" collection with a "profiles" collection, where each user has only one profile and vice versa.
 
-[![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
+[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/firestore-one-to-one)
+
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-one-to-one)
+
+## 🎆 Dynamic OG Image Generator
+
+The **Generate OG Image Firebase** extension allows you to create dynamic and highly customizable social media images for your web pages using [Handlebars](https://handlebarsjs.com/) templates on-the-fly.
+
+[👀 Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image)
+
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
