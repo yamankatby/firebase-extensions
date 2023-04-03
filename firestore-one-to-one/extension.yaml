@@ -117,22 +117,6 @@ params:
     example: capitals
     required: true
 
-  - param: COLLECTION_A_REF_FIELD
-    label: Collection A reference field
-    description: >-
-      The name of the field in Collection A that will contain a reference to Collection B.
-    type: string
-    example: capitalId
-    required: true
-
-  - param: COLLECTION_B_REF_FIELD
-    label: Collection B reference field
-    description: >-
-      The name of the field in Collection B that will contain a reference to Collection A.
-    type: string
-    example: countryId
-    required: true
-
   - param: COLLECTION_A_DATA_FIELD
     label: Collection A data field
     description: >-
