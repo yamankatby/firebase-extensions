@@ -32,6 +32,6 @@ The **Generate OG Image Firebase** extension allows you to create dynamic and hi
 
 [![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
 
-🙏 Acknowledgements
+## 🙏 Acknowledgements
 
 [Sandrina](https://sandrina.framer.website) for the awesome extensions icons.
