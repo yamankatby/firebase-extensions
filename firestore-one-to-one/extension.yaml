@@ -7,6 +7,8 @@ displayName: Firestore One-To-One
 description: >-
   Implements a one-to-one relationship pattern between two collections in Cloud Firestore.
 
+icon: icon.png
+
 license: Apache-2.0
 
 author:

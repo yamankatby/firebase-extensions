@@ -7,6 +7,8 @@ displayName: Connect Firestore Document
 description: >-
   Keeps denormalized copies of documents in sync between two collections.
 
+icon: icon.png
+
 license: Apache-2.0
 
 author:
