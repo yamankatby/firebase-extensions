@@ -1,5 +1,5 @@
 name: firestore-one-to-one
-version: 0.0.1
+version: 0.0.2
 specVersion: v1beta
 
 displayName: Firestore One-To-One
