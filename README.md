@@ -1,9 +1,5 @@
 # Firebase Extensions
 
-> **Note:** The extensions in this repository are still in beta. If you encounter any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find any of these extensions useful, please consider giving the repository a star ⭐️.
-
-[![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
-
 ## 🔌 Connect Firestore Document
 
 The **Connect Firestore Document** extension allows you to automatically keep denormalized data in sync with the source document, simplifying the maintenance of data across multiple documents and reducing the risk of data inconsistencies.
