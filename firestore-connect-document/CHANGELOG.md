@@ -1,3 +1,7 @@
+## Version 0.0.5 (2023-04-04)
+
+- Add an icon to the extension. Thanks to [Sandrina](https://sandrina.framer.website/) for the design!
+
 ## Version 0.0.4 (2023-18-01)
 
 - Enhance the extension listing description
