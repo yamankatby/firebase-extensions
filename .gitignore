@@ -1,16 +1,39 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-firebase-debug.log*
-firebase-debug.*.log*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Firebase cache
-.firebase/
+# compiled output
+dist
+tmp
+/out-tsc
 
-# Dependency directories
-node_modules/
+# dependencies
+node_modules
 
-.firebaserc
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

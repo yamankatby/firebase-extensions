@@ -1,29 +1,29 @@
+<!-- 
+This file provides your users an overview of how to use your extension after they've installed it. All content is optional, but this is the recommended format. Your users will see the contents of this file in the Firebase console after they install the extension.
+
+Include instructions for using the extension and any important functional details. Also include **detailed descriptions** for any additional post-installation setup required by the user.
+
+Reference values for the extension instance using the ${param:PARAMETER_NAME} or ${function:VARIABLE_NAME} syntax.
+Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/create-user-docs#reference-in-postinstall
+
+Learn more about writing a POSTINSTALL.md file in the docs:
+https://firebase.google.com/docs/extensions/alpha/create-user-docs#writing-postinstall
+-->
+
 # See it in action
 
 You can test out this extension right away!
 
-1. Go to your [Cloud Firestore dashboard](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data) in the Firebase console.
-2. If it doesn't exist already, create a collection called [`${param:SOURCE_COLLECTION_PATH}`](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data/~2F${param:SOURCE_COLLECTION_PATH}).
-3. Create a new document with the following fields `${param:SOURCE_FIELDS}` and any other values you like.
-4. Copy the document ID of the document you just created.
-5. If it doesn't exist already, create another collection called [`${param:TARGET_COLLECTION_PATH}`](https://console.firebase.google.com/project/${param:PROJECT_ID}/firestore/data/~2F${param:TARGET_COLLECTION_PATH}).
-6. Create a new document with a field called `${param:SOURCE_DOCUMENT_ID_FIELD_NAME}` and a value of the document ID you copied in step 4.
-7. Wait a few seconds for the extension to run.
-8. Ta-da! You should now see a new map field in the document you created in step 6 called `${param:TARGET_FIELD_NAME}` containing the `${param:SOURCE_FIELDS}` you entered in step 3.
+Visit the following URL:
+${function:greetTheWorld.url}
 
 # Using the extension
 
-Whenever a document is created or updated in the `${param:TARGET_COLLECTION_PATH}` collection:
+When triggered by an HTTP request, this extension responds with the following specified greeting: "${param:GREETING} World from ${param:EXT_INSTANCE_ID}".
 
-1. The extension will look for a field called `${param:SOURCE_DOCUMENT_ID_FIELD_NAME}` in the document.
-2. If the field exists, the extension will look for a document in the `${param:SOURCE_COLLECTION_PATH}` collection with an ID matching the value of the `${param:SOURCE_DOCUMENT_ID_FIELD_NAME}` field.
-3. If such a document exists, the extension will copy the `${param:SOURCE_FIELDS}` from from it to a new field called `${param:TARGET_FIELD_NAME}` in the document in the `${param:TARGET_COLLECTION_PATH}` collection.
+To learn more about HTTP functions, visit the [functions documentation](https://firebase.google.com/docs/functions/http-events).
 
-Whenever a document is created or updated in the `${param:SOURCE_COLLECTION_PATH}` collection:
-
-1. The extension will look for all documents in the `${param:TARGET_COLLECTION_PATH}` collection that have a field called `${param:SOURCE_DOCUMENT_ID_FIELD_NAME}` with a value matching the ID of the created/updated document.
-2. If any documents are found, the extension will copy the `${param:SOURCE_FIELDS}` from the created/updated document to the `${param:TARGET_FIELD_NAME}` field in each of the documents found in step 1.
-
+<!-- We recommend keeping the following section to explain how to monitor extensions with Firebase -->
 # Monitoring
 
 As a best practice, you can [monitor the activity](https://firebase.google.com/docs/extensions/manage-installed-extensions#monitor) of your installed extension, including checks on its health, usage, and logs.

@@ -5,9 +5,11 @@ specVersion: v1beta
 displayName: Connect Firestore Document
 
 description: >-
-  Keeps denormalized copies of documents in sync between two collections.
+  Keeps denormalized data in sync between two collections in Cloud Firestore,
+  simplifies data maintenance across multiple documents and reduces the risk of
+  data inconsistency.
 
-icon: icon.png
+icon: extension_icon.png
 
 license: Apache-2.0
 
@@ -26,30 +28,34 @@ billingRequired: false
 
 roles:
   - role: datastore.user
-    reason: Allows this extension to access Cloud Firestore to read/write the source and target documents.
+    reason: Allows the extension to read and write data to Cloud Firestore.
 
 resources:
   - name: onSourceDocumentChange
     type: firebaseextensions.v1beta.function
     description: >-
-      A function that is triggered when a document is created, updated, or deleted in the source collection.
+      A function that is triggered when a document is created, updated, or
+      deleted in the source collection and updates the connected documents in
+      the target collection.
     properties:
       location: ${param:LOCATION}
-      runtime: nodejs14
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
         resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:SOURCE_COLLECTION_PATH}/{documentId}
+      runtime: "nodejs16"
 
   - name: onTargetDocumentChange
     type: firebaseextensions.v1beta.function
     description: >-
-      A function that is triggered when a document is created, updated, or deleted in the target collection.
+      A function that is triggered when a document is created, updated, or
+      deleted in the target collection and populates the written document with
+      the date from the connected document in the source collection.
     properties:
       location: ${param:LOCATION}
-      runtime: nodejs14
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
         resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:TARGET_COLLECTION_PATH}/{documentId}
+      runtime: "nodejs16"
 
 params:
   - param: LOCATION
@@ -102,64 +108,3 @@ params:
         value: australia-southeast1
     required: true
     immutable: true
-
-  - param: SOURCE_COLLECTION_PATH
-    label: Source Collection Path
-    description: >-
-      The path to the collection that contains the documents you want to **copy data from**.
-    type: string
-    example: users
-    validationRegex: "^[^/]+(/[^/]+/[^/]+)*$"
-    validationErrorMessage: Firestore collection paths must be an odd number of segments separated by slashes, e.g. "path/to/collection".
-    required: true
-
-  - param: TARGET_COLLECTION_PATH
-    label: Target Collection Path
-    description: >-
-      The path to the collection that contains the documents you want to **copy data to**.
-    type: string
-    example: reviews
-    validationRegex: "^[^/]+(/[^/]+/[^/]+)*$"
-    validationErrorMessage: Firestore collection paths must be an odd number of segments separated by slashes, e.g. "path/to/collection".
-    required: true
-
-  - param: SOURCE_DOCUMENT_ID_FIELD_NAME
-    label: Ref Field Name
-    description: >-
-      The name of the field in the _target document_ that contains the reference to the _source document_.
-    type: string
-    example: userId
-    required: true
-
-  - param: TARGET_FIELD_NAME
-    label: Data Field Name
-    description: >-
-      The name of the field in the _target document_ that will contain the data that will be copied from the _source document_.
-    type: string
-    example: user
-    required: true
-
-  - param: SOURCE_FIELDS
-    label: Fields to Copy
-    description: >-
-      The names of the fields in the _source document_ that you want to copy to the _target document_ (comma-separated, e.g. name,email).
-      Leave this field empty to copy all fields.
-    type: string
-    example: name,email
-
-  - param: SOURCE_DOCUMENT_DELETE_BEHAVIOR
-    label: Source Document Deletion Behavior
-    description: >-
-      What should happen to the target documents when the source document is deleted?
-    type: select
-    options:
-      - label: Delete the target documents
-        value: deleteTargetDocument
-      - label: Delete the data field in the target documents
-        value: deleteTargetField
-      - label: Set the data field in the target documents to null
-        value: setTargetFieldToNull
-      - label: Ignore (do nothing)
-        value: nothing
-    default: deleteTargetDocument
-    required: true

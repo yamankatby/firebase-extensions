@@ -1,13 +1,17 @@
 {
   "name": "firebase-extensions",
-  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "serve": "firebase emulators:start"
+    "generate-readmes": "nx run-many --target=generate-readme --all --parallel"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nrwl/nx-cloud": "latest",
+    "nx": "15.9.2"
   },
   "workspaces": [
     "./*/functions"
-  ],
-  "devDependencies": {
-    "lerna": "^6.4.1"
-  }
+  ]
 }

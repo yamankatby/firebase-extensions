@@ -1,50 +1,45 @@
-# Dynamic OG Image Generator
+# Greet the world
 
-> **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
+**Author**: undefined 
 
-[![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
+**Description**: Sends the world a greeting.
 
-## ✏️ Introduction
 
-Use the **Dynamic OG Image Generator** (`yaman/generate-og-image`) extension to dynamically generate fully customizable social media images for your website.
 
-https://user-images.githubusercontent.com/35961879/220931088-b1c3fdab-0028-4149-aaf7-a53a91b2274c.mov
+**Details**: <!-- 
+This file provides your users an overview of your extension. All content is optional, but this is the recommended format. Your users will see the contents of this file when they run the `firebase ext:info` command.
 
-## ✨ Features
+Include any important functional details as well as a brief description for any additional setup required by the user (both pre- and post-installation).
 
-- ✅ Handlebars template engine
-- ✅ Markdown support
-- ✅ Customizable fonts
-- 🚧 Different emoji styles ([Twemoji](https://twemoji.twitter.com/) is ready, and others are coming soon)
-- ✅ Customizable format (PNG, JPEG, WEBP), width, and height
-- ✅ Generated once, and cached for next time
+Learn more about writing a PREINSTALL.md file in the docs:
+https://firebase.google.com/docs/extensions/alpha/create-user-docs#writing-preinstall
+-->
 
-## 🧩 Install the extension
+Use this extension to send a friendly greeting.
 
-To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
+When triggered by an HTTP request, this extension responds with your specified friendly greeting.
 
-- **Install from the Firebase console:** Click the button below:
+<!-- We recommend keeping the following section to explain how billing for Firebase Extensions works -->
+# Billing
 
-  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
+This extension uses other Firebase or Google Cloud Platform services which may have associated charges:
 
-- **Install from the Firebase CLI:** Run the following command:
+<!-- List all products the extension interacts with -->
+- Cloud Functions
 
-  ```bash
-  firebase ext:install yaman/generate-og-image --project=YOUR_PROJECT_ID
-  ```
+When you use Firebase Extensions, you're only charged for the underlying resources that you use. A paid-tier billing plan is only required if the extension uses a service that requires a paid-tier plan, for example calling to a Google Cloud Platform API or making outbound network requests to non-Google services. All Firebase services offer a free tier of usage. [Learn more about Firebase billing.](https://firebase.google.com/pricing)
 
-### 🛠️ Configuration parameters
 
-During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
 
-| Name                    | Description                                                                                                                                                                                                                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Location                | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).                                                                               |
-| Templates collection    | The path to the Cloud Firestore collection where you would like to store the templates documents. The collection must have a document for each template, where the document id is the name of the template and the document contains a `template` field with the template string. |
-| Create example template | Do you want the extension to automatically create an example template document in the templates collection after installation?                                                                                                                                                    |
-| Allowed CORS origins    | A comma-separated list of allowed CORS origins. Use `*` to allow all origins in development mode. This is useful to lock down the API and only allow your own websites to use it.                                                                                                 |
-| Cloud Function memory   | The amount of memory to allocate to the Cloud Function that generates the images.                                                                                                                                                                                                 |
 
-## 🙏 Acknowledgements
+**Configuration Parameters:**
 
-- Vercel for writing the [og-image](https://github.com/vercel/og-image) project that inspired this extension.
+* Greeting for the world: What do you want to say to the world? For example, Hello world? or What's up, world?
+
+* Cloud Functions location: Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+
+
+**Cloud Functions:**
+
+* **greetTheWorld:** HTTP request-triggered function that responds with a specified greeting message

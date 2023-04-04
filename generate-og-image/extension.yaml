@@ -1,54 +1,60 @@
-name: generate-og-image
-version: 0.0.7
-specVersion: v1beta
+# Learn detailed information about the fields of an extension.yaml file in the docs:
+# https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
 
-displayName: Dynamic OG Image Generator
+name: greet-the-world  # Identifier for your extension
+version: 0.0.1  # Follow semver versioning
+specVersion: v1beta  # Version of the Firebase Extensions specification
 
+# Friendly display name for your extension (~3-5 words)
+displayName: Greet the world
+
+# Brief description of the task your extension performs (~1 sentence)
 description: >-
-  Generates dynamic and fully customizable social media images for your website.
+  Sends the world a greeting.
 
-icon: icon.png
+license: Apache-2.0  # https://spdx.org/licenses/
 
-license: Apache-2.0
+# Public URL for the source code of your extension
+sourceUrl: https://github.com/firebase/firebase-tools/tree/master/templates/extensions
 
-author:
-  authorName: Yaman Katby
-  email: me@yamankatby.com
-  url: https://github.com/yamankatby
-
-contributors:
-  - authorName: Sandrina
-    url: https://sandrina.framer.website
-
-sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/generate-og-image
-
+# Specify whether a paid-tier billing plan is required to use your extension.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#billing-required-field
 billingRequired: false
 
-roles:
-  - role: datastore.user
-    reason: Allows this extension to access Cloud Firestore to read the templates collection.
+# In an `apis` field, list any Google APIs (like Cloud Translation, BigQuery, etc.)
+# required for your extension to operate.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#apis-field
 
+# In a `roles` field, list any IAM access roles required for your extension to operate.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#roles-field
+
+# In the `resources` field, list each of your extension's functions, including the trigger for each function.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#resources-field
 resources:
-  - name: api
+  - name: greetTheWorld
     type: firebaseextensions.v1beta.function
     description: >-
-      HTTP request-triggered function that responds with the generated OG image.
+      HTTP request-triggered function that responds with a specified greeting message
     properties:
-      location: ${param:LOCATION}
+      # LOCATION is a user-configured parameter value specified by the user during installation.
+      location: ${LOCATION}
+      # httpsTrigger is used for an HTTP triggered function.
       httpsTrigger: {}
-      runtime: nodejs14
-      availableMemoryMb: ${param:FUNCTION_MEMORY}
+      runtime: "nodejs16"
 
-  - name: onInstall
-    type: firebaseextensions.v1beta.function
-    description: >-
-      Automatically creates an example template document in the templates
-      collection after installation.
-    properties:
-      location: ${param:LOCATION}
-      taskQueueTrigger: {}
-
+# In the `params` field, set up your extension's user-configured parameters.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
 params:
+  - param: GREETING
+    label: Greeting for the world
+    description: >-
+      What do you want to say to the world?
+      For example, Hello world? or What's up, world?
+    type: string
+    default: Hello
+    required: true
+    immutable: false
+
   - param: LOCATION
     label: Cloud Functions location
     description: >-
@@ -99,65 +105,3 @@ params:
         value: australia-southeast1
     required: true
     immutable: true
-
-  - param: TEMPLATES_COLLECTION
-    label: Templates collection
-    description: >-
-      The path to the Cloud Firestore collection where you would like to store
-      the templates documents.
-      The collection must have a document for each template, where the document
-      id is the name of the template and the document contains a `template`
-      field with the template string.
-    type: string
-    default: templates
-    required: true
-
-  - param: CREATE_EXAMPLE_TEMPLATE
-    label: Create example template
-    description: >-
-      Do you want the extension to automatically create an example template 
-      document in the templates collection after installation?
-    type: select
-    options:
-      - label: Yes
-        value: true
-      - label: No
-        value: false
-    default: true
-    required: true
-
-  - param: CORS_ORIGIN
-    label: Allowed CORS origins
-    description: >-
-      A comma-separated list of allowed CORS origins. Use `*` to allow all
-      origins in development mode.
-      This is useful to lock down the API and only allow your own websites to
-      use it.
-    type: string
-    example: "extensions.work,extensions.web.app"
-    default: "*"
-    required: true
-
-  - param: FUNCTION_MEMORY
-    label: Cloud Function memory
-    description: >-
-      The amount of memory to allocate to the Cloud Function that generates the
-      images.
-    type: select
-    options:
-      - label: 512 MB
-        value: 512
-      - label: 1 GB
-        value: 1024
-      - label: 2 GB
-        value: 2048
-    default: 1024
-    required: true
-    immutable: false
-
-lifecycleEvents:
-  onInstall:
-    function: onInstall
-    processingMessage: >-
-      Creating an example template document in the ${param:TEMPLATES_COLLECTION}
-      collection...

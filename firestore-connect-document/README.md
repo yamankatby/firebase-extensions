@@ -1,52 +1,45 @@
-# Connect Firestore Document
+# Greet the world
 
-> **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
+**Author**: undefined 
 
-[![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
+**Description**: Sends the world a greeting.
 
-## ✏️ Introduction
 
-**Connect Firestore Document** (`yaman/firestore-connect-document`) is a new extension for Firebase that allows you to get some fields from one document in Firestore, store them in a `map` field in another document, and keep them in sync.
 
-![Connect Firestore Document Firebase Extension demo](https://user-images.githubusercontent.com/35961879/201526571-b0106cb1-36f4-4a46-9b96-0d96e5aca39a.gif)
+**Details**: <!-- 
+This file provides your users an overview of your extension. All content is optional, but this is the recommended format. Your users will see the contents of this file when they run the `firebase ext:info` command.
 
-For example, you can use this extension to get user profile information (such as `name`, `email`, and `photoURL`) from their document in the `users` collection and store it in the `createdBy` field of each document created by that user in the `posts` collection.
+Include any important functional details as well as a brief description for any additional setup required by the user (both pre- and post-installation).
 
-This is a very common pattern in Firestore data modeling and is usually done _manually_ by writing and deploying custom Cloud Functions to handle each case. This extension automates this process for you. It allows you to implement this pattern with just a few clicks and without writing any code directly from the Firebase console.
+Learn more about writing a PREINSTALL.md file in the docs:
+https://firebase.google.com/docs/extensions/alpha/create-user-docs#writing-preinstall
+-->
 
-## ✨ Features
+Use this extension to send a friendly greeting.
 
-- ✅ Fully customizable field names.
-- ✅ Customize what happens when the source document is deleted
-- ✅ Optionally get _all_ fields from the source document or just _some of them_.
-- 🚧 Extend the extension functionality using events.
+When triggered by an HTTP request, this extension responds with your specified friendly greeting.
 
-## 🧩 Install the extension
+<!-- We recommend keeping the following section to explain how billing for Firebase Extensions works -->
+# Billing
 
-To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
+This extension uses other Firebase or Google Cloud Platform services which may have associated charges:
 
-- **Install from the Firebase console:** Click the button below:
+<!-- List all products the extension interacts with -->
+- Cloud Functions
 
-  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+When you use Firebase Extensions, you're only charged for the underlying resources that you use. A paid-tier billing plan is only required if the extension uses a service that requires a paid-tier plan, for example calling to a Google Cloud Platform API or making outbound network requests to non-Google services. All Firebase services offer a free tier of usage. [Learn more about Firebase billing.](https://firebase.google.com/pricing)
 
-- **Install from the Firebase CLI:** Run the following command:
 
-  ```bash
-  firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
-  ```
 
-### 🛠️ Configuration parameters
 
-During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
+**Configuration Parameters:**
 
-![Connect Firestore Document - Configuration Parameters](https://user-images.githubusercontent.com/35961879/201632903-b4e24631-0fda-47b5-8557-667148cf9b84.png)
+* Greeting for the world: What do you want to say to the world? For example, Hello world? or What's up, world?
 
-| Name                            | Description                                                                                                                                                                                         |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
-| Source Collection Path          | The path to the collection that contains the documents you want to grab fields from.                                                                                                                |
-| Target Collection Path          | The path to the collection that contains the documents you want to write the fields to.                                                                                                             |
-| Source Document ID Field Name   | The name of the field in the target document that contains the ID of the source document.                                                                                                           |
-| Source Fields                   | The fields you want to grab from the source document and write to the target document (comma separated). Leave empty to grab all fields.                                                            |
-| Target Field Name               | The name of the field in the target document to which the extension will write the fields grabbed from the source document.                                                                         |
-| Source Document Delete Behavior | What should happen to the target document when the source document is deleted?                                                                                                                      |
+* Cloud Functions location: Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+
+
+**Cloud Functions:**
+
+* **greetTheWorld:** HTTP request-triggered function that responds with a specified greeting message
