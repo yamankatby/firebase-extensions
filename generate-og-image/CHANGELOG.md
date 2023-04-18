@@ -1,3 +1,7 @@
+## Version 0.0.8 (2023-04-19)
+
+- Add tags field to the extension.yaml file.
+
 ## Version 0.0.7 (2023-04-04)
 
 - A small bug fix.
