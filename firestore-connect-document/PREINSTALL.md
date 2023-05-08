@@ -15,7 +15,7 @@ Additionally, you can configure what happens when a document is deleted in the *
 
 - Delete the target document(s).
 - Delete the **data field (createdBy)** in the target document(s).
-- Set the **data field (createdBy)** in the target document(s) to `NULL`.
+- Set the **data field (createdBy)** in the target document(s) to `null`.
 - Ignore (do nothing).
 
 #### Additional setup
