@@ -1,6 +1,8 @@
-Use this extension to effortlessly automate the task of keeping denormalized data in sync across multiple documents in Firestore, simplifying the data update process and reducing the risk of data inconsistencies.
+Use this extension to effortlessly automate keeping denormalized data in sync across multiple documents in Firestore, streamlining the management of data and reducing the risk of data inconsistencies.
 
-> Denormalized data refers to duplicating data across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each `post` document to display the user's information in the post without making a separate query to the `users` collection.
+Denormalized data refers to duplicating data across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each `post` document to display the user's information in the post view without making a separate query to the `users` collection.
+
+![Showcase](showcase.gif)
 
 #### Additional setup
 

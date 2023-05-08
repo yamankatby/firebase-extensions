@@ -1,52 +1,64 @@
 # Connect Firestore Document
 
-> **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
+**Author**: Yaman Katby (**[https://github.com/yamankatby](https://github.com/yamankatby)**)
 
-[![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
+**Description**: Keeps denormalized data in sync between two collections in Cloud Firestore, simplifies data maintenance across multiple documents and reduces the risk of data inconsistency.
 
-## ✏️ Introduction
 
-**Connect Firestore Document** (`yaman/firestore-connect-document`) is a new extension for Firebase that allows you to get some fields from one document in Firestore, store them in a `map` field in another document, and keep them in sync.
 
-![Connect Firestore Document Firebase Extension demo](https://user-images.githubusercontent.com/35961879/201526571-b0106cb1-36f4-4a46-9b96-0d96e5aca39a.gif)
+**Details**: Use this extension to effortlessly automate keeping denormalized data in sync across multiple documents in Firestore, streamlining the management of data and reducing the risk of data inconsistencies.
 
-For example, you can use this extension to get user profile information (such as `name`, `email`, and `photoURL`) from their document in the `users` collection and store it in the `createdBy` field of each document created by that user in the `posts` collection.
+Denormalized data refers to duplicating data across multiple documents or collections to optimize query performance. For example, you can store a user's name and their photo URL in each `post` document to display the user's information in the post view without making a separate query to the `users` collection.
 
-This is a very common pattern in Firestore data modeling and is usually done _manually_ by writing and deploying custom Cloud Functions to handle each case. This extension automates this process for you. It allows you to implement this pattern with just a few clicks and without writing any code directly from the Firebase console.
+![Showcase](showcase.gif)
 
-## ✨ Features
+#### Additional setup
 
-- ✅ Fully customizable field names.
-- ✅ Customize what happens when the source document is deleted
-- ✅ Optionally get _all_ fields from the source document or just _some of them_.
-- 🚧 Extend the extension functionality using events.
+Before installing this extension, make sure that you've [set up a Cloud Firestore database](https://firebase.google.com/docs/firestore/quickstart) in your Firebase project.
 
-## 🧩 Install the extension
+#### Billing
 
-To install the extension, follow the steps on the [Install a Firebase Extension](https://firebase.google.com/docs/extensions/install-extensions) page. In summary, do one of the following:
+This extension uses other Firebase or Google Cloud Platform services which may have associated charges:
 
-- **Install from the Firebase console:** Click the button below:
+- Cloud Firestore
 
-  [![install-extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/firestore-connect-document)
+- Cloud Functions (Node.js 10+ runtime. [See FAQs](https://firebase.google.com/support/faq#extensions-pricing)
 
-- **Install from the Firebase CLI:** Run the following command:
 
-  ```bash
-  firebase ext:install yaman/firestore-connect-document --project=YOUR_PROJECT_ID
-  ```
 
-### 🛠️ Configuration parameters
 
-During the installation of the extension, you will be prompted to specify a couple of configuration parameters:
+**Configuration Parameters:**
 
-![Connect Firestore Document - Configuration Parameters](https://user-images.githubusercontent.com/35961879/201632903-b4e24631-0fda-47b5-8557-667148cf9b84.png)
+* Source Collection Path: The path to the collection that contains the documents you want to **copy data from**.
 
-| Name                            | Description                                                                                                                                                                                         |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Location                        | Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations). |
-| Source Collection Path          | The path to the collection that contains the documents you want to grab fields from.                                                                                                                |
-| Target Collection Path          | The path to the collection that contains the documents you want to write the fields to.                                                                                                             |
-| Source Document ID Field Name   | The name of the field in the target document that contains the ID of the source document.                                                                                                           |
-| Source Fields                   | The fields you want to grab from the source document and write to the target document (comma separated). Leave empty to grab all fields.                                                            |
-| Target Field Name               | The name of the field in the target document to which the extension will write the fields grabbed from the source document.                                                                         |
-| Source Document Delete Behavior | What should happen to the target document when the source document is deleted?                                                                                                                      |
+* Target Collection Path: The path to the collection that contains the documents you want to **copy data to**.
+
+* Ref Field Name: The name of the field in the _target document_ that contains the reference to the _source document_.
+
+* Data Field Name: The name of the field in the _target document_ that will contain the data that will be copied from the _source document_.
+
+* Fields to Copy: The names of the fields in the _source document_ that you want to copy to the _target document_ (comma-separated, e.g. name,email). Leave this field empty to copy all fields.
+
+* Source Document Deletion Behavior: What should happen to the target documents when the source document is deleted?
+
+* Cloud Functions location: Where do you want to deploy the functions created for this extension? For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
+
+
+
+**Cloud Functions:**
+
+* **onSourceDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the source collection and updates the connected documents in the target collection.
+
+* **onTargetDocumentChange:** A function that is triggered when a document is created, updated, or deleted in the target collection and populates the written document with the date from the connected document in the source collection.
+
+
+
+**Access Required**:
+
+
+
+This extension will operate with the following project IAM roles:
+
+* datastore.user (Reason: Allows the extension to read and write data to Cloud Firestore.)
+
+Error: An unexpected error has occurred.
