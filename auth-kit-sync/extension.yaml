@@ -7,9 +7,18 @@ description: >-
   Syncs Firebase Authentication users with an email address to Kit
   (formerly ConvertKit) as subscribers.
 
+icon: icon.png
+
+tags: [auth, marketing]
+
 license: Apache-2.0
 
-sourceUrl: https://github.com/yamankatby/firebase-extensions
+author:
+  authorName: Yaman Katby
+  email: hey@yaman.fyi
+  url: https://github.com/yamankatby
+
+sourceUrl: https://github.com/yamankatby/firebase-extensions/tree/main/auth-kit-sync
 
 billingRequired: true
 
