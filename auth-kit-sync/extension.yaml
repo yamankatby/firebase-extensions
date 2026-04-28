@@ -1,0 +1,133 @@
+name: auth-kit-sync
+version: 0.0.1
+specVersion: v1beta
+
+displayName: Sync Auth users to Kit
+description: >-
+  Syncs Firebase Authentication users with an email address to Kit
+  (formerly ConvertKit) as subscribers.
+
+license: Apache-2.0
+
+sourceUrl: https://github.com/yamankatby/firebase-extensions
+
+billingRequired: true
+
+apis:
+  - apiName: cloudtasks.googleapis.com
+    reason: Enqueues backfill batches when the extension is installed.
+
+roles:
+  - role: firebaseauth.viewer
+    reason: Allows the extension to page through existing Firebase Auth users during backfill.
+
+resources:
+  - name: syncOnCreate
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Listens for new Firebase Auth user creations and creates a matching
+      Kit subscriber when the user has an email address.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs20
+      eventTrigger:
+        eventType: providers/firebase.auth/eventTypes/user.create
+        resource: projects/${param:PROJECT_ID}
+
+  - name: syncOnDelete
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Listens for Firebase Auth user deletions and globally unsubscribes the
+      matching Kit subscriber, looked up by email.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs20
+      eventTrigger:
+        eventType: providers/firebase.auth/eventTypes/user.delete
+        resource: projects/${param:PROJECT_ID}
+
+  - name: backfillUsers
+    type: firebaseextensions.v1beta.function
+    description: >-
+      One-time task that pages through existing Firebase Auth users and syncs
+      those with an email address to Kit. Runs only if backfill is enabled.
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs20
+      taskQueueTrigger: {}
+
+lifecycleEvents:
+  onInstall:
+    function: backfillUsers
+    processingMessage: Syncing existing Firebase Auth users to Kit.
+
+params:
+  - param: LOCATION
+    label: Cloud Functions location
+    description: >-
+      Where do you want to deploy the functions created for this extension?
+      You usually want a location close to your Firestore/Auth region.
+    type: select
+    options:
+      - label: Iowa (us-central1)
+        value: us-central1
+      - label: South Carolina (us-east1)
+        value: us-east1
+      - label: Northern Virginia (us-east4)
+        value: us-east4
+      - label: Los Angeles (us-west2)
+        value: us-west2
+      - label: Salt Lake City (us-west3)
+        value: us-west3
+      - label: Las Vegas (us-west4)
+        value: us-west4
+      - label: Belgium (europe-west1)
+        value: europe-west1
+      - label: London (europe-west2)
+        value: europe-west2
+      - label: Frankfurt (europe-west3)
+        value: europe-west3
+      - label: Zurich (europe-west6)
+        value: europe-west6
+      - label: Hong Kong (asia-east2)
+        value: asia-east2
+      - label: Tokyo (asia-northeast1)
+        value: asia-northeast1
+    default: us-central1
+    required: true
+    immutable: true
+
+  - param: KIT_API_KEY
+    label: Kit API key
+    description: >-
+      Your Kit (v4) API key. Generate one under
+      [Account → Developer settings](https://app.kit.com/account_settings/developer_settings).
+      Stored in Cloud Secret Manager.
+    type: secret
+    required: true
+
+  - param: KIT_FORM_ID
+    label: Kit form ID (optional)
+    description: >-
+      If set, new subscribers are added to this Kit form. Find the ID in
+      the URL bar when editing a form at
+      [app.kit.com/forms](https://app.kit.com/forms). Leave blank to create
+      generic subscribers.
+    type: string
+    required: false
+    immutable: false
+
+  - param: DO_BACKFILL
+    label: Backfill existing users on install
+    description: >-
+      Should existing Firebase Auth users with an email address be synced to
+      Kit when this extension is installed? This runs once, at install time.
+    type: select
+    options:
+      - label: Yes, sync existing users
+        value: "yes"
+      - label: No, only sync new sign-ups
+        value: "no"
+    default: "no"
+    required: true
+    immutable: true

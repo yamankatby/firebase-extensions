@@ -2,8 +2,6 @@
 
 > **Note** This extension is still in beta, if you find any bugs or have any suggestions, please [file an issue](https://github.com/yamankatby/firebase-extensions/issues/new). Also, if you find this extension useful, please consider giving the repository a star ⭐️.
 
-[![Follow me on Twitter](https://img.shields.io/twitter/follow/yamankatby?style=social)](https://twitter.com/intent/follow?screen_name=yamankatby)
-
 ## ✏️ Introduction
 
 Use the **Firestore One-To-One** (`yaman/firestore-one-to-one`) extension to create a one-to-one relationship between two collections in Cloud Firestore.
