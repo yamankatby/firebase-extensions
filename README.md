@@ -30,6 +30,16 @@ The **Generate OG Image Firebase** extension allows you to create dynamic and hi
 
 [![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/generate-og-image)
 
+## ✉️ Auth Kit Sync
+
+The **Auth Kit Sync** extension automatically syncs your Firebase Authentication users to [Kit](https://kit.com) (formerly ConvertKit) as subscribers. New sign-ups become Kit subscribers (optionally added to a specific form), deleted Auth users are globally unsubscribed, and existing users can be backfilled once at install time.
+
+Users without an email address (anonymous or phone-only sign-ins) are skipped.
+
+👀 [Documentation](https://github.com/yamankatby/firebase-extensions/tree/main/auth-kit-sync)
+
+[![Install extension](https://user-images.githubusercontent.com/35961879/201528504-4e99bfc7-8691-4151-b63d-0511097d7c18.png)](https://console.firebase.google.com/project/_/extensions/install?ref=yaman/auth-kit-sync)
+
 ## 🙏 Acknowledgements
 
 A special thanks to [Sandrina](https://sandrina.framer.website) for creating the awesome extension icons.
