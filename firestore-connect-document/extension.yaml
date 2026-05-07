@@ -44,7 +44,7 @@ resources:
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
         resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:SOURCE_COLLECTION_PATH}/{documentId}
-      runtime: nodejs16
+      runtime: nodejs23
 
   - name: onTargetDocumentChange
     type: firebaseextensions.v1beta.function
@@ -57,7 +57,7 @@ resources:
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
         resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:TARGET_COLLECTION_PATH}/{documentId}
-      runtime: nodejs16
+      runtime: nodejs23
 
 params:
   - param: SOURCE_COLLECTION_PATH
